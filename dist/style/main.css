@@ -1,0 +1,230 @@
+body {
+  font-family: 'Arimo', sans-serif; }
+
+.container {
+  width: 75%;
+  min-height: 500px;
+  margin: 0 auto; }
+
+.header {
+  width: calc(100% - 20px);
+  border-bottom: 1px solid gray;
+  display: inline-block;
+  padding: 0 10px; }
+
+.fb-button {
+  width: 85px;
+  float: left;
+  margin: 28px auto; }
+
+.fb-login-button.fb_iframe_widget {
+  float: right; }
+
+.title-text {
+  float: left;
+  width: calc(100% - 85px); }
+
+.currentuser {
+  padding: 28px 10px;
+  display: inline-block;
+  width: calc(100% - 20px);
+  border-bottom: 1px solid gray; }
+
+.profilePic {
+  width: 100px;
+  float: left; }
+  .profilePic img {
+    width: 100%;
+    border-radius: 100px; }
+
+.usename {
+  width: calc(35% - 140px);
+  float: left;
+  margin: 0 20px;
+  padding: 35px 0;
+  font-size: 23px;
+  font-weight: bold;
+  word-break: break-word;
+  text-align: left; }
+
+.description {
+  width: calc(65% - 265px);
+  text-align: center;
+  float: left; }
+  .description input {
+    width: 100%;
+    outline: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid gray;
+    margin-top: 13px;
+    line-height: 30px;
+    font-size: large;
+    text-align: center; }
+
+.no-desc input {
+  box-shadow: 0px 15px 10px -15px red;
+  border-bottom: 1px solid red; }
+
+.priceRange {
+  margin: 0 30px;
+  width: 115px;
+  float: left;
+  text-align: center;
+  line-height: 20px; }
+  .priceRange .range-div {
+    width: 100%;
+    margin-bottom: 10px; }
+  .priceRange .lowRange {
+    width: 35%;
+    float: left; }
+  .priceRange .highRange {
+    width: 35%;
+    float: right; }
+  .priceRange .minRange, .priceRange .maxRange {
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid gray; }
+  .priceRange .no-min {
+    border: 1px solid red;
+    box-shadow: 0px 15px 10px -15px red; }
+  .priceRange .no-max {
+    border: 1px solid red;
+    box-shadow: 0px 15px 10px -15px red; }
+
+.requestBtn {
+  width: 90px;
+  float: left;
+  padding: 10px 0;
+  text-align: center;
+  color: white;
+  background: #425ff4;
+  border-radius: 5px;
+  margin-top: 27px;
+  cursor: pointer; }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 768px) {
+  .container {
+    width: 100%; }
+    .container .header .title-text {
+      margin: 14px 0; }
+    .container .header .fb-button {
+      margin: 20px auto; }
+    .container .profilePic {
+      float: none;
+      background: lightgray;
+      padding: 0 calc(50% - 50px); }
+    .container .noProfile {
+      padding: 0 !important;
+      margin: 0 auto; }
+    .container .usename {
+      background: lightgray;
+      width: 100%;
+      float: none;
+      margin: unset;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 25px;
+      clear: both; }
+    .container .description {
+      width: 100%;
+      text-align: center;
+      float: none;
+      clear: both;
+      margin: 15px 0;
+      font-size: 25px; }
+      .container .description .descField {
+        width: 70%;
+        margin: 0 auto; }
+    .container .wrapPriceBtn {
+      width: 265px;
+      margin: 0 auto; }
+    .container .list-requests .singleReq .singleName {
+      width: calc(100% - 105px);
+      float: left;
+      text-align: left;
+      margin: 0 20px;
+      padding: 20px 0; }
+    .container .list-requests .singleReq .singleDesc {
+      width: calc(100% - 135px);
+      float: left;
+      padding: 20px 0;
+      clear: both;
+      word-break: break-all; }
+    .container .list-requests .singleReq .singleRange {
+      width: 115px;
+      float: left;
+      display: inline-block;
+      padding: 20px 0;
+      text-align: center;
+      margin: 0 10px; }
+    .container .list-requests .singleReq .connectBtn {
+      clear: both;
+      margin: 10px calc(50% - 45px) 0px; } }
+
+.noProfile {
+  background: gray;
+  height: 100px;
+  border-radius: 50px; }
+
+.no-input {
+  width: 100%;
+  background: gray;
+  display: inline-block;
+  height: 30px;
+  border-bottom: 1px solid;
+  margin-top: 13px; }
+
+.noMinRange, .noMaxRange {
+  height: 34px;
+  background: gray; }
+
+.disableReq {
+  background: red !important;
+  cursor: not-allowed !important; }
+
+.list-requests {
+  width: calc(100% - 20px);
+  padding: 0 10px; }
+
+.singleReq {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  margin-top: 30px;
+  padding-bottom: 30px;
+  display: inline-block;
+  font-size: 20px; }
+  .singleReq .singlePhoto {
+    width: 65px;
+    float: left; }
+    .singleReq .singlePhoto img {
+      width: 100%;
+      border-radius: 50px; }
+  .singleReq .singleName {
+    width: calc(20% - 40px);
+    float: left;
+    text-align: left;
+    margin: 0 20px;
+    padding: 20px 0; }
+  .singleReq .singleDesc {
+    width: calc(80% - 330px);
+    float: left;
+    padding: 20px 0;
+    word-break: break-all; }
+  .singleReq .singleRange {
+    width: 115px;
+    float: left;
+    display: inline-block;
+    padding: 20px 0;
+    text-align: center;
+    margin: 0 30px; }
+  .singleReq .connectBtn {
+    margin-top: 10;
+    background: green; }
+
+/*# sourceMappingURL=main.css.map*/

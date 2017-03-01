@@ -1,0 +1,110 @@
+
+
+.currentuser{
+	padding: 28px 10px;
+	display: inline-block;
+	width: calc(100% - 20px);
+	border-bottom: 1px solid gray;
+}
+
+.profilePic {
+	width: 100px;
+	float:left;
+
+	img {
+		width: 100%;
+		border-radius: 100px;
+	}
+}
+
+.usename {
+	width: calc(35% - 140px);
+	float: left;
+	margin: 0 20px;
+	padding: 35px 0;
+	font-size: 23px;
+	font-weight: bold;
+	word-break: break-word;
+	text-align: left;
+}
+
+.description {
+	width: calc(65% - 265px);
+	text-align: center;
+	float: left;
+
+	input {
+		width: 100%;
+		outline: none;
+		background: transparent;
+		border: none;
+		border-bottom: 1px solid gray;
+		margin-top: 13px;
+		line-height: 30px;
+		font-size: large;
+		text-align: center;
+	}
+}
+
+.no-desc{
+	input {
+		box-shadow: 0px 15px 10px -15px red;
+		border-bottom: 1px solid red;
+	}
+}
+
+.priceRange {
+	margin: 0 30px;
+	width: 115px;
+	float: left;
+	text-align: center;
+	line-height: 20px;
+
+	.range-div {
+	    width: 100%;
+	    margin-bottom: 10px;
+	}
+
+	.lowRange {
+	    width: 35%;
+	    float: left;
+	}
+
+	.highRange {
+		width: 35%;
+		float: right;	
+	}
+
+	.minRange, .maxRange {
+		width: 100%;
+		-webkit-appearance: none;
+		-moz-appearance: textfield;
+		line-height: 30px;
+		text-align: center;
+		margin-bottom: 5px;
+		border-radius: 5px;
+		border: 1px solid gray;
+	}
+
+	.no-min {
+		border: 1px solid red;
+		box-shadow: 0px 15px 10px -15px red;
+	}
+
+	.no-max {
+		border: 1px solid red;
+		box-shadow: 0px 15px 10px -15px red;
+	}	
+}
+
+.requestBtn {
+    width: 90px;
+    float: left;
+    padding: 10px 0;
+    text-align: center;
+    color: white;
+    background: #425ff4;
+    border-radius: 5px;
+    margin-top: 27px;
+    cursor: pointer;
+}

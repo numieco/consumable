@@ -1,0 +1,17 @@
+$min-height: 500px;
+
+body {
+	font-family: 'Arimo', sans-serif;
+}
+
+.container{
+	width: 75%;
+	min-height: $min-height;
+	margin: 0 auto;
+}
+
+@import "header";
+@import "userDetails";
+@import "userDetailsMedia";
+@import "noUser";
+@import "singleRequest";

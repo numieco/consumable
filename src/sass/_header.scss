@@ -1,0 +1,24 @@
+$total-width: 100%;
+$header-space: 10px;
+
+.header {
+	width: calc(#{$total-width} - #{$header-space * 2});
+	border-bottom: 1px solid gray;
+	display: inline-block;
+	padding: 0 $header-space;
+}
+
+.fb-button {
+    width: 85px;
+    float: left;
+    margin: 28px auto;
+}
+
+.fb-login-button.fb_iframe_widget {
+    float: right;
+}
+
+.title-text {
+    float: left;
+    width: calc(100% - 85px);
+}

@@ -1,0 +1,95 @@
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 768px)  {
+	.container {
+		width: 100%;
+
+		.header{
+			.title-text {
+				margin: 14px 0;
+			}
+
+			.fb-button {
+				margin: 20px auto;
+			}
+		}
+
+		.profilePic {
+		    float: none;
+		    background: lightgray;
+		    padding: 0 calc(50% - 50px);
+		}
+		
+		.noProfile{
+		    padding: 0 !important;
+    		margin: 0 auto;
+		}
+
+		.usename {
+		    background: lightgray;
+			width: 100%;
+			float: none;
+			margin: unset;
+			text-align: center;
+			padding: 15px 0;
+			font-size: 25px;
+			clear: both;
+		}
+
+		.description {
+		    width: 100%;
+		    text-align: center;
+		    float: none;
+		    clear: both;
+		    margin: 15px 0;
+		    font-size: 25px;
+		
+		    .descField {
+			    width: 70%;
+			    margin: 0 auto;
+			}
+		}
+
+		.wrapPriceBtn {
+			width: 265px;
+			margin: 0 auto;
+		}
+
+		.list-requests {
+			.singleReq{
+				.singleName{
+					width: calc(100% - 105px);
+				    float: left;
+				    text-align: left;
+				    margin: 0 20px;
+				    padding: 20px 0;
+				}
+
+				.singleDesc {
+				    width: calc(100% - 135px);
+				    float: left;
+				    padding: 20px 0;
+				    clear: both;
+				    word-break: break-all;
+				}
+
+				.singleRange {
+				    width: 115px;
+				    float: left;
+				    display: inline-block;
+				    padding: 20px 0;
+				    text-align: center;
+				    margin: 0 10px;
+				}
+
+				.connectBtn {
+					clear: both;
+					margin: 10px calc(50% - 45px) 0px;
+				}
+			}
+		}
+	}	
+
+
+}
+
