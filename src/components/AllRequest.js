@@ -1,7 +1,6 @@
 import React from "react"
 import SingleRequest from "../components/SingleRequest"
 import $ from "jquery"
-import axios from "axios"
 
 export default class AllRequest extends React.Component {
 

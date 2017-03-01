@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build",
-    "server" : "node server.js",
+    "server": "node server.js",
     "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base src/ --inline --hot --port 8089"
   },
   "author": "Dhanesh Kapadiya",
@@ -13,7 +13,8 @@
   "dependencies": {
     "mongodb": "^2.2.16",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-dom": "^15.4.1",
+    "react-router": "^3.0.2"
   },
   "devDependencies": {
     "babel": "^6.5.2",
