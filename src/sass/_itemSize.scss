@@ -1,0 +1,38 @@
+
+.itemSize button{
+    background-color: white;
+    height: 2vw;
+    width: 3vw;
+    font-size: 0.9vw;
+    text-align:center;
+    border: 1px solid grey;
+    color: #609dff;
+    cursor: pointer;
+    float: left;
+}
+
+.itemSize button:active{
+    background-color: #609dff;
+    color: white;
+}
+
+
+.itemSize button:not(:last-child) {
+    border-right: none;
+}
+
+.itemSize button:hover {
+    background-color: #609dff;
+    color: white;
+}
+
+.itemSize button:focus {
+    background-color: #609dff;
+    color: white;
+}
+
+
+.divPressed{
+    background-color: #609dff;
+    color:white; 
+}

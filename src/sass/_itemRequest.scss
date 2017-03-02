@@ -1,0 +1,39 @@
+$total-width: 100%;
+$category-width: 70%;
+
+.category{
+    width: $total-width;
+    float: left;
+    font-family: 'Arimo', sans-serif;
+
+    .itemRequest{
+        height: 2.4vw;
+        width: $category-width;
+        border : 1px solid grey;
+        float: left;
+        margin-top: 1vw;
+        display: block;
+        margin-right: 2.5vw;
+
+        .singleItem{
+            float: left;
+            display: inline;
+            margin-right : 6vw;
+            padding-top: 0.4vw;
+        }
+    }
+
+    .itemRequestBtn{
+        width: 90px;
+        float: left;
+        padding: 10px 0;
+        margin-top: 0.7vw;
+        text-align: center;
+        color: white;
+        background: #ff751a;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+ 
+}
