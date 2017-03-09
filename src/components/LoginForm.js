@@ -7,16 +7,6 @@ const LoginForm = ({
 
 	<div className='login-form-container'>
 
-		<div className="consumer-login">
-
-			<h3 className="login-title-text"> Consumer Login </h3>
-
-			<div className="fb-button-container">
-				<FacebookLoginButton />
-			</div>
-
-		</div>
-
 		<div className="seller-login">
 
 			<h3 className="login-title-text"> Seller Login </h3>
