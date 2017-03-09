@@ -1,0 +1,17 @@
+.base-header {
+    width: 80%;
+    margin: 0 auto;
+
+		.base-title {
+		    float: left;
+		    padding-left: 20px;
+		    display: inline-block;
+		}
+		
+		hr {
+		    width: 100%;
+		    clear: both;
+		    border: 0;
+		    border-top: 0.5px solid gray;
+		}
+}

@@ -5,7 +5,7 @@ body {
 }
 
 .container{
-	width: 75%;
+	width: 80%;
 	min-height: $min-height;
 	margin: 0 auto;
 }
@@ -15,3 +15,5 @@ body {
 @import "userDetailsMedia";
 @import "noUser";
 @import "singleRequest";
+@import "loginForm";
+@import "basePage";

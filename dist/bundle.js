@@ -27439,7 +27439,7 @@
 					"div",
 					{ className: "header" },
 					_react2.default.createElement(
-						"h1",
+						"h2",
 						{ className: "title-text" },
 						" Consumable "
 					),

@@ -39,7 +39,7 @@ export default class Header extends React.Component {
 	render() {
 		return(
 			<div className="header">
-				<h1 className="title-text"> Consumable </h1>
+				<h2 className="title-text"> Consumable </h2>
 				<FacebookLoginButton fb={FB} userInfo={this.userInfo}/>
 			</div>
 		)

@@ -37,13 +37,14 @@ export default class AllRequest extends React.Component {
 	if(this.state.allReq){
 		let list = this.state.allReq.requests.reverse().map((data, i) => {
 			return (
-				<div> 
+				<div key={i}> 
 					<SingleRequest 
 						photo={data.photo} 
 						name={data.name} 
 						desc={data.itemDesc} 
 						min={data.min}
 						max={data.max}
+						key={i}
 					/> 
 				</div>
 			)

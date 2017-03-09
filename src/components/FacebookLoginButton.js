@@ -16,7 +16,7 @@ export default class FacebookLoginButton extends React.Component {
 		}
 	}
 
-	componentDidMount(props) {		
+	componentDidMount(props) {			
 
 		this.FB.Event.subscribe('auth.logout', 
 			this.onLogout.bind(this))
@@ -92,7 +92,7 @@ export default class FacebookLoginButton extends React.Component {
 					data-size="large"						
 					data-show-faces="false" 
 					data-auto-logout-link="true"
-				> Sign In
+				> Signin
 				</div>
 
 			</div>
