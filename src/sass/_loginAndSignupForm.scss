@@ -1,16 +1,16 @@
-.login-form-container{
+.login-form-container, .signup-form-container {
 
 	margin-top: 50px;	
 	display: block;
 	text-align: center;
 
-	.login-title-text {
+	.login-title-text, .signup-title-text {
 		width: 100%;
 		color: #4083F0;
 		min-height: 45px;
 	}
 
-	.seller-login {
+	.seller-login, .seller-signup {
   
 		width: calc(65% - 40px);
 		min-height: 400px;
@@ -23,6 +23,8 @@
 	    width: 50%;
 	    margin: 10px;
 	    min-width: 130px;
+	    border: 1px solid #e5e5e5;
+	    padding: 0 10px;
 
 			
 	    &:focus{

@@ -5,6 +5,7 @@ import { Router, Route, hashHistory } from "react-router"
 import Home from "./containers/Home.jsx"
 import Sample from "./containers/Sample"
 import Login from "./containers/Login.jsx"
+import Signup from "./containers/Signup.jsx"
 import BasePage from "./components/BasePage.jsx"
 
 
@@ -15,6 +16,7 @@ class Root extends React.Component {
 
 				<Route path="/" component={Home} />
 				<Route path="/login" component={Login} />
+				<Route path="/signup" component={Signup} />					
 			</Router>
 		)
 	}

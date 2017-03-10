@@ -1,17 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const LoginForm = ({
-	//props from parent Login.jsx
+const SignupForm = ({
+	//props from parent Signup.jsx
 }) => (
 
-	<div className='login-form-container'>
+	<div className='signup-form-container'>
 
-		<div className="seller-login">
+		<div className="seller-signup">
 
-			<h3 className="login-title-text"> Seller Login </h3>
+			<h3 className="signup-title-text"> Seller Signup </h3>
 
 			<form action="#" >
+
+				<div className="fullNameField">
+					<input 
+						type="text"
+						placeholder="Enter Full Name"
+					/>
+				</div>
 
 				<div className="emailField">
 					<input 
@@ -28,11 +35,11 @@ const LoginForm = ({
 				</div>	
 
 				<div className="submit-btn">
-					<input type="submit" value="Login" />
+					<input type="submit" value="Signup" />
 				</div>	
 
 				<div className="link-to-signup" >
-					Don't have an account ? <Link to={'/signup'}> Create one ! </Link>
+					Already have an account ? <Link to={'/login'}>  Login here ! </Link>
 				</div>		
 
 			</form>			
@@ -43,4 +50,4 @@ const LoginForm = ({
 
 )
 
-export default LoginForm
+export default SignupForm
