@@ -1,6 +1,6 @@
 import React from 'react'
 
-const BasePage = ({ childern }) => (
+const BasePage = ({ children }) => (
 	<div className="base-header">
 
 		<div className="base-title">

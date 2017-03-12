@@ -38075,7 +38075,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var BasePage = function BasePage(_ref) {
-		var childern = _ref.childern;
+		var children = _ref.children;
 		return _react2.default.createElement(
 			"div",
 			{ className: "base-header" },
