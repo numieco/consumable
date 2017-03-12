@@ -28,6 +28,7 @@ module.exports = {
 			}
 		],
 	},
+	watch: true,
 	plugins: [
 		new ExtractTextPlugin("style/main.css", {
 			allChunks: true

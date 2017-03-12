@@ -1,0 +1,40 @@
+/*
+	Media query for login and signup page
+*/
+
+@media screen 
+and (max-width : 319px) {
+
+	.seller-login, .seller-signup {
+		width: calc(100% - 40px) !important;
+		padding: 20px 0px !important;
+
+		input {
+			width: 85% !important;
+		}
+	}
+
+}
+
+@media screen 
+and (min-width : 320px) 
+and (max-width : 480px)  {
+	.seller-login, .seller-signup {
+		width: calc(100% - 40px) !important;
+
+		input {
+			width: 85% !important;
+		}
+	}
+}
+
+@media screen 
+and (min-width : 481px) 
+and (max-width : 767px)  {
+	.seller-login, .seller-signup {
+
+		input {
+			width: 85% !important;
+		}
+	}
+}

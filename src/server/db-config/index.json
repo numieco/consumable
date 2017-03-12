@@ -1,0 +1,4 @@
+{
+  "dbUri": "mongodb://localhost:27017/item-request",
+  "jwtSecret": "consumable is the secret for now .."
+}

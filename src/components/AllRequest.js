@@ -17,9 +17,25 @@ export default class AllRequest extends React.Component {
 	}
 
 	refreshData = () => {
+
+		const xhr = new XMLHttpRequest()
+		xhr.open('post', '/allRecords')
+		xhr.setRequestHeader('Content-type', 'application/json')
+		xhr.responseType = 'json'
+		xhr.addEventListener('load', () => {
+			if(xhr.status === 200) {
+				this.setState({
+  					allReq: xhr.response
+  				})
+			} else {
+				console.log(xhr.response.error)
+			}
+		})
+		xhr.send()
+/*
 		$.ajax({
-  			url: "http://localhost:8080/allRecords",
-  			type: "GET",
+  			url: "/allRecords",
+  			type: "post",
   			dataType: "json",
   			success: (response) => { 
   				this.setState({
@@ -31,6 +47,7 @@ export default class AllRequest extends React.Component {
   			}
 
   		})		
+*/
 	}
 
 	render() {

@@ -95,8 +95,24 @@ export default class UserDetails extends React.Component {
 
 			let data = '{ "email" : "'+ this.props.details.email +'", "name" : "'+ this.props.details.username +'", "photo" : "'+ this.props.details.photo +'", "age" : "'+ this.getAge(this.props.details.age) +'", "itemDesc" : "'+ desc +'", "min" : "'+ min +'", "max" : "'+ max +'"}'
 
-			$.ajax({
-	  			url: "http://localhost:8080/insertRequest",
+			const xhr = new XMLHttpRequest()
+			xhr.open('POST', '/insertRequest')
+			xhr.setRequestHeader('Content-type', 'application/json')
+			xhr.responseType = 'json'
+			xhr.addEventListener('load', () => {
+				if(xhr.status === 200) {
+					this.clearStates()
+					this.props.refreshData()
+				} else {
+					console.log(xhr.response.error)
+					this.clearStates()
+					this.props.refreshData()
+				}
+			})
+			xhr.send(data)
+
+		/*	$.ajax({
+	  			url: "http://localhost:8089/insertRequest",
 	  			type: "POST",
 	  			data: data,
 	  			dataType: "json",
@@ -110,6 +126,8 @@ export default class UserDetails extends React.Component {
 				this.clearStates()				
 				this.props.refreshData()			
 			})
+		
+		*/
 		}
 	}
 

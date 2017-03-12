@@ -1,8 +1,9 @@
 body {
-  font-family: 'Arimo', sans-serif; }
+  font-family: 'Arimo', sans-serif;
+  margin: 0; }
 
 .container {
-  width: 75%;
+  width: 80%;
   min-height: 500px;
   margin: 0 auto; }
 
@@ -227,4 +228,81 @@ body {
     margin-top: 10;
     background: green; }
 
-/*# sourceMappingURL=main.css.map*/
+.login-form-container, .signup-form-container {
+  margin-top: 50px;
+  display: block;
+  text-align: center; }
+  .login-form-container .login-title-text, .login-form-container .signup-title-text, .signup-form-container .login-title-text, .signup-form-container .signup-title-text {
+    width: 100%;
+    color: #4083F0;
+    min-height: 45px; }
+  .login-form-container .seller-login, .login-form-container .seller-signup, .signup-form-container .seller-login, .signup-form-container .seller-signup {
+    width: calc(65% - 40px);
+    min-height: 400px;
+    padding: 20px;
+    margin: 0 auto;
+    min-width: 150px; }
+    .login-form-container .seller-login .nameField, .login-form-container .seller-login .emailField, .login-form-container .seller-login .passwordField, .login-form-container .seller-signup .nameField, .login-form-container .seller-signup .emailField, .login-form-container .seller-signup .passwordField, .signup-form-container .seller-login .nameField, .signup-form-container .seller-login .emailField, .signup-form-container .seller-login .passwordField, .signup-form-container .seller-signup .nameField, .signup-form-container .seller-signup .emailField, .signup-form-container .seller-signup .passwordField {
+      clear: both; }
+    .login-form-container .seller-login input, .login-form-container .seller-signup input, .signup-form-container .seller-login input, .signup-form-container .seller-signup input {
+      height: 30px;
+      width: 50%;
+      margin: 10px;
+      min-width: 130px;
+      border: 1px solid #e5e5e5;
+      padding: 0 10px; }
+      .login-form-container .seller-login input:focus, .login-form-container .seller-signup input:focus, .signup-form-container .seller-login input:focus, .signup-form-container .seller-signup input:focus {
+        border-color: #4083F0; }
+    .login-form-container .seller-login .submit-btn, .login-form-container .seller-signup .submit-btn, .signup-form-container .seller-login .submit-btn, .signup-form-container .seller-signup .submit-btn {
+      clear: both; }
+      .login-form-container .seller-login .submit-btn input, .login-form-container .seller-signup .submit-btn input, .signup-form-container .seller-login .submit-btn input, .signup-form-container .seller-signup .submit-btn input {
+        background: #4083F0;
+        border: none; }
+        .login-form-container .seller-login .submit-btn input:hover, .login-form-container .seller-signup .submit-btn input:hover, .signup-form-container .seller-login .submit-btn input:hover, .signup-form-container .seller-signup .submit-btn input:hover {
+          background: #4083D0;
+          color: white; }
+        .login-form-container .seller-login .submit-btn input:active, .login-form-container .seller-signup .submit-btn input:active, .signup-form-container .seller-login .submit-btn input:active, .signup-form-container .seller-signup .submit-btn input:active {
+          background: #406390;
+          color: white; }
+    .login-form-container .seller-login .link-to-signup, .login-form-container .seller-signup .link-to-signup, .signup-form-container .seller-login .link-to-signup, .signup-form-container .seller-signup .link-to-signup {
+      font-size: 12px;
+      margin-top: 10px; }
+  .login-form-container .nameErr, .login-form-container .emailErr, .login-form-container .passwordErr, .login-form-container .errorMessage, .signup-form-container .nameErr, .signup-form-container .emailErr, .signup-form-container .passwordErr, .signup-form-container .errorMessage {
+    clear: both;
+    width: 100%;
+    font-size: 11px;
+    color: red;
+    text-align: center; }
+
+/*
+	Media query for login and signup page
+*/
+@media screen and (max-width: 319px) {
+  .seller-login, .seller-signup {
+    width: calc(100% - 40px) !important;
+    padding: 20px 0px !important; }
+    .seller-login input, .seller-signup input {
+      width: 85% !important; } }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .seller-login, .seller-signup {
+    width: calc(100% - 40px) !important; }
+    .seller-login input, .seller-signup input {
+      width: 85% !important; } }
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .seller-login input, .seller-signup input {
+    width: 85% !important; } }
+
+.base-header {
+  width: 80%;
+  margin: 0 auto; }
+  .base-header .base-title {
+    float: left;
+    padding-left: 20px;
+    display: inline-block; }
+  .base-header hr {
+    width: 100%;
+    clear: both;
+    border: 0;
+    border-top: 0.5px solid gray; }

@@ -11,6 +11,10 @@
 	}
 
 	.seller-login, .seller-signup {
+
+		.nameField, .emailField, .passwordField {
+			clear: both;
+		}
   
 		width: calc(65% - 40px);
 		min-height: 400px;
@@ -33,20 +37,24 @@
 
 		}
 
-		.submit-btn input {
-	    background: #4083F0;
-	    border: none;
-		
-			&:hover {
-		    background: #4083D0;
-		    color: white;
-			}
+		.submit-btn {
 
-			&:active {
-		    background: #406390;
-		    color: white;
-			}
+			clear: both;
+				input {
+		    background: #4083F0;
+		    border: none;
+			
+				&:hover {
+			    background: #4083D0;
+			    color: white;
+				}
 
+				&:active {
+			    background: #406390;
+			    color: white;
+				}
+
+			}
 		}
 
 		.link-to-signup {
@@ -56,4 +64,23 @@
 
 	}
 
+	.nameErr, .emailErr, .passwordErr, .errorMessage {
+		clear: both;
+		width: 100%;
+    font-size: 11px;
+    color: red;
+    text-align: center;
+   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
