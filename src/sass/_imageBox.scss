@@ -1,0 +1,79 @@
+
+
+    .imageBox {
+        max-width: 250px;
+        min-height: 200px;
+        border: 1px solid grey;
+        margin : 9 auto;
+        display: block;
+        float: left;
+        margin-left: 20px;
+        margin-right: 20px;
+        box-shadow: 2px 2px 2px 2px #888888;
+
+        .close-btn{
+            left: -8px;
+            top: -9px;
+            height: 25px;
+            width: 25px;
+            font-size: 19px;
+            text-align: center;
+            border-radius : 50%;
+            z-index: 10px;
+            position: relative;
+            opacity: 1;
+            background: white;
+            border : 1px solid grey;
+            cursor : pointer;
+        }
+
+        .personName{
+            width : 90%;
+            min-height : 30px;
+            margin : -15 auto;
+            text-align : center;
+            padding-bottom : 5px;
+            
+        }
+
+        .boxImage{
+            width : 90%;
+            min-height: 200px;
+            border : 1px solid grey;
+            margin : 0.9 auto;
+
+            img{
+                max-width : 100%;
+                margin : 0 auto;
+                height : 200px;
+            }
+        }
+
+        .footer{
+            width: 90%;
+            min-height : 30px;
+            margin : 4 auto;
+
+            .footer-price{
+                width: 70px;
+                height : 29px;
+                border : 1px solid grey;
+                float: left;
+            }
+
+            .accept-btn{
+                width: 70px;
+                height : 27px;
+                color: white;
+                background: #609dff;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 15px;
+                float: right;
+                text-align: center;
+                padding-top : 5px;
+            }
+        }
+
+    }
+    

@@ -1,5 +1,7 @@
 import React from "react"
 import NoUser from "../components/NoUser"
+import ItemSize from "../components/ItemSize"
+import ItemRequest from "../components/ItemRequest"
 import $ from "jquery"
 
 export default class UserDetails extends React.Component {
@@ -168,13 +170,13 @@ export default class UserDetails extends React.Component {
 		if(this.props.details.username && this.props.details.email && this.props.details.age && this.props.details.photo){
 			return (
 				<div className="currentuser">
-					<div className="profilePic">
+					{/* <div className="profilePic">
 						<img src={this.props.details.photo} alt="Your Pic."/>
 					</div>
 					
 					<div className="usename">
 						{this.props.details.username}
-					</div>
+					</div> */}
 					
 					<div className={this.state.descClass}>
 						Description
@@ -182,7 +184,7 @@ export default class UserDetails extends React.Component {
 							<input type="text" 
 								   onChange={this.handleDescription} 
 								   value={this.state.desc}
-								   placeholder="Enter Description of Item"
+								   placeholder="Item Description"
 							/>
 						</div>
 					</div>
@@ -206,10 +208,12 @@ export default class UserDetails extends React.Component {
 						</div>
 					</div>
  
-					<div className="requestBtn" onClick={this.validateAndStore}>
+					{/*<div className="requestBtn" onClick={this.validateAndStore}>
 						Request
+					</div> */}
 					</div>
-					</div>
+					<ItemSize />
+					<ItemRequest />
 				</div>
 			)
 		} else {

@@ -1,0 +1,41 @@
+
+@media screen and (max-width: 410px){
+    .itemSize{
+        width: 100%;
+    }
+}
+.itemSize button{
+    background-color: white;
+    height: 40px;
+    width: 40px;
+    border: 1px solid grey;
+    color: #609dff;
+    cursor: pointer;
+    float: left;
+    padding : auto;
+}
+
+.itemSize button:active{
+    background-color: #609dff;
+    color: white;
+}
+
+
+.itemSize button:not(:last-child) {
+    border-right: none;
+}
+
+.itemSize button:hover {
+    background-color: #609dff;
+    color: white;
+}
+
+.itemSize button:focus {
+    background-color: #609dff;
+    color: white;
+}
+
+.divPressed{
+    background-color: #609dff;
+    color:white; 
+}
