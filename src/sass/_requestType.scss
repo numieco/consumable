@@ -1,12 +1,35 @@
 .requestSelector{
     width : 100%;
-    height : 15px;
+    height : 25px;
+    float: left;
     display : inline;
+    margin : 5px auto;
+    padding : 5px 5px 5px 5px;
 
-    .everybody{
-        width : 15px;
+}
+.everybody{
+    margin-left : 38%;
+    font-size : 30px;
+    width : 150px;
+    float: left;
+    text-align : center;
+    border-bottom : 1px solid grey;
+
+    &:hover{
+        color : #609dff;
+        border-color : #609dff;
     }
-    .individual{
-        width : 15px;
+}
+
+.individual{
+    width : 150px;
+    font-size : 30px;
+    float: left;
+    text-align: center;
+    border-bottom : 1px solid grey;
+
+    &:hover{
+        color : #609dff;
+        border-color : #609dff;
     }
 }

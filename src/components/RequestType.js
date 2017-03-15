@@ -8,7 +8,7 @@ export default class RequestType extends React.Component{
     render(){
         return(
             <div className="requestSelector">
-                <div className="everybody"> Everybody </div>
+                <div className="everybody"> Everyone </div>
                 <div className="individual"> Individual </div>
             </div>)
     }
