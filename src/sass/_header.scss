@@ -8,10 +8,15 @@ $header-space: 10px;
 	padding: 0 $header-space;
 }
 
+.header-user-name{
+        width: calc(30% - 85px);
+        float: left; 
+}
+
 .fb-button {
     width: 85px;
     float: left;
-    margin: 28px auto;
+    margin: 18px auto;
 }
 
 .fb-login-button.fb_iframe_widget {
@@ -20,5 +25,5 @@ $header-space: 10px;
 
 .title-text {
     float: left;
-    width: calc(100% - 85px);
+    width: calc(70%);
 }

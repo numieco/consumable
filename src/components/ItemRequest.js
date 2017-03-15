@@ -6,6 +6,9 @@ export default class ItemRequest extends React.Component{
     constructor(){
         super();
         console.log(items);
+        this.state = {
+            item : ""
+        }
     }
     
     componentWillMount(){
@@ -17,6 +20,9 @@ export default class ItemRequest extends React.Component{
             this.selectedItems.delete(itmselectd);
         }else{
             this.selectedItems.add(itmselectd);
+            this.setState({
+                item : itmselectd
+            });
         }
         console.dir(this.selectedItems); 
 

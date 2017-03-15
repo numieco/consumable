@@ -179,7 +179,7 @@ export default class UserDetails extends React.Component {
 					</div> */}
 					
 					<div className={this.state.descClass}>
-						Description
+
 						<div className="descField">
 							<input type="text" 
 								   onChange={this.handleDescription} 

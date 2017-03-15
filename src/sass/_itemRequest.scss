@@ -1,5 +1,5 @@
 $total-width: 100% !important;
-$category-width: 70%;
+$category-width: 80%;
 
 .category{
     width: $total-width;
@@ -19,7 +19,7 @@ $category-width: 70%;
             .singleItem{
                 float: left;
                 display: inline;
-                margin-right : 10px;
+                margin-right : 60px;
                 padding-top: 5px;
                 font-size: 15px;
             }
