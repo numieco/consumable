@@ -2,8 +2,12 @@
 @media screen and (max-width: 410px){
     .itemSize{
         width: 100%;
+        float : left;
+        margin-left : 9%; 
+        text-align : center;
     }
 }
+
 .itemSize button{
     background-color: white;
     height: 40px;

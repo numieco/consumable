@@ -1,10 +1,8 @@
 
-
 .currentuser{
 	padding: 28px 10px;
 	display: inline-block;
 	width: calc(100% - 20px);
-	border-bottom: 1px solid gray;
 }
 
 .profilePic {
@@ -29,7 +27,7 @@
 }
 
 .description {
-	width: calc(100% - 210px);
+	width: 80%;
 	text-align: center;
 	float: left;
 
@@ -39,7 +37,7 @@
 		background: transparent;
 		border: none;
 		border-bottom: 1px solid gray;
-		margin-top: 13px;
+		margin-top: 23px;
 		line-height: 30px;
 		font-size: large;
 		text-align: center;
@@ -54,8 +52,8 @@
 }
 
 .priceRange {
-	margin: 0 30px;
-	width: 115px;
+	margin-left: 5%;
+	width: 15%;
 	float: left;
 	text-align: center;
 	line-height: 20px;
@@ -108,3 +106,4 @@
     margin-top: 27px;
     cursor: pointer;
 }
+

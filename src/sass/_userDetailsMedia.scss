@@ -53,6 +53,18 @@ and (max-device-width : 768px)  {
 		.wrapPriceBtn {
 			width: 265px;
 			margin: 0 auto;
+
+			.priceRange{
+				width : 200px;
+				margin-left : 15%;
+			}
+
+			.minrange{
+				width : 50px;
+			}
+			.maxrange{
+				width : 50px;
+			}
 		}
 
 		.list-requests {
