@@ -35,7 +35,7 @@ export default class ItemRequest extends React.Component{
                     {items.map((item)=> <Checkbox label={item} key={item} toggleCheckBox={() => this.itemChecked(item)} />)}
                     
                 </div>
-                <div className="itemRequestBtn">
+                <div className="itemRequestBtn" onClick={this.props.storeData}>
                     Request
                 </div>
             </div>);

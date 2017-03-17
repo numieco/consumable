@@ -9,6 +9,7 @@ export default class FacebookLoginButton extends React.Component {
 		this.sendParent = this.sendParent.bind(this)
 		this.state = {
 			loginStatus: "",
+			usertype: "",
 			username: null,
 			email: null,
 			age: null,
@@ -35,8 +36,8 @@ export default class FacebookLoginButton extends React.Component {
 		)
 	}
 
-	sendParent = (username,email,birthday,photo) => {
-		this.props.userInfo(username,email,birthday,photo)
+	sendParent = (usertype,username,email,birthday,photo) => {
+		this.props.userInfo(usertype,username,email,birthday,photo)
 	}
 
 	onLogin = () => {
@@ -53,13 +54,14 @@ export default class FacebookLoginButton extends React.Component {
 					//ajax call to mongo server
 
 					this.setState({
+						usertype : "consumer",
 						username: response.name,
 						email: response.email,
 						age: response.birthday,
 						photo: response.picture.data.url						
 					})
 
-					this.sendParent(response.name, response.email, response.birthday, response.picture.data.url)
+					this.sendParent("customer",response.name, response.email, response.birthday, response.picture.data.url)
 				}
 			)
 		} else {
@@ -70,12 +72,13 @@ export default class FacebookLoginButton extends React.Component {
 	onLogout = (response) => {
 		console.log("logged out")
 		this.setState({
+			usertype : "",
 			username: null,
 			email: null,
 			age: null,
 			photo: null			
 		})
-		this.sendParent(this.state.username, this.state.email, this.state.age, this.state.photo)
+		this.sendParent("",this.state.username, this.state.email, this.state.age, this.state.photo)
 		console.log(this.state.username)
 		FB.getLoginStatus((response) => {
 			console.log(response.status)

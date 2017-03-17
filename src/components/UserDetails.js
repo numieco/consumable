@@ -213,7 +213,7 @@ export default class UserDetails extends React.Component {
 					</div> */}
 					</div>
 					<ItemSize />
-					<ItemRequest />
+					<ItemRequest storeData= {this.validateAndStore}/>
 				</div>
 			)
 		} else {

@@ -4,27 +4,63 @@ export default class SingleRequest extends React.Component {
 	
 	constructor(props) {
 		super(props)
+		this.state = {
+			isCustomer : true
+		}
 	}
 
+	isCustomer(){
+		if(this.props.details.usertype == "customer"){
+			return true;	
+		}else{
+			return false;
+		}
+	}
+	
+
 	render() {
-		return(
-			<div className="singleReq">
-				<div className="singlePhoto">
-					<img src={this.props.photo} alt={this.props.photo} />
+		
+		if(this.isCustomer()){
+			return(
+				<div className="singleReq">
+					<div className="singlePhoto">
+						<img src={this.props.photo} alt={this.props.photo} />
+					</div>
+					<div className="singleName">
+						{this.props.name}
+					</div>
+					<div className="singleDesc">
+						{this.props.desc}
+					</div>
+					<div className="singleRange">
+						${this.props.min} - ${this.props.max}
+					</div>
+					
+					
 				</div>
-				<div className="singleName">
-					{this.props.name}
+			)
+		}else{
+			return(
+				<div className="singleReq">
+					<div className="singlePhoto">
+						<img src={this.props.photo} alt={this.props.photo} />
+					</div>
+					<div className="singleName">
+						{this.props.name}
+					</div>
+					<div className="singleDesc">
+						{this.props.desc}
+					</div>
+					<div className="singleRange">
+						${this.props.min} - ${this.props.max}
+					</div>
+					<div className="requestBtn connectBtn">
+						Connect
+					</div>
+					
 				</div>
-				<div className="singleDesc">
-					{this.props.desc}
-				</div>
-				<div className="singleRange">
-					${this.props.min} - ${this.props.max}
-				</div>
-				<div className="requestBtn connectBtn">
-					Connect
-				</div>
-			</div>
-		)
+			)
+		}
+		
 	}
 }

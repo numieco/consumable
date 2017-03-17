@@ -1,7 +1,6 @@
 import React from "react"
 import Header from "../components/Header"
 import UserDetails from "../components/UserDetails"
-import RequestType from "../components/RequestType"
 import AllRequest from "../components/AllRequest"
 import Auth from '../server/auth/authUserCheck'
 
@@ -16,6 +15,7 @@ export default class Home extends React.Component {
 
 		this.state = {
 			details: {
+                usertype: "",
 				username: "",
 				email: "",
 				age: "",
@@ -62,8 +62,7 @@ export default class Home extends React.Component {
 				<UserDetails details={this.state.details} 
 							name={this.state.details.username}
 							refreshData={this.refreshData} />
-                <RequestType />
-				<AllRequest ref="child" />
+				<AllRequest ref="child" details={this.state.details} />
 
 			</div>
 		);
