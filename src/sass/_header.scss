@@ -12,12 +12,14 @@ $header-space: 10px;
 }
 
 .header-user-name{
-        width: calc(#{$name-width} - #{$header-space * 2});
-        float: left; 
+    width: calc(#{$name-width} - 10px);
+    float: left; 
+    margin-right: 10px;
+    text-align: right;
 }
 
 .fb-button {
-    width: calc(#{$fb-bt-width} - #{$header-space * 2});
+    width: 85px;
     float: left;
     margin: 18px auto;    
 }

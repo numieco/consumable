@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -62,19 +62,19 @@
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Sample = __webpack_require__(243);
+	var _Sample = __webpack_require__(245);
 
 	var _Sample2 = _interopRequireDefault(_Sample);
 
-	var _Login = __webpack_require__(244);
+	var _Login = __webpack_require__(246);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _Signup = __webpack_require__(247);
+	var _Signup = __webpack_require__(249);
 
 	var _Signup2 = _interopRequireDefault(_Signup);
 
-	var _BasePage = __webpack_require__(246);
+	var _BasePage = __webpack_require__(248);
 
 	var _BasePage2 = _interopRequireDefault(_BasePage);
 
@@ -96,14 +96,15 @@
 		}
 
 		_createClass(Root, [{
-			key: "render",
+			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
 					_reactRouter.Router,
 					{ history: _reactRouter.hashHistory },
-					_react2.default.createElement(_reactRouter.Route, { path: "/", component: _Home2.default }),
-					_react2.default.createElement(_reactRouter.Route, { path: "/login", component: _Login2.default }),
-					_react2.default.createElement(_reactRouter.Route, { path: "/signup", component: _Signup2.default })
+					_react2.default.createElement(_reactRouter.Route, { path: '/', component: _Home2.default }),
+					_react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
+					_react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _Signup2.default }),
+					_react2.default.createElement(_reactRouter.Route, { path: '/sample', component: _Sample2.default })
 				);
 			}
 		}]);
@@ -111,7 +112,7 @@
 		return Root;
 	}(_react2.default.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(Root, null), document.getElementById("app"));
+	_reactDom2.default.render(_react2.default.createElement(Root, null), document.getElementById('app'));
 
 /***/ },
 /* 1 */
@@ -26608,11 +26609,11 @@
 
 	var _UserDetails2 = _interopRequireDefault(_UserDetails);
 
-	var _AllRequest = __webpack_require__(239);
+	var _AllRequest = __webpack_require__(241);
 
 	var _AllRequest2 = _interopRequireDefault(_AllRequest);
 
-	var _authUserCheck = __webpack_require__(241);
+	var _authUserCheck = __webpack_require__(243);
 
 	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
 
@@ -26624,7 +26625,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(242);
+	__webpack_require__(244);
 
 	var Home = function (_React$Component) {
 		_inherits(Home, _React$Component);
@@ -26667,6 +26668,7 @@
 
 			_this.state = {
 				details: {
+					usertype: "",
 					username: "",
 					email: "",
 					age: "",
@@ -26688,7 +26690,7 @@
 					_react2.default.createElement(_UserDetails2.default, { details: this.state.details,
 						name: this.state.details.username,
 						refreshData: this.refreshData }),
-					_react2.default.createElement(_AllRequest2.default, { ref: "child" })
+					_react2.default.createElement(_AllRequest2.default, { ref: "child", details: this.state.details })
 				);
 			}
 		}]);
@@ -26734,9 +26736,10 @@
 
 			var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
 
-			_this.userInfo = function (username, email, age, photo) {
+			_this.userInfo = function (usertype, username, email, age, photo) {
 				_this.setState({
 					details: {
+						usertype: usertype,
 						username: username,
 						email: email,
 						age: age,
@@ -26750,8 +26753,15 @@
 				_this.props.userDetails(_this.state.details);
 			};
 
+			_this.firstname = function () {
+				var getfirstname = _this.state.details.username;
+				var firstname = getfirstname.split(" ");
+				return firstname[0];
+			};
+
 			_this.state = {
 				details: {
+					usertype: "",
 					username: "",
 					email: "",
 					age: "",
@@ -26774,6 +26784,13 @@
 						"h2",
 						{ className: "title-text" },
 						" Consumable "
+					),
+					_react2.default.createElement(
+						"h4",
+						{ className: "header-user-name" },
+						" Hi, ",
+						this.firstname(),
+						" "
 					),
 					_react2.default.createElement(_FacebookLoginButton2.default, { fb: FB, userInfo: this.userInfo })
 				);
@@ -26821,8 +26838,8 @@
 
 			var _this = _possibleConstructorReturn(this, (FacebookLoginButton.__proto__ || Object.getPrototypeOf(FacebookLoginButton)).call(this, props));
 
-			_this.sendParent = function (username, email, birthday, photo) {
-				_this.props.userInfo(username, email, birthday, photo);
+			_this.sendParent = function (usertype, username, email, birthday, photo) {
+				_this.props.userInfo(usertype, username, email, birthday, photo);
 			};
 
 			_this.onLogin = function () {
@@ -26837,13 +26854,14 @@
 						//ajax call to mongo server
 
 						_this.setState({
+							usertype: "consumer",
 							username: response.name,
 							email: response.email,
 							age: response.birthday,
 							photo: response.picture.data.url
 						});
 
-						_this.sendParent(response.name, response.email, response.birthday, response.picture.data.url);
+						_this.sendParent("customer", response.name, response.email, response.birthday, response.picture.data.url);
 					});
 				} else {
 					console.log("nothing here");
@@ -26853,12 +26871,13 @@
 			_this.onLogout = function (response) {
 				console.log("logged out");
 				_this.setState({
+					usertype: "",
 					username: null,
 					email: null,
 					age: null,
 					photo: null
 				});
-				_this.sendParent(_this.state.username, _this.state.email, _this.state.age, _this.state.photo);
+				_this.sendParent("", _this.state.username, _this.state.email, _this.state.age, _this.state.photo);
 				console.log(_this.state.username);
 				FB.getLoginStatus(function (response) {
 					console.log(response.status);
@@ -26869,6 +26888,7 @@
 			_this.sendParent = _this.sendParent.bind(_this);
 			_this.state = {
 				loginStatus: "",
+				usertype: "",
 				username: null,
 				email: null,
 				age: null,
@@ -37163,6 +37183,14 @@
 
 	var _NoUser2 = _interopRequireDefault(_NoUser);
 
+	var _ItemSize = __webpack_require__(239);
+
+	var _ItemSize2 = _interopRequireDefault(_ItemSize);
+
+	var _ItemRequest = __webpack_require__(240);
+
+	var _ItemRequest2 = _interopRequireDefault(_ItemRequest);
+
 	var _jquery = __webpack_require__(236);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -37343,25 +37371,14 @@
 						{ className: "currentuser" },
 						_react2.default.createElement(
 							"div",
-							{ className: "profilePic" },
-							_react2.default.createElement("img", { src: this.props.details.photo, alt: "Your Pic." })
-						),
-						_react2.default.createElement(
-							"div",
-							{ className: "usename" },
-							this.props.details.username
-						),
-						_react2.default.createElement(
-							"div",
 							{ className: this.state.descClass },
-							"Description",
 							_react2.default.createElement(
 								"div",
 								{ className: "descField" },
 								_react2.default.createElement("input", { type: "text",
 									onChange: this.handleDescription,
 									value: this.state.desc,
-									placeholder: "Enter Description of Item"
+									placeholder: "Item Description"
 								})
 							)
 						),
@@ -37395,13 +37412,10 @@
 										onChange: this.handleMaxRange }),
 									"High"
 								)
-							),
-							_react2.default.createElement(
-								"div",
-								{ className: "requestBtn", onClick: this.validateAndStore },
-								"Request"
 							)
-						)
+						),
+						_react2.default.createElement(_ItemSize2.default, null),
+						_react2.default.createElement(_ItemRequest2.default, { storeData: this.validateAndStore })
 					);
 				} else {
 					return _react2.default.createElement(
@@ -37516,7 +37530,7 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -37525,7 +37539,245 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SingleRequest = __webpack_require__(240);
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _jquery = __webpack_require__(236);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var size = ["XS", "S", "M", "L", "XL", "2XL", "None"];
+
+	var ItemSize = function (_React$Component) {
+	    _inherits(ItemSize, _React$Component);
+
+	    function ItemSize() {
+	        _classCallCheck(this, ItemSize);
+
+	        var _this = _possibleConstructorReturn(this, (ItemSize.__proto__ || Object.getPrototypeOf(ItemSize)).call(this));
+
+	        _this.state = {
+	            size: ""
+	        };
+	        return _this;
+	    }
+
+	    _createClass(ItemSize, [{
+	        key: "updateSize",
+	        value: function updateSize(sizeSelected) {
+	            this.setState({
+	                size: sizeSelected
+	            });
+	            console.log(this.state.size);
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            var _this2 = this;
+
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "itemSize" },
+	                size.map(function (value) {
+	                    return _react2.default.createElement(Button, { selectingSize: function selectingSize() {
+	                            return _this2.updateSize(value);
+	                        }, key: value, sizeValue: value });
+	                })
+	            );
+	        }
+	    }]);
+
+	    return ItemSize;
+	}(_react2.default.Component);
+
+	exports.default = ItemSize;
+
+	var Button = function (_React$Component2) {
+	    _inherits(Button, _React$Component2);
+
+	    function Button() {
+	        _classCallCheck(this, Button);
+
+	        return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
+	    }
+
+	    _createClass(Button, [{
+	        key: "selected",
+	        value: function selected() {
+	            (0, _jquery2.default)(".itemSize button").css({
+	                "background-color": "white",
+	                "color": "#609dff"
+	            });
+	            console.log("it enters here");
+	            this.className = "buttonFor" + this.props.sizeValue;
+	            (0, _jquery2.default)("." + this.className).css({
+	                "background-color": "#609dff",
+	                "color": "white"
+	            });
+	            this.props.selectingSize;
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            var _this4 = this;
+
+	            return _react2.default.createElement(
+	                "button",
+	                { className: "buttonFor" + this.props.sizeValue, onClick: function onClick() {
+	                        return _this4.selected();
+	                    } },
+	                this.props.sizeValue
+	            );
+	        }
+	    }]);
+
+	    return Button;
+	}(_react2.default.Component);
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var items = ["Botique", "Baby Items", "Others"];
+
+	var ItemRequest = function (_React$Component) {
+	    _inherits(ItemRequest, _React$Component);
+
+	    function ItemRequest() {
+	        _classCallCheck(this, ItemRequest);
+
+	        var _this = _possibleConstructorReturn(this, (ItemRequest.__proto__ || Object.getPrototypeOf(ItemRequest)).call(this));
+
+	        console.log(items);
+	        _this.state = {
+	            item: ""
+	        };
+	        return _this;
+	    }
+
+	    _createClass(ItemRequest, [{
+	        key: "componentWillMount",
+	        value: function componentWillMount() {
+	            this.selectedItems = new Set();
+	        }
+	    }, {
+	        key: "itemChecked",
+	        value: function itemChecked(itmselectd) {
+	            if (this.selectedItems.has(itmselectd)) {
+	                this.selectedItems.delete(itmselectd);
+	            } else {
+	                this.selectedItems.add(itmselectd);
+	                this.setState({
+	                    item: itmselectd
+	                });
+	            }
+	            console.dir(this.selectedItems);
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            var _this2 = this;
+
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "category" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "itemRequest" },
+	                    items.map(function (item) {
+	                        return _react2.default.createElement(Checkbox, { label: item, key: item, toggleCheckBox: function toggleCheckBox() {
+	                                return _this2.itemChecked(item);
+	                            } });
+	                    })
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "itemRequestBtn", onClick: this.props.storeData },
+	                    "Request"
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ItemRequest;
+	}(_react2.default.Component);
+
+	exports.default = ItemRequest;
+
+	var Checkbox = function (_React$Component2) {
+	    _inherits(Checkbox, _React$Component2);
+
+	    function Checkbox() {
+	        _classCallCheck(this, Checkbox);
+
+	        return _possibleConstructorReturn(this, (Checkbox.__proto__ || Object.getPrototypeOf(Checkbox)).apply(this, arguments));
+	    }
+
+	    _createClass(Checkbox, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "singleItem" },
+	                _react2.default.createElement("input", { type: "checkbox", id: this.props.label, value: this.props.label, onChange: this.props.toggleCheckBox }),
+	                _react2.default.createElement(
+	                    "label",
+	                    { htmlFor: this.props.label },
+	                    this.props.label
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Checkbox;
+	}(_react2.default.Component);
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _SingleRequest = __webpack_require__(242);
 
 	var _SingleRequest2 = _interopRequireDefault(_SingleRequest);
 
@@ -37542,99 +37794,180 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var AllRequest = function (_React$Component) {
-		_inherits(AllRequest, _React$Component);
+	    _inherits(AllRequest, _React$Component);
 
-		function AllRequest(props) {
-			_classCallCheck(this, AllRequest);
+	    function AllRequest(props) {
+	        _classCallCheck(this, AllRequest);
 
-			var _this = _possibleConstructorReturn(this, (AllRequest.__proto__ || Object.getPrototypeOf(AllRequest)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (AllRequest.__proto__ || Object.getPrototypeOf(AllRequest)).call(this, props));
 
-			_this.refreshData = function () {
+	        _this.refreshData = function () {
 
-				var xhr = new XMLHttpRequest();
-				xhr.open('post', '/allRecords');
-				xhr.setRequestHeader('Content-type', 'application/json');
-				xhr.responseType = 'json';
-				xhr.addEventListener('load', function () {
-					if (xhr.status === 200) {
-						_this.setState({
-							allReq: xhr.response
-						});
-					} else {
-						console.log(xhr.response.error);
-					}
-				});
-				xhr.send();
-				/*
-	   		$.ajax({
-	     			url: "/allRecords",
-	     			type: "post",
-	     			dataType: "json",
-	     			success: (response) => { 
-	     				this.setState({
-	     					allReq: response
-	     				})
-	     			},
-	     			error: (error) => {
-	     				console.log(error)
-	     			}
-	   
-	     		})		
-	   */
-			};
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('post', '/allRecords');
+	            xhr.setRequestHeader('Content-type', 'application/json');
+	            xhr.responseType = 'json';
+	            xhr.addEventListener('load', function () {
+	                if (xhr.status === 200) {
+	                    _this.setState({
+	                        allReq: xhr.response
+	                    });
+	                } else {
+	                    console.log(xhr.response.error);
+	                }
+	            });
+	            xhr.send();
+	            /*
+	            		$.ajax({
+	              			url: "/allRecords",
+	              			type: "post",
+	              			dataType: "json",
+	              			success: (response) => { 
+	              				this.setState({
+	              					allReq: response
+	              				})
+	              			},
+	              			error: (error) => {
+	              				console.log(error)
+	              			}
+	            
+	              		})		
+	            */
+	        };
 
-			_this.state = {
-				allReq: ""
-			};
-			_this.refreshData = _this.refreshData.bind(_this);
-			return _this;
-		}
+	        _this.everyoneRequest = function () {
+	            // if everone tab is clicked, it sets the corresponding varible to true 
+	            _this.setState({
+	                everyoneReq: true,
+	                invidualReq: false
+	            });
+	            // changing the color inorder show it is selected
+	            (0, _jquery2.default)(".everybody").css({
+	                "color": "#609dff",
+	                "border-color": "#609dff"
+	            });
+	            (0, _jquery2.default)(".individual").css({
+	                "color": "black",
+	                "border-color": "black"
+	            });
+	        };
 
-		_createClass(AllRequest, [{
-			key: "componentDidMount",
-			value: function componentDidMount() {
-				this.refreshData();
-			}
-		}, {
-			key: "render",
-			value: function render() {
-				if (this.state.allReq) {
-					var list = this.state.allReq.requests.reverse().map(function (data, i) {
-						return _react2.default.createElement(
-							"div",
-							{ key: i },
-							_react2.default.createElement(_SingleRequest2.default, {
-								photo: data.photo,
-								name: data.name,
-								desc: data.itemDesc,
-								min: data.min,
-								max: data.max,
-								key: i
-							})
-						);
-					});
-					return _react2.default.createElement(
-						"div",
-						{ className: "list-requests" },
-						list
-					);
-				} else {
-					return _react2.default.createElement(
-						"div",
-						null,
-						" no data "
-					);
-				}
-			}
-		}]);
+	        _this.individualRequest = function () {
+	            // if individual tab is clicked, it sets the corresponding varible to true
+	            _this.setState({
+	                invidualReq: true,
+	                everyoneReq: false
+	            });
+	            // changing the color inorder show it is selected
+	            (0, _jquery2.default)(".individual").css({
+	                "color": "#609dff",
+	                "border-color": "#609dff"
+	            });
+	            (0, _jquery2.default)(".everybody").css({
+	                "color": "black",
+	                "border-color": "black"
+	            });
+	        };
 
-		return AllRequest;
+	        _this.state = {
+	            allReq: "",
+	            everyoneReq: true,
+	            invidualReq: false
+	        };
+	        _this.refreshData = _this.refreshData.bind(_this);
+	        console.log("value of everyone" + _this.state.everyoneReq);
+	        return _this;
+	    }
+
+	    _createClass(AllRequest, [{
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            this.refreshData();
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            var _this2 = this;
+
+	            // checking if the everyone tab is clicked or individual tab is clicked. If everyone is true then all the request is listed 
+	            // else if individual is true only the request made by current user is listed
+	            if (this.state.allReq) {
+	                var list = void 0;
+	                if (this.state.everyoneReq) {
+	                    list = this.state.allReq.requests.reverse().map(function (data, i) {
+	                        return _react2.default.createElement(
+	                            "div",
+	                            { key: i },
+	                            _react2.default.createElement(_SingleRequest2.default, {
+	                                photo: data.photo,
+	                                name: data.name,
+	                                desc: data.itemDesc,
+	                                min: data.min,
+	                                max: data.max,
+	                                key: i,
+	                                details: _this2.props.details
+	                            })
+	                        );
+	                    });
+	                } else if (this.state.invidualReq) {
+	                    list = this.state.allReq.requests.reverse().map(function (data, i) {
+	                        if (data.email == _this2.props.details.email) {
+	                            return _react2.default.createElement(
+	                                "div",
+	                                { key: i },
+	                                _react2.default.createElement(_SingleRequest2.default, {
+	                                    photo: data.photo,
+	                                    name: data.name,
+	                                    desc: data.itemDesc,
+	                                    min: data.min,
+	                                    max: data.max,
+	                                    key: i,
+	                                    details: _this2.props.details
+	                                })
+	                            );
+	                        }
+	                    });
+	                }
+	                return _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "requestSelector" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "everybody", onClick: this.everyoneRequest.bind(this) },
+	                            " Everyone "
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "individual", onClick: this.individualRequest.bind(this) },
+	                            " Individual "
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "list-requests" },
+	                        list
+	                    )
+	                );
+	            } else {
+	                return _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    " no data "
+	                );
+	            }
+	        }
+	    }]);
+
+	    return AllRequest;
 	}(_react2.default.Component);
 
 	exports.default = AllRequest;
 
 /***/ },
-/* 240 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37663,44 +37996,89 @@
 		function SingleRequest(props) {
 			_classCallCheck(this, SingleRequest);
 
-			return _possibleConstructorReturn(this, (SingleRequest.__proto__ || Object.getPrototypeOf(SingleRequest)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (SingleRequest.__proto__ || Object.getPrototypeOf(SingleRequest)).call(this, props));
+
+			_this.state = {
+				isCustomer: true
+			};
+			return _this;
 		}
 
 		_createClass(SingleRequest, [{
+			key: "isCustomer",
+			value: function isCustomer() {
+				if (this.props.details.usertype == "customer") {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}, {
 			key: "render",
 			value: function render() {
-				return _react2.default.createElement(
-					"div",
-					{ className: "singleReq" },
-					_react2.default.createElement(
+
+				if (this.isCustomer()) {
+					return _react2.default.createElement(
 						"div",
-						{ className: "singlePhoto" },
-						_react2.default.createElement("img", { src: this.props.photo, alt: this.props.photo })
-					),
-					_react2.default.createElement(
+						{ className: "singleReq" },
+						_react2.default.createElement(
+							"div",
+							{ className: "singlePhoto" },
+							_react2.default.createElement("img", { src: this.props.photo, alt: this.props.photo })
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "singleName" },
+							this.props.name
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "singleDesc" },
+							this.props.desc
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "singleRange" },
+							"$",
+							this.props.min,
+							" - $",
+							this.props.max
+						)
+					);
+				} else {
+					return _react2.default.createElement(
 						"div",
-						{ className: "singleName" },
-						this.props.name
-					),
-					_react2.default.createElement(
-						"div",
-						{ className: "singleDesc" },
-						this.props.desc
-					),
-					_react2.default.createElement(
-						"div",
-						{ className: "singleRange" },
-						"$",
-						this.props.min,
-						" - $",
-						this.props.max
-					),
-					_react2.default.createElement(
-						"div",
-						{ className: "requestBtn connectBtn" },
-						"Connect"
-					)
-				);
+						{ className: "singleReq" },
+						_react2.default.createElement(
+							"div",
+							{ className: "singlePhoto" },
+							_react2.default.createElement("img", { src: this.props.photo, alt: this.props.photo })
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "singleName" },
+							this.props.name
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "singleDesc" },
+							this.props.desc
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "singleRange" },
+							"$",
+							this.props.min,
+							" - $",
+							this.props.max
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "requestBtn connectBtn" },
+							"Connect"
+						)
+					);
+				}
 			}
 		}]);
 
@@ -37710,7 +38088,7 @@
 	exports.default = SingleRequest;
 
 /***/ },
-/* 241 */
+/* 243 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -37756,16 +38134,16 @@
 	exports.default = Auth;
 
 /***/ },
-/* 242 */
+/* 244 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 243 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -37776,6 +38154,10 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _CompanyUpload = __webpack_require__(251);
+
+	var _CompanyUpload2 = _interopRequireDefault(_CompanyUpload);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37795,12 +38177,12 @@
 		}
 
 		_createClass(Sample, [{
-			key: "render",
+			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
-					"div",
-					{ className: "container" },
-					"Sample Page"
+					'div',
+					{ className: 'container' },
+					_react2.default.createElement(_CompanyUpload2.default, null)
 				);
 			}
 		}]);
@@ -37811,7 +38193,7 @@
 	exports.default = Sample;
 
 /***/ },
-/* 244 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37826,15 +38208,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _LoginForm = __webpack_require__(245);
+	var _LoginForm = __webpack_require__(247);
 
 	var _LoginForm2 = _interopRequireDefault(_LoginForm);
 
-	var _BasePage = __webpack_require__(246);
+	var _BasePage = __webpack_require__(248);
 
 	var _BasePage2 = _interopRequireDefault(_BasePage);
 
-	var _authUserCheck = __webpack_require__(241);
+	var _authUserCheck = __webpack_require__(243);
 
 	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
 
@@ -37962,7 +38344,7 @@
 	};
 
 /***/ },
-/* 245 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38059,7 +38441,7 @@
 	exports.default = LoginForm;
 
 /***/ },
-/* 246 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38095,7 +38477,7 @@
 	exports.default = BasePage;
 
 /***/ },
-/* 247 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38110,11 +38492,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SignupForm = __webpack_require__(248);
+	var _SignupForm = __webpack_require__(250);
 
 	var _SignupForm2 = _interopRequireDefault(_SignupForm);
 
-	var _BasePage = __webpack_require__(246);
+	var _BasePage = __webpack_require__(248);
 
 	var _BasePage2 = _interopRequireDefault(_BasePage);
 
@@ -38240,7 +38622,7 @@
 	};
 
 /***/ },
-/* 248 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38350,6 +38732,135 @@
 	};
 
 	exports.default = SignupForm;
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ItemSize = __webpack_require__(239);
+
+	var _ItemSize2 = _interopRequireDefault(_ItemSize);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CompanyUpload = function (_React$Component) {
+		_inherits(CompanyUpload, _React$Component);
+
+		function CompanyUpload(props) {
+			_classCallCheck(this, CompanyUpload);
+
+			var _this = _possibleConstructorReturn(this, (CompanyUpload.__proto__ || Object.getPrototypeOf(CompanyUpload)).call(this, props));
+
+			_this.priceChange = function (event) {
+				_this.setState({
+					price: event.target.value
+				});
+			};
+
+			_this.state = {
+				id: _this.props.id,
+				price: '',
+				notes: '',
+				link: '',
+				offeredSize: ''
+			};
+			return _this;
+		}
+
+		_createClass(CompanyUpload, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'company-upload' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'transparent-background' },
+						' '
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'consumer-request' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'item-title' },
+							'Red Blouse'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'price-offered' },
+							_react2.default.createElement('input', { type: 'text', value: this.state.price, placeholder: 'Price' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'item-size-upload' },
+							_react2.default.createElement(_ItemSize2.default, null)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'image-upload' },
+							_react2.default.createElement(
+								'div',
+								null,
+								'Drag and drop attachments here or ',
+								_react2.default.createElement(
+									'p',
+									null,
+									'browse'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'sellers-notes' },
+							_react2.default.createElement('textarea', { value: this.state.notes, placeholder: 'Notes' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'seller-link' },
+							_react2.default.createElement('input', { type: 'text', value: this.state.link, placeholder: 'Link' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'upload-buttons' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'cancel-button' },
+								' Cancel '
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'submit-button' },
+								' Submit '
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return CompanyUpload;
+	}(_react2.default.Component);
+
+	exports.default = CompanyUpload;
 
 /***/ }
 /******/ ]);
