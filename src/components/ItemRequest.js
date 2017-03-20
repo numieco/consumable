@@ -7,8 +7,10 @@ export default class ItemRequest extends React.Component{
         super();
         console.log(items);
         this.state = {
-            item : ""
+            item : "",
+            resetChkBoxVal : false
         }
+
     }
     
     componentWillMount(){
@@ -25,17 +27,24 @@ export default class ItemRequest extends React.Component{
             });
         }
         console.dir(this.selectedItems); 
+    }
 
+    clearState(){
+        this.setState({
+            item : ""
+        });
+        this.setState({resetChkBoxVal : true})
+        this.props.storeData()
     }
 
     render(){
         return(
             <div className="category">
                 <div className="itemRequest">
-                    {items.map((item)=> <Checkbox label={item} key={item} toggleCheckBox={() => this.itemChecked(item)} />)}
+                    {items.map((item)=> <Checkbox resetValue={this.state.resetChkBoxVal} label={item} key={item} toggleCheckBox={() => this.itemChecked(item)} />)}
                     
                 </div>
-                <div className="itemRequestBtn" onClick={this.props.storeData}>
+                <div className="itemRequestBtn" onClick={this.clearState.bind(this)}>
                     Request
                 </div>
             </div>);
@@ -43,12 +52,34 @@ export default class ItemRequest extends React.Component{
 }
 
 class Checkbox extends React.Component{
+    constructor(){
+        super();
+        this.state = {
+            isChecked : false
+        }
+    }
 
+    changeChkState(){
+        this.setState({
+            isChecked : !(this.state.isChecked)
+        });
+        this.props.toggleCheckBox
+    }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.resetValue == true){
+            this.setState({
+                isChecked : false
+            });
+        }
+        
+
+    }
     render(){
+       
         return(
             <div className="singleItem">
-                <input type="checkbox" id={this.props.label} value={this.props.label} onChange={this.props.toggleCheckBox} />
+                <input type="checkbox" id={this.props.label} value={this.props.label} checked={this.state.isChecked} onChange={this.changeChkState.bind(this)} />
                 <label htmlFor={this.props.label}>{this.props.label}</label>
             </div>);
     }

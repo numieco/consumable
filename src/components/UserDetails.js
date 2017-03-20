@@ -105,10 +105,12 @@ export default class UserDetails extends React.Component {
 				if(xhr.status === 200) {
 					this.clearStates()
 					this.props.refreshData()
+					this.sizeOfItem.clearStates()
 				} else {
 					console.log(xhr.response.error)
 					this.clearStates()
 					this.props.refreshData()
+					this.sizeOfItem.clearStates()
 				}
 			})
 			xhr.send(data)
@@ -139,6 +141,7 @@ export default class UserDetails extends React.Component {
 			min: "",
 			max: ""
 		})
+		this.sizeOfItem.clearStates
 	}
 
 	getAge = (dob) => {
@@ -165,6 +168,7 @@ export default class UserDetails extends React.Component {
 			min: e.target.value
 		})
 	}
+
 
 	render() {
 		if(this.props.details.username && this.props.details.email && this.props.details.age && this.props.details.photo){
@@ -212,7 +216,7 @@ export default class UserDetails extends React.Component {
 						Request
 					</div> */}
 					</div>
-					<ItemSize />
+					<ItemSize ref={(input) => {this.sizeOfItem = input;}}/>
 					<ItemRequest storeData= {this.validateAndStore}/>
 				</div>
 			)
