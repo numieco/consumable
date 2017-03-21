@@ -3,15 +3,6 @@ and (max-device-width : 768px)  {
 	.container {
 		width: 100%;
 
-		.header{
-			.title-text {
-				margin: 14px 0;
-			}
-
-			.fb-button {
-				margin: 20px auto;
-			}
-		}
 
 		.profilePic {
 		    float: none;
@@ -50,12 +41,13 @@ and (max-device-width : 768px)  {
 		}
 
 		.wrapPriceBtn {
-			width: 265px;
-			margin: 0 auto;
+			width: 100%;
+			min-height : 100px;
 
 			.priceRange{
 				width : 200px;
-				margin-left : 15%;
+				margin : 0 auto;
+				float : none;
 			}
 
 			.minrange{

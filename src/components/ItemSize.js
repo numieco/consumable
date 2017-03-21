@@ -31,7 +31,9 @@ export default class ItemSize extends React.Component{
     render(){
         return(
             <div className="itemSize">
-                {size.map((value) => <Button selectingSize = {() => this.updateSize(value)} key={value} sizeValue={value}/>)}
+                <div className="itemButtons">
+                    {size.map((value) => <Button selectingSize = {() => this.updateSize(value)} key={value} sizeValue={value}/>)}
+                </div>
             </div>
             );
     }

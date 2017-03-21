@@ -4,7 +4,11 @@ $name-width : 20%;
 $fb-bt-width : 20%;
 $header-space: 10px;
 
-
+@media screen and (max-width :600px){
+    .title-text{
+        width : 64% !important;
+    }
+}
 .header {
 	width: calc(#{$total-width} - #{$header-space * 2});
 	border-bottom: 1px solid gray;
@@ -21,12 +25,14 @@ $header-space: 10px;
         float : left;
         font-size : 80%;
         text-align : right;
+        margin : 24px 0;
     }
 
     .dropdown {
         width : calc(#{$fb-bt-width});
-        margin-top : 1%;
+        margin-top : 14px;
         position : relative;
+        margin-left : 1%;
         
         display : inline-block;
 

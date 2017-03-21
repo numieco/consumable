@@ -6,7 +6,7 @@ $category-width: 80%;
     float: left;
     font-family: 'Arimo', sans-serif;
 
-    @media screen and (min-width : 411px){
+    @media screen and (min-width : 542px){
         .itemRequest{
             height: 30px;
             width: $category-width;
@@ -39,7 +39,7 @@ $category-width: 80%;
         }
     }
 
-    @media screen and (max-width : 410px){
+    @media screen and (max-width : 541px){
         .itemRequest{
             height: 30px;
             width : 100%;

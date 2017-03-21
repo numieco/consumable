@@ -74,7 +74,7 @@ export default class Header extends React.Component {
 					{this.checkForButton()}
 					<h2 className="title-text"> Consumable </h2>
 					{this.state.details.username == "" || this.state.details.username == null ? 
-					<span></span> : <h4 className="header-user-name"> Hi, {this.firstname()} </h4>}
+					<h4 className="header-user-name"> </h4> : <h4 className="header-user-name"> Hi, {this.firstname()} </h4>}
 					<div className="dropdown">
 						<div className="header-photo" onClick={this.clickToshowBtn.bind(this)}>
 						{this.state.details.username == "" || this.state.details.username == null ? 
