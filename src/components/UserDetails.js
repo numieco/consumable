@@ -173,7 +173,12 @@ export default class UserDetails extends React.Component {
 	}
 
 	render() {
-		if(this.props.details.username && this.props.details.email && this.props.details.age && this.props.details.photo){
+		if( this.props.details.username 
+			&& this.props.details.email 
+			&& this.props.details.age 
+			&& this.props.details.photo 
+			&& localStorage.getItem('userType') !== 'seller') {
+			
 			return (
 				<div className="currentuser">					
 					<div className={this.state.descClass}>
@@ -217,7 +222,6 @@ export default class UserDetails extends React.Component {
 		} else {
 			return (
 				<div className="currentuser">
-					<NoUser />
 				</div>
 			)
 		}

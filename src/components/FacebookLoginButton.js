@@ -26,14 +26,7 @@ export default class FacebookLoginButton extends React.Component {
 			this.checkLoginStatus.bind(this))	
 
 		this.FB.Event.subscribe('auth.login',
-			this.onLogin.bind(this))	
-
-		FB.api(
-			'/me?fields=name,email,birthday,picture'
-			, (response) => {
-				console.log(response)
-			}
-		)
+			this.onLogin.bind(this))
 	}
 
 	sendParent = (usertype,username,email,birthday,photo) => {
@@ -48,10 +41,12 @@ export default class FacebookLoginButton extends React.Component {
 		console.log("checkLoginStatus")
 		const self = this
 		if(response.status === "connected") {
+
+			localStorage.setItem('userType', 'customer')
+
 			FB.api(
 				'/me?fields=name,email,birthday,picture.type(large)'
 				, (response) => {
-					//ajax call to mongo server
 
 					this.setState({
 						usertype : "consumer",
@@ -77,9 +72,11 @@ export default class FacebookLoginButton extends React.Component {
 			email: null,
 			age: null,
 			photo: null			
-		})
+		}, () => { localStorage.removeItem('userType') })
+
 		this.sendParent("",this.state.username, this.state.email, this.state.age, this.state.photo)
 		console.log(this.state.username)
+		
 		FB.getLoginStatus((response) => {
 			console.log(response.status)
 		})

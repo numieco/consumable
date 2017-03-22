@@ -26904,8 +26904,10 @@
 				console.log("checkLoginStatus");
 				var self = _this;
 				if (response.status === "connected") {
+
+					localStorage.setItem('userType', 'customer');
+
 					FB.api('/me?fields=name,email,birthday,picture.type(large)', function (response) {
-						//ajax call to mongo server
 
 						_this.setState({
 							usertype: "consumer",
@@ -26930,9 +26932,13 @@
 					email: null,
 					age: null,
 					photo: null
+				}, function () {
+					localStorage.removeItem('userType');
 				});
+
 				_this.sendParent("", _this.state.username, _this.state.email, _this.state.age, _this.state.photo);
 				console.log(_this.state.username);
+
 				FB.getLoginStatus(function (response) {
 					console.log(response.status);
 				});
@@ -26960,10 +26966,6 @@
 				this.FB.Event.subscribe('auth.statusChange', this.checkLoginStatus.bind(this));
 
 				this.FB.Event.subscribe('auth.login', this.onLogin.bind(this));
-
-				FB.api('/me?fields=name,email,birthday,picture', function (response) {
-					console.log(response);
-				});
 			}
 		}, {
 			key: "render",
@@ -37450,7 +37452,8 @@
 			value: function render() {
 				var _this2 = this;
 
-				if (this.props.details.username && this.props.details.email && this.props.details.age && this.props.details.photo) {
+				if (this.props.details.username && this.props.details.email && this.props.details.age && this.props.details.photo && localStorage.getItem('userType') !== 'seller') {
+
 					return _react2.default.createElement(
 						"div",
 						{ className: "currentuser" },
@@ -37505,11 +37508,7 @@
 						_react2.default.createElement(_ItemRequest2.default, { storeData: this.validateAndStore })
 					);
 				} else {
-					return _react2.default.createElement(
-						"div",
-						{ className: "currentuser" },
-						_react2.default.createElement(_NoUser2.default, null)
-					);
+					return _react2.default.createElement("div", { className: "currentuser" });
 				}
 			}
 		}]);
@@ -38555,7 +38554,7 @@
 	          });
 
 	          _authUserCheck2.default.authenticateUser(xhr.response.token);
-
+	          localStorage.setItem('userType', 'seller');
 	          _this2.context.router.push('/');
 	        } else {
 	          var errors = xhr.response.errors ? xhr.response.errors : {};

@@ -54,7 +54,7 @@ export default class Login extends React.Component {
         })
 
         Auth.authenticateUser(xhr.response.token)
-
+        localStorage.setItem('userType', 'seller')
         this.context.router.push('/')
       } else {
         const errors = xhr.response.errors ? xhr.response.errors : {}
