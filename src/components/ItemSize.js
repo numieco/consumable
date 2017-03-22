@@ -25,7 +25,7 @@ export default class ItemSize extends React.Component{
         this.setState({
             size : ""
         });
-        this.props.returnsize(itemsize);
+        this.props.returnSize(itemsize);
     }
 
 

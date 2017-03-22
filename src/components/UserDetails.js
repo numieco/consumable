@@ -16,7 +16,8 @@ export default class UserDetails extends React.Component {
 			descClass: "description",
 			minRange: "minRange",
 			maxRange: "maxRange",
-			size : ""
+			size : "",
+			category: ""
 		}
 
 		this.validateAndStore = this.validateAndStore.bind(this)
@@ -31,6 +32,8 @@ export default class UserDetails extends React.Component {
 		let desc = this.state.desc
 		let min = this.state.min
 		let max = this.state.max
+		let size = this.state.size
+		let category = this.state.category
 
 
 		if(desc==="" && min==="" && max===""){
@@ -97,7 +100,17 @@ export default class UserDetails extends React.Component {
 				maxRange: "maxRange"
 			})
 
-			let data = '{ "email" : "'+ this.props.details.email +'", "name" : "'+ this.props.details.username +'", "photo" : "'+ this.props.details.photo +'", "age" : "'+ this.getAge(this.props.details.age) +'", "itemDesc" : "'+ desc +'", "min" : "'+ min +'", "max" : "'+ max +'"}'
+			let data = '{ "email" : "'+ this.props.details.email 
+								+'", "name" : "'+ this.props.details.username 
+								+'", "photo" : "'+ this.props.details.photo 
+								+'", "age" : "'+ this.getAge(this.props.details.age) 
+								+'", "itemDesc" : "'+ desc 
+								+'", "min" : "'+ min 
+								+'", "max" : "'+ max 
+								+'", "size" : "'+ size
+								+'", "category" : "'+ category
+								+'", "timestamp" : "'+ Date.now()
+								+'", "sellers" : []}'
 
 			const xhr = new XMLHttpRequest()
 			xhr.open('POST', '/insertRequest')
@@ -116,24 +129,6 @@ export default class UserDetails extends React.Component {
 				}
 			})
 			xhr.send(data)
-
-		/*	$.ajax({
-	  			url: "http://localhost:8089/insertRequest",
-	  			type: "POST",
-	  			data: data,
-	  			dataType: "json",
-	  			contentType: "application/json",
-	  			async: true	
-			}).done((data) => {
-				this.clearStates()				
-				this.props.refreshData()			
-			}).fail((err) => {
-				console.log(err)
-				this.clearStates()				
-				this.props.refreshData()			
-			})
-		
-		*/
 		}
 	}
 
@@ -180,15 +175,7 @@ export default class UserDetails extends React.Component {
 	render() {
 		if(this.props.details.username && this.props.details.email && this.props.details.age && this.props.details.photo){
 			return (
-				<div className="currentuser">
-					{/* <div className="profilePic">
-						<img src={this.props.details.photo} alt="Your Pic."/>
-					</div>
-					
-					<div className="usename">
-						{this.props.details.username}
-					</div> */}
-					
+				<div className="currentuser">					
 					<div className={this.state.descClass}>
 
 						<div className="descField">

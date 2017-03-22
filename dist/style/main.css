@@ -7,26 +7,44 @@ body {
   min-height: 500px;
   margin: 0 auto; }
 
+@media screen and (max-width: 600px) {
+  .title-text {
+    width: 64% !important; } }
+
 .header {
   width: calc(100% - 20px);
   border-bottom: 1px solid gray;
   display: inline-block;
   padding: 0 10px; }
-
-.header-user-name {
-  width: calc(20% - 10px);
-  float: left;
-  margin-right: 10px;
-  text-align: right; }
-
-.fb-button {
-  width: 85px;
-  float: left;
-  margin: 18px auto; }
-
-.title-text {
-  float: left;
-  width: calc(70% - 20px); }
+  .header .title-text {
+    float: left;
+    width: calc(60% - 20px); }
+  .header .header-user-name {
+    width: calc(20% - 20px);
+    float: left;
+    font-size: 80%;
+    text-align: right;
+    margin: 24px 0; }
+  .header .dropdown {
+    width: calc(20%);
+    margin-top: 14px;
+    position: relative;
+    margin-left: 1%;
+    display: inline-block; }
+    .header .dropdown .header-photo {
+      width: 42px;
+      margin: auto; }
+      .header .dropdown .header-photo img {
+        width: 100%;
+        border-radius: 50px; }
+    .header .dropdown .dropdown-content {
+      width: 90px;
+      height: 30px;
+      z-index: 1;
+      margin: 0 auto;
+      padding: 2% 2% 2% 2%; }
+    .header .dropdown .fb-button {
+      margin: 2px 2px 2px 2px; }
 
 .currentuser {
   padding: 28px 10px;
@@ -114,10 +132,6 @@ body {
 @media only screen and (max-device-width: 768px) {
   .container {
     width: 100%; }
-    .container .header .title-text {
-      margin: 14px 0; }
-    .container .header .fb-button {
-      margin: 20px auto; }
     .container .profilePic {
       float: none;
       background: lightgray;
@@ -145,11 +159,12 @@ body {
         width: 70%;
         margin: 0 auto; }
     .container .wrapPriceBtn {
-      width: 265px;
-      margin: 0 auto; }
+      width: 100%;
+      min-height: 100px; }
       .container .wrapPriceBtn .priceRange {
         width: 200px;
-        margin-left: 15%; }
+        margin: 0 auto;
+        float: none; }
       .container .wrapPriceBtn .minrange {
         width: 50px; }
       .container .wrapPriceBtn .maxrange {
@@ -316,12 +331,38 @@ body {
     border: 0;
     border-top: 0.5px solid gray; }
 
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 768px) {
   .itemSize {
     width: 100%;
+    padding: auto; }
+  .itemButtons {
+    width: 100%;
+    float: none;
+    margin-left: calc((100% - 280px)/2); }
+  .itemSize button {
+    background-color: white;
+    height: 40px;
+    width: 40px;
+    border: 1px solid grey;
+    color: #609dff;
+    cursor: pointer;
     float: left;
-    margin-left: 9%;
-    text-align: center; } }
+    padding: auto;
+    margin: 0 auto; }
+  .itemSize button:active {
+    background-color: #609dff;
+    color: white; }
+  .itemSize button:not(:last-child) {
+    border-right: none; }
+  .itemSize button:hover {
+    background-color: #609dff;
+    color: white; }
+  .itemSize button:focus {
+    background-color: #609dff;
+    color: white; }
+  .divPressed {
+    background-color: #609dff;
+    color: white; } }
 
 .itemSize button {
   background-color: white;
@@ -356,7 +397,7 @@ body {
   width: 100%;
   float: left;
   font-family: 'Arimo', sans-serif; }
-  @media screen and (min-width: 411px) {
+  @media screen and (min-width: 542px) {
     .category .itemRequest {
       height: 30px;
       width: 80%;
@@ -382,7 +423,7 @@ body {
       background: #ff751a;
       border-radius: 5px;
       cursor: pointer; } }
-  @media screen and (max-width: 410px) {
+  @media screen and (max-width: 541px) {
     .category .itemRequest {
       height: 30px;
       width: 100%;

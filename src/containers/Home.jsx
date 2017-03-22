@@ -15,7 +15,7 @@ export default class Home extends React.Component {
 
 		this.state = {
 			details: {
-                usertype: "",
+        usertype: "",
 				username: "",
 				email: "",
 				age: "",
@@ -28,21 +28,22 @@ export default class Home extends React.Component {
 
 	componentDidMount = (props) => {
 
-    const xhr = new XMLHttpRequest()
-    xhr.open('get', '/api/home')
-    xhr.setRequestHeader('Content-type', 'application/application/x-www-form-urlencoded')
-    
-    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`)
-    xhr.responseType = 'json'
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        this.setState({
-          secretData: xhr.response.message
-        })
-      }
-    })
-    xhr.send()
-
+		if(Auth.isUserAuthenticated()) {
+	    const xhr = new XMLHttpRequest()
+	    xhr.open('get', '/api/home')
+	    xhr.setRequestHeader('Content-type', 'application/application/x-www-form-urlencoded')
+	    
+	    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`)
+	    xhr.responseType = 'json'
+	    xhr.addEventListener('load', () => {
+	      if (xhr.status === 200) {
+	        this.setState({
+	          secretData: xhr.response.message
+	        })
+	      }
+	    })
+	    xhr.send()
+	  }
 	}
 
 	userDetails = (details) => {
