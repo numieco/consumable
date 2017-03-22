@@ -5,12 +5,11 @@ const items = ["Botique","Baby Items", "Others"];
 export default class ItemRequest extends React.Component{
     constructor(){
         super();
-        console.log(items);
         this.state = {
             item : "",
             resetChkBoxVal : false
         }
-
+        // this.itemChecked = this.itemChecked.bind(this)
     }
     
     componentWillMount(){
@@ -19,18 +18,20 @@ export default class ItemRequest extends React.Component{
 
     itemChecked(itmselectd){
         if(this.selectedItems.has(itmselectd)){
-            this.selectedItems.delete(itmselectd);
+            this.selectedItems.delete(itmselectd)
         }else{
-            this.selectedItems.add(itmselectd);
+            this.selectedItems.add(itmselectd)
             this.setState({
                 item : itmselectd
             });
+            this.props.returnCategory(itmselectd)
         }
-        console.dir(this.selectedItems); 
+        console.log("This itemchecked is entered" +this.selectedItems) 
     }
 
     clearState(){
         let item = this.state.item;
+        console.log("the item is "+item)
         this.setState({
             item : ""
         });
@@ -64,7 +65,7 @@ class Checkbox extends React.Component{
         this.setState({
             isChecked : !(this.state.isChecked)
         });
-        this.props.toggleCheckBox
+        this.props.toggleCheckBox()
     }
 
     componentWillReceiveProps(nextProps){

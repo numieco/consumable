@@ -17,15 +17,20 @@ export default class ItemSize extends React.Component{
         this.setState({
             size : sizeSelected
         });
-        console.log(this.state.size)
+        console.log("It enters the updateSize fn" + sizeSelected)
+
+        this.props.returnSize(sizeSelected)
     }
 
     clearStates = () => {
-        let itemsize = this.state.size;
         this.setState({
             size : ""
         });
-        this.props.returnSize(itemsize);
+        // In order change the colour of the button once the request button is clicked
+        $(".itemSize button").css({
+            "background-color": "white",
+            "color": "#609dff"
+            });
     }
 
 
@@ -43,25 +48,21 @@ export default class ItemSize extends React.Component{
 class Button extends React.Component{
 
     selected(){
+        console.log("it reaches here")
         $(".itemSize button").css({
             "background-color": "white",
             "color": "#609dff"
             });
-        console.log("it enters here");
         this.className = "buttonFor"+this.props.sizeValue;
         $("."+this.className).css({
             "background-color": "#609dff",
             "color": "white"
             });
-        this.props.selectingSize;
+        this.props.selectingSize();
     }
     
     render(){
-        // In order change the colour of the button once the request button is clicked
-        $(".itemSize button").css({
-            "background-color": "white",
-            "color": "#609dff"
-            });
+        
         return(
             <button className={"buttonFor"+this.props.sizeValue} onClick={() => this.selected()}>{this.props.sizeValue}</button>
              );

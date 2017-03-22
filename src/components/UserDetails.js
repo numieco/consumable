@@ -26,14 +26,19 @@ export default class UserDetails extends React.Component {
 		this.handleMaxRange = this.handleMaxRange.bind(this)
 		this.clearStates = this.clearStates.bind(this)
 		this.getItemSize = this.getItemSize.bind(this)
+		this.getItemCategory = this.getItemCategory.bind(this)
 	}
 
-	validateAndStore = (requestedItem) => {
+	validateAndStore = () => {
 		let desc = this.state.desc
 		let min = this.state.min
 		let max = this.state.max
 		let size = this.state.size
 		let category = this.state.category
+
+		
+		console.log("the size is" +size + "and the item is " + category)
+
 
 
 		if(desc==="" && min==="" && max===""){
@@ -169,7 +174,13 @@ export default class UserDetails extends React.Component {
 	getItemSize = (itemsize) =>{
 		this.setState({
 			size : itemsize
-		});
+		})	
+	}
+
+	getItemCategory = (itemCat) => {
+		this.setState({
+			category : itemCat
+		})
 	}
 
 	render() {
@@ -216,7 +227,7 @@ export default class UserDetails extends React.Component {
 					</div> */}
 					</div>
 					<ItemSize ref={(input) => {this.sizeOfItem = input;}} returnSize = {this.getItemSize}/>
-					<ItemRequest storeData= {this.validateAndStore}/>
+					<ItemRequest storeData= {() => this.validateAndStore()} returnCategory = {this.getItemCategory}/>
 				</div>
 			)
 		} else {
