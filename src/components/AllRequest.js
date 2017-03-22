@@ -93,7 +93,7 @@ export default class AllRequest extends React.Component {
     	if(this.state.allReq){
             let list;
             if(this.state.everyoneReq){
-        		list = this.state.allReq.requests.reverse().map((data, i) => {
+        		list = this.state.allReq.requests.map((data, i) => {
         			return (
         				<div key={i}> 
         					<SingleRequest 
@@ -107,9 +107,9 @@ export default class AllRequest extends React.Component {
         					/> 
         				</div>
         			)
-        		})
+        		}).reverse()
             }else if(this.state.invidualReq){
-                list = this.state.allReq.requests.reverse().map((data, i) => {
+                list = this.state.allReq.requests.map((data, i) => {
                     if(data.email == this.props.details.email){
                         return (
                             <div key={i}> 
@@ -126,7 +126,7 @@ export default class AllRequest extends React.Component {
                         ) 
                     }
                     
-                })
+                }).reverse()
             }
     		return(
                 <div>

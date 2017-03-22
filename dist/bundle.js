@@ -38033,7 +38033,7 @@
 	            if (this.state.allReq) {
 	                var list = void 0;
 	                if (this.state.everyoneReq) {
-	                    list = this.state.allReq.requests.reverse().map(function (data, i) {
+	                    list = this.state.allReq.requests.map(function (data, i) {
 	                        return _react2.default.createElement(
 	                            "div",
 	                            { key: i },
@@ -38047,9 +38047,9 @@
 	                                details: _this2.props.details
 	                            })
 	                        );
-	                    });
+	                    }).reverse();
 	                } else if (this.state.invidualReq) {
-	                    list = this.state.allReq.requests.reverse().map(function (data, i) {
+	                    list = this.state.allReq.requests.map(function (data, i) {
 	                        if (data.email == _this2.props.details.email) {
 	                            return _react2.default.createElement(
 	                                "div",
@@ -38065,7 +38065,7 @@
 	                                })
 	                            );
 	                        }
-	                    });
+	                    }).reverse();
 	                }
 	                return _react2.default.createElement(
 	                    "div",
