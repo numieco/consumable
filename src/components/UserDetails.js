@@ -15,7 +15,8 @@ export default class UserDetails extends React.Component {
 			max: "",
 			descClass: "description",
 			minRange: "minRange",
-			maxRange: "maxRange"
+			maxRange: "maxRange",
+			size : ""
 		}
 
 		this.validateAndStore = this.validateAndStore.bind(this)
@@ -23,9 +24,10 @@ export default class UserDetails extends React.Component {
 		this.handleMinRange = this.handleMinRange.bind(this)
 		this.handleMaxRange = this.handleMaxRange.bind(this)
 		this.clearStates = this.clearStates.bind(this)
+		this.getItemSize = this.getItemSize.bind(this)
 	}
 
-	validateAndStore = () => {
+	validateAndStore = (requestedItem) => {
 		let desc = this.state.desc
 		let min = this.state.min
 		let max = this.state.max
@@ -169,6 +171,11 @@ export default class UserDetails extends React.Component {
 		})
 	}
 
+	getItemSize = (itemsize) =>{
+		this.setState({
+			size : itemsize
+		});
+	}
 
 	render() {
 		if(this.props.details.username && this.props.details.email && this.props.details.age && this.props.details.photo){
@@ -216,7 +223,7 @@ export default class UserDetails extends React.Component {
 						Request
 					</div> */}
 					</div>
-					<ItemSize ref={(input) => {this.sizeOfItem = input;}}/>
+					<ItemSize ref={(input) => {this.sizeOfItem = input;}} returnSize = {this.getItemSize}/>
 					<ItemRequest storeData= {this.validateAndStore}/>
 				</div>
 			)

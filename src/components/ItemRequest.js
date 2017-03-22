@@ -34,7 +34,7 @@ export default class ItemRequest extends React.Component{
             item : ""
         });
         this.setState({resetChkBoxVal : true})
-        this.props.storeData()
+        this.props.storeData(this.state.item)
     }
 
     render(){

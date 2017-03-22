@@ -10,7 +10,7 @@ export default class ItemSize extends React.Component{
         this.state = {
             size : ""
         }  
-
+        this.clearStates.bind(this)
     }
 
     updateSize(sizeSelected){
@@ -21,10 +21,11 @@ export default class ItemSize extends React.Component{
     }
 
     clearStates = () => {
+        let itemsize = this.state.size;
         this.setState({
             size : ""
         });
-        console.log("it enters itemsize")
+        this.props.returnsize(itemsize);
     }
 
 
