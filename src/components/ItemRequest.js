@@ -30,6 +30,7 @@ export default class ItemRequest extends React.Component{
     }
 
     clearState(){
+        let item = this.state.itmselectd;
         this.setState({
             item : ""
         });
