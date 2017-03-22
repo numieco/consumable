@@ -30,12 +30,12 @@ export default class ItemRequest extends React.Component{
     }
 
     clearState(){
-        let item = this.state.itmselectd;
+        let item = this.state.item;
         this.setState({
             item : ""
         });
         this.setState({resetChkBoxVal : true})
-        this.props.storeData(this.state.item)
+        this.props.storeDataitem)
     }
 
     render(){
