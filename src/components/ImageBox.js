@@ -1,6 +1,14 @@
 import React from "react";
 
 export default class ImageBox extends React.Component{
+    constructor(){
+        super()
+        this.setState({
+            name : "",
+            image : "",
+            price : ""
+        })
+    }
     render(){
         return(
             <div className="imageBox">
@@ -9,16 +17,16 @@ export default class ImageBox extends React.Component{
                 </div>
                 <div className="personName">
                     Hello
-                    {this.props.personName}
+                    {this.state.name}
                 </div>
                 <div className="boxImage">
-                    <img src="http://placehold.it/350x150" alt="image" />
+                    <img src={this.state.image} alt="image" />
                 </div>
                 <div className="footer">
                     <div className="footer-price">
-                        {this.props.price}
+                        {this.state.price}
                     </div>
-                    <div className="accept-btn">
+                    <div className="accept-btn" onClick=#>
                         Accept
                     </div>
                 </div>
