@@ -9,7 +9,7 @@ export default class Header extends React.Component {
 		
 		this.state = {
 			details: {
-				usertype : "",
+				userType : "",
 				username: "",
 				email: "",
 				age: "",
@@ -21,10 +21,10 @@ export default class Header extends React.Component {
 		this.sendDetailToParent = this.sendDetailToParent.bind(this)
 	}
 
-	userInfo = (usertype, username, email, age, photo) => {
+	userInfo = (userType, username, email, age, photo) => {
 		this.setState({
 			details: {
-				usertype : usertype,
+				userType : userType,
 				username: username,
 				email: email,
 				age: age,

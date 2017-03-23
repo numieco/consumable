@@ -1,4 +1,5 @@
 import React from 'react'
+import Dropzone from 'react-dropzone'
 import ItemSize from './ItemSize'
 
 export default class CompanyUpload extends React.Component {
@@ -17,6 +18,8 @@ export default class CompanyUpload extends React.Component {
 		}
 
 		this.hidePopup = this.hidePopup.bind(this)
+		this.onDrop = this.onDrop.bind(this)
+		this.submitSellersOffer = this.submitSellersOffer.bind(this) 
 	}
 
 	priceChange = (event) => {
@@ -27,6 +30,17 @@ export default class CompanyUpload extends React.Component {
 
 	hidePopup = () => {
 		this.props.hideCompanyUpload()
+	}
+
+	onDrop = (accepted, rejected) => {
+		console.log('accepted')
+		console.log(accepted)
+		console.log('rejected')
+		console.log(rejected)
+	}
+
+	submitSellersOffer = () => {
+
 	}
 
 	render () {
@@ -43,13 +57,15 @@ export default class CompanyUpload extends React.Component {
 					</div>
 
 					<div className='item-size-upload'>
-						<ItemSize />
+						<ItemSize staticSize={ this.props.size }/>
 					</div>
 
-					<div className='image-upload'>
-
-						<div>Drag and drop attachments here or <p>browse</p></div>
-
+					<div>
+						<Dropzone className='image-upload'
+											onDrop={ this.onDrop }
+											accept='image/*'>
+							Drag and drop attachments here or <p>browse</p>
+						</Dropzone>
 					</div>
 
 					<div className='sellers-notes'>
@@ -62,7 +78,7 @@ export default class CompanyUpload extends React.Component {
 
 					<div className='upload-buttons'>
 						<div className='cancel-button' onClick={ this.hidePopup }> Cancel </div>
-						<div className='submit-button'> Submit </div>
+						<div className='submit-button' onClick={ this.submitSellersOffer }> Submit </div>
 					</div>
 				</div>
 			</div>

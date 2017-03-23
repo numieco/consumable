@@ -1,12 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import $ from "jquery";
+import React from "react"
+import ReactDOM from "react-dom"
+import $ from "jquery"
 
-const size = ["XS","S","M","L","XL","2XL","None"];
+const size = ["XS","S","M","L","XL","2XL","None"]
 
 export default class ItemSize extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props)
         this.state = {
             size : ""
         }  
@@ -30,7 +30,7 @@ export default class ItemSize extends React.Component{
         $(".itemSize button").css({
             "background-color": "white",
             "color": "#609dff"
-            });
+        })
     }
 
 
@@ -41,7 +41,7 @@ export default class ItemSize extends React.Component{
                     {size.map((value) => <Button selectingSize = {() => this.updateSize(value)} key={value} sizeValue={value}/>)}
                 </div>
             </div>
-            );
+        )
     }
 }
 
@@ -52,19 +52,19 @@ class Button extends React.Component{
         $(".itemSize button").css({
             "background-color": "white",
             "color": "#609dff"
-            });
+        })
         this.className = "buttonFor"+this.props.sizeValue;
         $("."+this.className).css({
             "background-color": "#609dff",
             "color": "white"
-            });
-        this.props.selectingSize();
+        })
+        this.props.selectingSize()
     }
     
     render(){
         
         return(
             <button className={"buttonFor"+this.props.sizeValue} onClick={() => this.selected()}>{this.props.sizeValue}</button>
-             );
+        )
     }
 }

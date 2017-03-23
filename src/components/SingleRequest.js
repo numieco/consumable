@@ -15,7 +15,7 @@ export default class SingleRequest extends React.Component {
 	}
 
 	isCustomer = () => {
-		if (this.props.details.usertype == "customer") {
+		if (this.props.details.userType == "customer") {
 			return true
 		} else {
 			return false
