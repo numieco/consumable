@@ -37300,12 +37300,14 @@
 
 			var _this = _possibleConstructorReturn(this, (UserDetails.__proto__ || Object.getPrototypeOf(UserDetails)).call(this, props));
 
-			_this.validateAndStore = function (requestedItem) {
+			_this.validateAndStore = function () {
 				var desc = _this.state.desc;
 				var min = _this.state.min;
 				var max = _this.state.max;
 				var size = _this.state.size;
 				var category = _this.state.category;
+
+				console.log("the size is" + size + "and the item is " + category);
 
 				if (desc === "" && min === "" && max === "") {
 					console.log("Empty all data");
@@ -37426,6 +37428,12 @@
 				});
 			};
 
+			_this.getItemCategory = function (itemCat) {
+				_this.setState({
+					category: itemCat
+				});
+			};
+
 			_this.state = {
 				details: props.details,
 				desc: "",
@@ -37444,6 +37452,7 @@
 			_this.handleMaxRange = _this.handleMaxRange.bind(_this);
 			_this.clearStates = _this.clearStates.bind(_this);
 			_this.getItemSize = _this.getItemSize.bind(_this);
+			_this.getItemCategory = _this.getItemCategory.bind(_this);
 			return _this;
 		}
 
@@ -37505,7 +37514,9 @@
 						_react2.default.createElement(_ItemSize2.default, { ref: function ref(input) {
 								_this2.sizeOfItem = input;
 							}, returnSize: this.getItemSize }),
-						_react2.default.createElement(_ItemRequest2.default, { storeData: this.validateAndStore })
+						_react2.default.createElement(_ItemRequest2.default, { storeData: function storeData() {
+								return _this2.validateAndStore();
+							}, returnCategory: this.getItemCategory })
 					);
 				} else {
 					return _react2.default.createElement("div", { className: "currentuser" });
@@ -37652,11 +37663,14 @@
 	        var _this = _possibleConstructorReturn(this, (ItemSize.__proto__ || Object.getPrototypeOf(ItemSize)).call(this));
 
 	        _this.clearStates = function () {
-	            var itemsize = _this.state.size;
 	            _this.setState({
 	                size: ""
 	            });
-	            _this.props.returnSize(itemsize);
+	            // In order change the colour of the button once the request button is clicked
+	            (0, _jquery2.default)(".itemSize button").css({
+	                "background-color": "white",
+	                "color": "#609dff"
+	            });
 	        };
 
 	        _this.state = {
@@ -37672,7 +37686,9 @@
 	            this.setState({
 	                size: sizeSelected
 	            });
-	            console.log(this.state.size);
+	            console.log("It enters the updateSize fn" + sizeSelected);
+
+	            this.props.returnSize(sizeSelected);
 	        }
 	    }, {
 	        key: "render",
@@ -37712,28 +37728,23 @@
 	    _createClass(Button, [{
 	        key: "selected",
 	        value: function selected() {
+	            console.log("it reaches here");
 	            (0, _jquery2.default)(".itemSize button").css({
 	                "background-color": "white",
 	                "color": "#609dff"
 	            });
-	            console.log("it enters here");
 	            this.className = "buttonFor" + this.props.sizeValue;
 	            (0, _jquery2.default)("." + this.className).css({
 	                "background-color": "#609dff",
 	                "color": "white"
 	            });
-	            this.props.selectingSize;
+	            this.props.selectingSize();
 	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
 	            var _this4 = this;
 
-	            // In order change the colour of the button once the request button is clicked
-	            (0, _jquery2.default)(".itemSize button").css({
-	                "background-color": "white",
-	                "color": "#609dff"
-	            });
 	            return _react2.default.createElement(
 	                "button",
 	                { className: "buttonFor" + this.props.sizeValue, onClick: function onClick() {
@@ -37781,12 +37792,11 @@
 
 	        var _this = _possibleConstructorReturn(this, (ItemRequest.__proto__ || Object.getPrototypeOf(ItemRequest)).call(this));
 
-	        console.log(items);
 	        _this.state = {
 	            item: "",
 	            resetChkBoxVal: false
 	        };
-
+	        // this.itemChecked = this.itemChecked.bind(this)
 	        return _this;
 	    }
 
@@ -37805,13 +37815,15 @@
 	                this.setState({
 	                    item: itmselectd
 	                });
+	                this.props.returnCategory(itmselectd);
 	            }
-	            console.dir(this.selectedItems);
+	            console.log("This itemchecked is entered" + this.selectedItems);
 	        }
 	    }, {
 	        key: "clearState",
 	        value: function clearState() {
 	            var item = this.state.item;
+	            console.log("the item is " + item);
 	            this.setState({
 	                item: ""
 	            });
@@ -37869,7 +37881,7 @@
 	            this.setState({
 	                isChecked: !this.state.isChecked
 	            });
-	            this.props.toggleCheckBox;
+	            this.props.toggleCheckBox();
 	        }
 	    }, {
 	        key: "componentWillReceiveProps",
@@ -37956,22 +37968,6 @@
 	                }
 	            });
 	            xhr.send();
-	            /*
-	            		$.ajax({
-	              			url: "/allRecords",
-	              			type: "post",
-	              			dataType: "json",
-	              			success: (response) => { 
-	              				this.setState({
-	              					allReq: response
-	              				})
-	              			},
-	              			error: (error) => {
-	              				console.log(error)
-	              			}
-	            
-	              		})		
-	            */
 	        };
 
 	        _this.everyoneRequest = function () {
@@ -37980,11 +37976,13 @@
 	                everyoneReq: true,
 	                invidualReq: false
 	            });
+
 	            // changing the color inorder show it is selected
 	            (0, _jquery2.default)(".everybody").css({
 	                "color": "#609dff",
 	                "border-color": "#609dff"
 	            });
+
 	            (0, _jquery2.default)(".individual").css({
 	                "color": "black",
 	                "border-color": "black"
@@ -37997,11 +37995,13 @@
 	                invidualReq: true,
 	                everyoneReq: false
 	            });
+
 	            // changing the color inorder show it is selected
 	            (0, _jquery2.default)(".individual").css({
 	                "color": "#609dff",
 	                "border-color": "#609dff"
 	            });
+
 	            (0, _jquery2.default)(".everybody").css({
 	                "color": "black",
 	                "border-color": "black"
@@ -38013,8 +38013,8 @@
 	            everyoneReq: true,
 	            invidualReq: false
 	        };
+
 	        _this.refreshData = _this.refreshData.bind(_this);
-	        console.log("value of everyone" + _this.state.everyoneReq);
 	        return _this;
 	    }
 
@@ -38043,6 +38043,9 @@
 	                                desc: data.itemDesc,
 	                                min: data.min,
 	                                max: data.max,
+	                                size: data.size,
+	                                timestamp: data.timestamp,
+	                                email: data.email,
 	                                key: i,
 	                                details: _this2.props.details
 	                            })
@@ -38060,6 +38063,9 @@
 	                                    desc: data.itemDesc,
 	                                    min: data.min,
 	                                    max: data.max,
+	                                    size: data.size,
+	                                    timestamp: data.timestamp,
+	                                    email: data.email,
 	                                    key: i,
 	                                    details: _this2.props.details
 	                                })
@@ -38121,6 +38127,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _CompanyUpload = __webpack_require__(246);
+
+	var _CompanyUpload2 = _interopRequireDefault(_CompanyUpload);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38137,22 +38147,37 @@
 
 			var _this = _possibleConstructorReturn(this, (SingleRequest.__proto__ || Object.getPrototypeOf(SingleRequest)).call(this, props));
 
-			_this.state = {
-				isCustomer: true
-			};
-			return _this;
-		}
-
-		_createClass(SingleRequest, [{
-			key: "isCustomer",
-			value: function isCustomer() {
-				if (this.props.details.usertype == "customer") {
+			_this.isCustomer = function () {
+				if (_this.props.details.usertype == "customer") {
 					return true;
 				} else {
 					return false;
 				}
-			}
-		}, {
+			};
+
+			_this.proposeItems = function () {
+				_this.setState({
+					showSellerUpload: true
+				});
+			};
+
+			_this.hideCompanyUpload = function () {
+				_this.setState({
+					showSellerUpload: false
+				});
+			};
+
+			_this.state = {
+				isCustomer: true,
+				showSellerUpload: false
+			};
+
+			_this.proposeItems = _this.proposeItems.bind(_this);
+			_this.hideCompanyUpload = _this.hideCompanyUpload.bind(_this);
+			return _this;
+		}
+
+		_createClass(SingleRequest, [{
 			key: "render",
 			value: function render() {
 
@@ -38213,9 +38238,16 @@
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "requestBtn connectBtn" },
+							{ className: "requestBtn connectBtn", onClick: this.proposeItems },
 							"Connect"
-						)
+						),
+						this.state.showSellerUpload ? _react2.default.createElement(_CompanyUpload2.default, {
+							title: this.props.desc,
+							timestamp: this.props.timestamp,
+							email: this.props.email,
+							size: this.props.size,
+							hideCompanyUpload: this.hideCompanyUpload
+						}) : _react2.default.createElement("div", null)
 					);
 				}
 			}
@@ -38373,13 +38405,22 @@
 				});
 			};
 
+			_this.hidePopup = function () {
+				_this.props.hideCompanyUpload();
+			};
+
 			_this.state = {
-				id: _this.props.id,
+				title: _this.props.title,
+				timestamp: _this.props.timestamp,
+				email: _this.props.email,
+				size: _this.props.size,
 				price: '',
 				notes: '',
 				link: '',
 				offeredSize: ''
 			};
+
+			_this.hidePopup = _this.hidePopup.bind(_this);
 			return _this;
 		}
 
@@ -38400,7 +38441,7 @@
 						_react2.default.createElement(
 							'div',
 							{ className: 'item-title' },
-							'Red Blouse'
+							this.state.title
 						),
 						_react2.default.createElement(
 							'div',
@@ -38441,7 +38482,7 @@
 							{ className: 'upload-buttons' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'cancel-button' },
+								{ className: 'cancel-button', onClick: this.hidePopup },
 								' Cancel '
 							),
 							_react2.default.createElement(

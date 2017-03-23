@@ -6,13 +6,14 @@ export default class AllRequest extends React.Component {
 
 	constructor(props) {
 		super(props)
+
 		this.state = {
 			allReq: "",
             everyoneReq : true,
             invidualReq : false
 		}
+
 		this.refreshData = this.refreshData.bind(this)
-        console.log("value of everyone"+ this.state.everyoneReq);
 	}
 
 	componentDidMount() {
@@ -35,22 +36,6 @@ export default class AllRequest extends React.Component {
 			}
 		})
 		xhr.send()
-/*
-		$.ajax({
-  			url: "/allRecords",
-  			type: "post",
-  			dataType: "json",
-  			success: (response) => { 
-  				this.setState({
-  					allReq: response
-  				})
-  			},
-  			error: (error) => {
-  				console.log(error)
-  			}
-
-  		})		
-*/
 	}
 
     everyoneRequest = () => {
@@ -58,16 +43,18 @@ export default class AllRequest extends React.Component {
         this.setState({
             everyoneReq : true,
             invidualReq : false
-        });
+        })
+
         // changing the color inorder show it is selected
         $(".everybody").css({
             "color" : "#609dff",
             "border-color" : "#609dff"
-        });
+        })
+
         $(".individual").css({
             "color" : "black",
             "border-color" : "black"
-        });
+        })
     }
 
     individualRequest = () => {
@@ -76,59 +63,67 @@ export default class AllRequest extends React.Component {
             invidualReq : true,
             everyoneReq : false
         }) 
+
         // changing the color inorder show it is selected
         $(".individual").css({
             "color" : "#609dff",
             "border-color" : "#609dff"
-        });
+        })
+
         $(".everybody").css({
             "color" : "black",
             "border-color" : "black"
-        });
+        })
     }
 
 	render() {
         // checking if the everyone tab is clicked or individual tab is clicked. If everyone is true then all the request is listed 
         // else if individual is true only the request made by current user is listed
-    	if(this.state.allReq){
-            let list;
-            if(this.state.everyoneReq){
+    	if (this.state.allReq) {
+            let list
+            if (this.state.everyoneReq) {
         		list = this.state.allReq.requests.map((data, i) => {
         			return (
         				<div key={i}> 
         					<SingleRequest 
-        						photo={data.photo} 
-        						name={data.name} 
-        						desc={data.itemDesc} 
-        						min={data.min}
-        						max={data.max}
-        						key={i}
-                                details = {this.props.details}
+        						photo={ data.photo } 
+        						name={ data.name } 
+        						desc={ data.itemDesc } 
+        						min={ data.min }
+        						max={ data.max }
+                                size={ data.size}
+                                timestamp={ data.timestamp }
+                                email={ data.email }
+        						key={ i }
+                                details={ this.props.details }
         					/> 
         				</div>
         			)
         		}).reverse()
-            }else if(this.state.invidualReq){
+
+            } else if (this.state.invidualReq) {
                 list = this.state.allReq.requests.map((data, i) => {
-                    if(data.email == this.props.details.email){
+                    if (data.email == this.props.details.email) {
                         return (
                             <div key={i}> 
                                 <SingleRequest 
-                                    photo={data.photo} 
-                                    name={data.name} 
-                                    desc={data.itemDesc} 
-                                    min={data.min}
-                                    max={data.max}
-                                    key={i}
-                                    details = {this.props.details}
+                                    photo={ data.photo } 
+                                    name={ data.name } 
+                                    desc={ data.itemDesc } 
+                                    min={ data.min }
+                                    max={ data.max }
+                                    size={ data.size}
+                                    timestamp={ data.timestamp }
+                                    email={ data.email }
+                                    key={ i }
+                                    details={ this.props.details }
                                 /> 
                             </div>
                         ) 
                     }
-                    
                 }).reverse()
             }
-    		return(
+    		return (
                 <div>
                 <div className="requestSelector">
                     <div className="everybody" onClick={this.everyoneRequest.bind(this)}> Everyone </div>

@@ -6,12 +6,17 @@ export default class CompanyUpload extends React.Component {
 	constructor (props) {
 		super (props)
 		this.state = {
-			id: this.props.id,
+			title: this.props.title,
+			timestamp: this.props.timestamp,
+			email: this.props.email,
+			size: this.props.size,
 			price: '',
 			notes: '',
 			link: '',
 			offeredSize: ''
 		}
+
+		this.hidePopup = this.hidePopup.bind(this)
 	}
 
 	priceChange = (event) => {
@@ -20,14 +25,17 @@ export default class CompanyUpload extends React.Component {
 		})
 	}
 
+	hidePopup = () => {
+		this.props.hideCompanyUpload()
+	}
+
 	render () {
 		return (
 			<div className='company-upload'>
 				<div className='transparent-background'> </div>
 				<div className='consumer-request'>
 					<div className='item-title'>
-						{/*this.props.request.title*/}
-						Red Blouse
+						{ this.state.title}
 					</div>
 
 					<div className='price-offered'>
@@ -45,15 +53,15 @@ export default class CompanyUpload extends React.Component {
 					</div>
 
 					<div className='sellers-notes'>
-						<textarea value={this.state.notes} placeholder='Notes' />
+						<textarea value={ this.state.notes } placeholder='Notes' />
 					</div>
 
 					<div className='seller-link'>
-						<input type='text' value={this.state.link} placeholder='Link' />
+						<input type='text' value={ this.state.link } placeholder='Link' />
 					</div>
 
 					<div className='upload-buttons'>
-						<div className='cancel-button'> Cancel </div>
+						<div className='cancel-button' onClick={ this.hidePopup }> Cancel </div>
 						<div className='submit-button'> Submit </div>
 					</div>
 				</div>
