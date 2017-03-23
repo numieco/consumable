@@ -571,88 +571,95 @@ body {
       border-color: #609dff;
       cursor: pointer; } }
 
-.company-upload .transparent-background {
-  position: fixed;
+.company-upload {
+  z-index: 999;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  down: 0;
-  height: 100vh;
-  width: 100%;
-  background: black;
-  opacity: 0.5;
-  z-index: -1; }
-
-.company-upload .consumer-request {
-  z-index: 999;
-  width: 500px;
-  background: white;
-  display: block;
-  margin: 0 auto;
-  margin-top: 100px; }
-  .company-upload .consumer-request .item-title, .company-upload .consumer-request .price-offered, .company-upload .consumer-request .seller-link, .company-upload .consumer-request .item-size-upload, .company-upload .consumer-request .sellers-notes {
-    width: calc(100% - 80px);
-    padding: 10px 40px;
-    display: inline-block;
-    border-bottom: 1px solid #c6c6c6;
-    color: black;
+  bottom: 0; }
+  .company-upload .transparent-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    down: 0;
+    height: 100vh;
+    width: 100%;
+    background: black;
+    opacity: 0.5;
+    z-index: -1; }
+  .company-upload .consumer-request {
+    z-index: 999;
+    width: 500px;
     background: white;
-    z-index: 100;
-    font-weight: bold;
-    font-size: x-large; }
-  .company-upload .consumer-request .price-offered input, .company-upload .consumer-request .seller-link input {
-    border: none;
-    font-size: medium;
-    height: auto;
-    width: 100%;
-    outline: none; }
-  .company-upload .consumer-request .item-size-upload {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-bottom: none; }
-    .company-upload .consumer-request .item-size-upload .itemSize {
-      margin: auto;
-      display: table; }
-  .company-upload .consumer-request .image-upload {
-    font-size: 14px;
-    min-height: 150px;
-    display: inline-block;
-    background: #e5e5e5;
-    width: 100%;
-    text-align: center;
-    border: 1px dashed black;
-    border-left: none;
-    border-right: none; }
-    .company-upload .consumer-request .image-upload p {
-      text-decoration: underline;
-      font-style: bold;
+    display: block;
+    margin: 0 auto;
+    margin-top: 100px; }
+    .company-upload .consumer-request .item-title, .company-upload .consumer-request .price-offered, .company-upload .consumer-request .seller-link, .company-upload .consumer-request .item-size-upload, .company-upload .consumer-request .sellers-notes {
+      width: calc(100% - 80px);
+      padding: 10px 40px;
       display: inline-block;
-      cursor: pointer;
-      color: black; }
-  .company-upload .consumer-request .sellers-notes {
-    border-top: none; }
-    .company-upload .consumer-request .sellers-notes textarea {
-      resize: none;
-      height: 50px;
-      width: 100%;
+      border-bottom: 1px solid #c6c6c6;
+      color: black;
+      background: white;
+      z-index: 100;
+      font-weight: bold;
+      font-size: x-large; }
+    .company-upload .consumer-request .price-offered input, .company-upload .consumer-request .seller-link input {
       border: none;
       font-size: medium;
+      height: auto;
+      width: 100%;
       outline: none; }
-  .company-upload .consumer-request .upload-buttons {
-    padding: 40px 20px 20px;
-    display: inline-block;
-    width: calc(100% - 40px);
-    font-weight: 900; }
-    .company-upload .consumer-request .upload-buttons .cancel-button, .company-upload .consumer-request .upload-buttons .submit-button {
-      float: left;
-      color: black;
+    .company-upload .consumer-request .item-size-upload {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border-bottom: none; }
+      .company-upload .consumer-request .item-size-upload .itemSize {
+        margin: auto;
+        display: table; }
+    .company-upload .consumer-request .image-upload {
+      font-size: 14px;
+      min-height: 150px;
       display: inline-block;
-      padding: 10px 30px;
-      border: 1px solid #c6c6c6;
-      border-radius: 2px;
-      background: #e5e5e5; }
-    .company-upload .consumer-request .upload-buttons .submit-button {
-      border: none;
-      float: right;
-      color: white;
-      background: #609dff; }
+      background: #e5e5e5;
+      width: 100%;
+      text-align: center;
+      border: 1px dashed black;
+      border-left: none;
+      border-right: none; }
+      .company-upload .consumer-request .image-upload p {
+        text-decoration: underline;
+        font-style: bold;
+        display: inline-block;
+        cursor: pointer;
+        color: black; }
+    .company-upload .consumer-request .sellers-notes {
+      border-top: none; }
+      .company-upload .consumer-request .sellers-notes textarea {
+        resize: none;
+        height: 50px;
+        width: 100%;
+        border: none;
+        font-size: medium;
+        outline: none; }
+    .company-upload .consumer-request .upload-buttons {
+      padding: 40px 20px 20px;
+      display: inline-block;
+      width: calc(100% - 40px);
+      font-weight: 900; }
+      .company-upload .consumer-request .upload-buttons .cancel-button, .company-upload .consumer-request .upload-buttons .submit-button {
+        float: left;
+        color: black;
+        display: inline-block;
+        padding: 10px 30px;
+        border: 1px solid #c6c6c6;
+        border-radius: 2px;
+        background: #e5e5e5;
+        cursor: pointer; }
+      .company-upload .consumer-request .upload-buttons .submit-button {
+        border: none;
+        float: right;
+        color: white;
+        background: #609dff; }
