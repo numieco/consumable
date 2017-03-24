@@ -10,20 +10,20 @@ export default class Home extends React.Component {
 
 	constructor(props) {
 		super(props)
-		this.userDetails = this.userDetails.bind(this)
-		this.refreshData = this.refreshData.bind(this)
 
 		this.state = {
 			details: {
-        usertype: "",
+        userType: "",
 				username: "",
 				email: "",
 				age: "",
 				photo: "",
 				user: ""		
-			},
-			secretData: "",
+			}
 		}
+
+		this.userDetails = this.userDetails.bind(this)
+		this.refreshData = this.refreshData.bind(this)
 	}
 
 	componentDidMount = (props) => {
@@ -37,8 +37,12 @@ export default class Home extends React.Component {
 	    xhr.responseType = 'json'
 	    xhr.addEventListener('load', () => {
 	      if (xhr.status === 200) {
+	      	localStorage.setItem('userType', 'seller')
+	      	
 	        this.setState({
-	          secretData: xhr.response.message
+	          details: {
+	          	userType: 'seller'
+	          }
 	        })
 	      }
 	    })

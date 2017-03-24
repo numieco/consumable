@@ -6,27 +6,30 @@ export default class ItemRequest extends React.Component{
     constructor(){
         super();
         this.state = {
-            item : "",
+            item : [],
             resetChkBoxVal : false
         }
         // this.itemChecked = this.itemChecked.bind(this)
     }
     
     componentWillMount(){
-        this.selectedItems = new Set();
+        this.selectedItems = [];
     }
 
     itemChecked(itmselectd){
-        if(this.selectedItems.has(itmselectd)){
-            this.selectedItems.delete(itmselectd)
-        }else{
-            this.selectedItems.add(itmselectd)
+        if (this.selectedItems.indexOf(itmselectd) !== -1) {
+            this.selectedItems.pop(itmselectd)
+        } else {
+            this.selectedItems.push(itmselectd)
             this.setState({
-                item : itmselectd
-            });
-            this.props.returnCategory(itmselectd)
+                item : this.selectedItems
+            }, () => {
+                console.log('this.state.item')
+                console.log(this.state.item) 
+                this.props.returnCategory(this.state.item)
+            })
         }
-        console.log("This itemchecked is entered" +this.selectedItems) 
+
     }
 
     clearState(){
@@ -34,7 +37,7 @@ export default class ItemRequest extends React.Component{
         console.log("the item is "+item)
         this.setState({
             item : ""
-        });
+        })
         this.setState({resetChkBoxVal : true})
         this.props.storeData(item)
     }
@@ -47,9 +50,10 @@ export default class ItemRequest extends React.Component{
                     
                 </div>
                 <div className="itemRequestBtn" onClick={this.clearState.bind(this)}>
-                    Request
+                    {(this.props.userType == 'customer') ? 'Request' : 'Search'}
                 </div>
-            </div>);
+            </div>
+        )
     }
 }
 

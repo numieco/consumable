@@ -62,19 +62,19 @@
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Sample = __webpack_require__(245);
+	var _Sample = __webpack_require__(247);
 
 	var _Sample2 = _interopRequireDefault(_Sample);
 
-	var _Login = __webpack_require__(247);
+	var _Login = __webpack_require__(248);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _Signup = __webpack_require__(250);
+	var _Signup = __webpack_require__(251);
 
 	var _Signup2 = _interopRequireDefault(_Signup);
 
-	var _BasePage = __webpack_require__(249);
+	var _BasePage = __webpack_require__(250);
 
 	var _BasePage2 = _interopRequireDefault(_BasePage);
 
@@ -26619,7 +26619,7 @@
 
 	var _AllRequest2 = _interopRequireDefault(_AllRequest);
 
-	var _authUserCheck = __webpack_require__(243);
+	var _authUserCheck = __webpack_require__(245);
 
 	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
 
@@ -26631,7 +26631,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(244);
+	__webpack_require__(246);
 
 	var Home = function (_React$Component) {
 		_inherits(Home, _React$Component);
@@ -26652,8 +26652,12 @@
 					xhr.responseType = 'json';
 					xhr.addEventListener('load', function () {
 						if (xhr.status === 200) {
+							localStorage.setItem('userType', 'seller');
+
 							_this.setState({
-								secretData: xhr.response.message
+								details: {
+									userType: 'seller'
+								}
 							});
 						}
 					});
@@ -26671,20 +26675,19 @@
 				_this.refs.child.refreshData();
 			};
 
-			_this.userDetails = _this.userDetails.bind(_this);
-			_this.refreshData = _this.refreshData.bind(_this);
-
 			_this.state = {
 				details: {
-					usertype: "",
+					userType: "",
 					username: "",
 					email: "",
 					age: "",
 					photo: "",
 					user: ""
-				},
-				secretData: ""
+				}
 			};
+
+			_this.userDetails = _this.userDetails.bind(_this);
+			_this.refreshData = _this.refreshData.bind(_this);
 			return _this;
 		}
 
@@ -26748,10 +26751,10 @@
 
 			var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
 
-			_this.userInfo = function (usertype, username, email, age, photo) {
+			_this.userInfo = function (userType, username, email, age, photo) {
 				_this.setState({
 					details: {
-						usertype: usertype,
+						userType: userType,
 						username: username,
 						email: email,
 						age: age,
@@ -26797,7 +26800,7 @@
 
 			_this.state = {
 				details: {
-					usertype: "",
+					userType: "",
 					username: "",
 					email: "",
 					age: "",
@@ -26892,8 +26895,8 @@
 
 			var _this = _possibleConstructorReturn(this, (FacebookLoginButton.__proto__ || Object.getPrototypeOf(FacebookLoginButton)).call(this, props));
 
-			_this.sendParent = function (usertype, username, email, birthday, photo) {
-				_this.props.userInfo(usertype, username, email, birthday, photo);
+			_this.sendParent = function (userType, username, email, birthday, photo) {
+				_this.props.userInfo(userType, username, email, birthday, photo);
 			};
 
 			_this.onLogin = function () {
@@ -26910,7 +26913,7 @@
 					FB.api('/me?fields=name,email,birthday,picture.type(large)', function (response) {
 
 						_this.setState({
-							usertype: "consumer",
+							userType: "consumer",
 							username: response.name,
 							email: response.email,
 							age: response.birthday,
@@ -26927,7 +26930,7 @@
 			_this.onLogout = function (response) {
 				console.log("logged out");
 				_this.setState({
-					usertype: "",
+					userType: "",
 					username: null,
 					email: null,
 					age: null,
@@ -26948,7 +26951,7 @@
 			_this.sendParent = _this.sendParent.bind(_this);
 			_this.state = {
 				loginStatus: "",
-				usertype: "",
+				userType: "",
 				username: null,
 				email: null,
 				age: null,
@@ -37301,13 +37304,14 @@
 			var _this = _possibleConstructorReturn(this, (UserDetails.__proto__ || Object.getPrototypeOf(UserDetails)).call(this, props));
 
 			_this.validateAndStore = function () {
+
 				var desc = _this.state.desc;
 				var min = _this.state.min;
 				var max = _this.state.max;
 				var size = _this.state.size;
 				var category = _this.state.category;
 
-				console.log("the size is" + size + "and the item is " + category);
+				console.log(category);
 
 				if (desc === "" && min === "" && max === "") {
 					console.log("Empty all data");
@@ -37366,7 +37370,7 @@
 						maxRange: "maxRange"
 					});
 
-					var data = '{ "email" : "' + _this.props.details.email + '", "name" : "' + _this.props.details.username + '", "photo" : "' + _this.props.details.photo + '", "age" : "' + _this.getAge(_this.props.details.age) + '", "itemDesc" : "' + desc + '", "min" : "' + min + '", "max" : "' + max + '", "size" : "' + size + '", "category" : "' + category + '", "timestamp" : "' + Date.now() + '", "sellers" : []}';
+					var data = '{ "email" : "' + _this.props.details.email + '", "name" : "' + _this.props.details.username + '", "photo" : "' + _this.props.details.photo + '", "age" : "' + _this.getAge(_this.props.details.age) + '", "itemDesc" : "' + desc + '", "min" : "' + min + '", "max" : "' + max + '", "size" : "' + size + '", "category" : ' + JSON.stringify(category) + ', "timestamp" : "' + Date.now() + '", "sellers" : []}';
 
 					var xhr = new XMLHttpRequest();
 					xhr.open('POST', '/insertRequest');
@@ -37422,6 +37426,12 @@
 				});
 			};
 
+			_this.handleSearch = function (e) {
+				_this.setState({
+					search: e.target.value
+				});
+			};
+
 			_this.getItemSize = function (itemsize) {
 				_this.setState({
 					size: itemsize
@@ -37431,6 +37441,8 @@
 			_this.getItemCategory = function (itemCat) {
 				_this.setState({
 					category: itemCat
+				}, function () {
+					console.log(_this.state.category);
 				});
 			};
 
@@ -37443,13 +37455,16 @@
 				minRange: "minRange",
 				maxRange: "maxRange",
 				size: "",
-				category: ""
+				category: "",
+				search: ""
 			};
 
 			_this.validateAndStore = _this.validateAndStore.bind(_this);
 			_this.handleDescription = _this.handleDescription.bind(_this);
 			_this.handleMinRange = _this.handleMinRange.bind(_this);
 			_this.handleMaxRange = _this.handleMaxRange.bind(_this);
+			_this.handleSearch = _this.handleSearch.bind(_this);
+
 			_this.clearStates = _this.clearStates.bind(_this);
 			_this.getItemSize = _this.getItemSize.bind(_this);
 			_this.getItemCategory = _this.getItemCategory.bind(_this);
@@ -37514,12 +37529,36 @@
 						_react2.default.createElement(_ItemSize2.default, { ref: function ref(input) {
 								_this2.sizeOfItem = input;
 							}, returnSize: this.getItemSize }),
-						_react2.default.createElement(_ItemRequest2.default, { storeData: function storeData() {
+						_react2.default.createElement(_ItemRequest2.default, { userType: this.props.details.userType,
+							storeData: function storeData() {
 								return _this2.validateAndStore();
-							}, returnCategory: this.getItemCategory })
+							},
+							returnCategory: this.getItemCategory
+						})
+					);
+				} else if (localStorage.getItem('userType') === 'seller' && this.props.details.userType === 'seller') {
+					return _react2.default.createElement(
+						"div",
+						{ className: "currentuser" },
+						_react2.default.createElement(
+							"div",
+							{ className: "searchItem" },
+							_react2.default.createElement(
+								"div",
+								{ className: "searchField" },
+								_react2.default.createElement("input", { type: "text",
+									onChange: this.handleSearch,
+									value: this.state.search,
+									placeholder: "Search item category"
+								})
+							)
+						),
+						_react2.default.createElement(_ItemRequest2.default, { userType: this.props.details.userType,
+							returnCategory: this.getItemCategory
+						})
 					);
 				} else {
-					return _react2.default.createElement("div", { className: "currentuser" });
+					return _react2.default.createElement("div", null);
 				}
 			}
 		}]);
@@ -37657,10 +37696,10 @@
 	var ItemSize = function (_React$Component) {
 	    _inherits(ItemSize, _React$Component);
 
-	    function ItemSize() {
+	    function ItemSize(props) {
 	        _classCallCheck(this, ItemSize);
 
-	        var _this = _possibleConstructorReturn(this, (ItemSize.__proto__ || Object.getPrototypeOf(ItemSize)).call(this));
+	        var _this = _possibleConstructorReturn(this, (ItemSize.__proto__ || Object.getPrototypeOf(ItemSize)).call(this, props));
 
 	        _this.clearStates = function () {
 	            _this.setState({
@@ -37793,7 +37832,7 @@
 	        var _this = _possibleConstructorReturn(this, (ItemRequest.__proto__ || Object.getPrototypeOf(ItemRequest)).call(this));
 
 	        _this.state = {
-	            item: "",
+	            item: [],
 	            resetChkBoxVal: false
 	        };
 	        // this.itemChecked = this.itemChecked.bind(this)
@@ -37803,21 +37842,25 @@
 	    _createClass(ItemRequest, [{
 	        key: "componentWillMount",
 	        value: function componentWillMount() {
-	            this.selectedItems = new Set();
+	            this.selectedItems = [];
 	        }
 	    }, {
 	        key: "itemChecked",
 	        value: function itemChecked(itmselectd) {
-	            if (this.selectedItems.has(itmselectd)) {
-	                this.selectedItems.delete(itmselectd);
+	            var _this2 = this;
+
+	            if (this.selectedItems.indexOf(itmselectd) !== -1) {
+	                this.selectedItems.pop(itmselectd);
 	            } else {
-	                this.selectedItems.add(itmselectd);
+	                this.selectedItems.push(itmselectd);
 	                this.setState({
-	                    item: itmselectd
+	                    item: this.selectedItems
+	                }, function () {
+	                    console.log('this.state.item');
+	                    console.log(_this2.state.item);
+	                    _this2.props.returnCategory(_this2.state.item);
 	                });
-	                this.props.returnCategory(itmselectd);
 	            }
-	            console.log("This itemchecked is entered" + this.selectedItems);
 	        }
 	    }, {
 	        key: "clearState",
@@ -37833,7 +37876,7 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            return _react2.default.createElement(
 	                "div",
@@ -37842,15 +37885,15 @@
 	                    "div",
 	                    { className: "itemRequest" },
 	                    items.map(function (item) {
-	                        return _react2.default.createElement(Checkbox, { resetValue: _this2.state.resetChkBoxVal, label: item, key: item, toggleCheckBox: function toggleCheckBox() {
-	                                return _this2.itemChecked(item);
+	                        return _react2.default.createElement(Checkbox, { resetValue: _this3.state.resetChkBoxVal, label: item, key: item, toggleCheckBox: function toggleCheckBox() {
+	                                return _this3.itemChecked(item);
 	                            } });
 	                    })
 	                ),
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "itemRequestBtn", onClick: this.clearState.bind(this) },
-	                    "Request"
+	                    this.props.userType == 'customer' ? 'Request' : 'Search'
 	                )
 	            );
 	        }
@@ -37867,12 +37910,12 @@
 	    function Checkbox() {
 	        _classCallCheck(this, Checkbox);
 
-	        var _this3 = _possibleConstructorReturn(this, (Checkbox.__proto__ || Object.getPrototypeOf(Checkbox)).call(this));
+	        var _this4 = _possibleConstructorReturn(this, (Checkbox.__proto__ || Object.getPrototypeOf(Checkbox)).call(this));
 
-	        _this3.state = {
+	        _this4.state = {
 	            isChecked: false
 	        };
-	        return _this3;
+	        return _this4;
 	    }
 
 	    _createClass(Checkbox, [{
@@ -38127,7 +38170,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _CompanyUpload = __webpack_require__(246);
+	var _CompanyUpload = __webpack_require__(243);
 
 	var _CompanyUpload2 = _interopRequireDefault(_CompanyUpload);
 
@@ -38148,7 +38191,7 @@
 			var _this = _possibleConstructorReturn(this, (SingleRequest.__proto__ || Object.getPrototypeOf(SingleRequest)).call(this, props));
 
 			_this.isCustomer = function () {
-				if (_this.props.details.usertype == "customer") {
+				if (_this.props.details.userType == "customer") {
 					return true;
 				} else {
 					return false;
@@ -38260,6 +38303,728 @@
 
 /***/ },
 /* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDropzone = __webpack_require__(244);
+
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+
+	var _ItemSize = __webpack_require__(239);
+
+	var _ItemSize2 = _interopRequireDefault(_ItemSize);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CompanyUpload = function (_React$Component) {
+		_inherits(CompanyUpload, _React$Component);
+
+		function CompanyUpload(props) {
+			_classCallCheck(this, CompanyUpload);
+
+			var _this = _possibleConstructorReturn(this, (CompanyUpload.__proto__ || Object.getPrototypeOf(CompanyUpload)).call(this, props));
+
+			_this.priceChange = function (event) {
+				_this.setState({
+					price: event.target.value
+				});
+			};
+
+			_this.hidePopup = function () {
+				_this.props.hideCompanyUpload();
+			};
+
+			_this.onDrop = function (accepted, rejected) {
+				console.log('accepted');
+				console.log(accepted);
+				console.log('rejected');
+				console.log(rejected);
+			};
+
+			_this.submitSellersOffer = function () {};
+
+			_this.state = {
+				title: _this.props.title,
+				timestamp: _this.props.timestamp,
+				email: _this.props.email,
+				size: _this.props.size,
+				price: '',
+				notes: '',
+				link: '',
+				offeredSize: ''
+			};
+
+			_this.hidePopup = _this.hidePopup.bind(_this);
+			_this.onDrop = _this.onDrop.bind(_this);
+			_this.submitSellersOffer = _this.submitSellersOffer.bind(_this);
+			return _this;
+		}
+
+		_createClass(CompanyUpload, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'company-upload' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'transparent-background' },
+						' '
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'consumer-request' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'item-title' },
+							this.state.title
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'price-offered' },
+							_react2.default.createElement('input', { type: 'text', value: this.state.price, placeholder: 'Price' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'item-size-upload' },
+							_react2.default.createElement(_ItemSize2.default, { staticSize: this.props.size })
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(
+								_reactDropzone2.default,
+								{ className: 'image-upload',
+									onDrop: this.onDrop,
+									accept: 'image/*' },
+								'Drag and drop attachments here or ',
+								_react2.default.createElement(
+									'p',
+									null,
+									'browse'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'sellers-notes' },
+							_react2.default.createElement('textarea', { value: this.state.notes, placeholder: 'Notes' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'seller-link' },
+							_react2.default.createElement('input', { type: 'text', value: this.state.link, placeholder: 'Link' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'upload-buttons' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'cancel-button', onClick: this.hidePopup },
+								' Cancel '
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'submit-button', onClick: this.submitSellersOffer },
+								' Submit '
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return CompanyUpload;
+	}(_react2.default.Component);
+
+	exports.default = CompanyUpload;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	(function webpackUniversalModuleDefinition(root, factory) {
+		if(true)
+			module.exports = factory(__webpack_require__(1));
+		else if(typeof define === 'function' && define.amd)
+			define(["react"], factory);
+		else if(typeof exports === 'object')
+			exports["Dropzone"] = factory(require("react"));
+		else
+			root["Dropzone"] = factory(root["react"]);
+	})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+	return /******/ (function(modules) { // webpackBootstrap
+	/******/ 	// The module cache
+	/******/ 	var installedModules = {};
+	/******/
+	/******/ 	// The require function
+	/******/ 	function __webpack_require__(moduleId) {
+	/******/
+	/******/ 		// Check if module is in cache
+	/******/ 		if(installedModules[moduleId])
+	/******/ 			return installedModules[moduleId].exports;
+	/******/
+	/******/ 		// Create a new module (and put it into the cache)
+	/******/ 		var module = installedModules[moduleId] = {
+	/******/ 			exports: {},
+	/******/ 			id: moduleId,
+	/******/ 			loaded: false
+	/******/ 		};
+	/******/
+	/******/ 		// Execute the module function
+	/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+	/******/
+	/******/ 		// Flag the module as loaded
+	/******/ 		module.loaded = true;
+	/******/
+	/******/ 		// Return the exports of the module
+	/******/ 		return module.exports;
+	/******/ 	}
+	/******/
+	/******/
+	/******/ 	// expose the modules object (__webpack_modules__)
+	/******/ 	__webpack_require__.m = modules;
+	/******/
+	/******/ 	// expose the module cache
+	/******/ 	__webpack_require__.c = installedModules;
+	/******/
+	/******/ 	// __webpack_public_path__
+	/******/ 	__webpack_require__.p = "";
+	/******/
+	/******/ 	// Load entry module and return exports
+	/******/ 	return __webpack_require__(0);
+	/******/ })
+	/************************************************************************/
+	/******/ ([
+	/* 0 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		'use strict';
+		
+		Object.defineProperty(exports, "__esModule", {
+		  value: true
+		});
+		
+		var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+		
+		var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+		
+		var _react = __webpack_require__(1);
+		
+		var _react2 = _interopRequireDefault(_react);
+		
+		var _attrAccept = __webpack_require__(2);
+		
+		var _attrAccept2 = _interopRequireDefault(_attrAccept);
+		
+		var _getDataTransferItems = __webpack_require__(3);
+		
+		var _getDataTransferItems2 = _interopRequireDefault(_getDataTransferItems);
+		
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+		
+		function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+		
+		function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+		
+		function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+		
+		function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint prefer-template: 0 */
+		
+		
+		var supportMultiple = typeof document !== 'undefined' && document && document.createElement ? 'multiple' in document.createElement('input') : true;
+		
+		var Dropzone = function (_React$Component) {
+		  _inherits(Dropzone, _React$Component);
+		
+		  _createClass(Dropzone, null, [{
+		    key: 'onDocumentDragOver',
+		    value: function onDocumentDragOver(e) {
+		      // allow the entire document to be a drag target
+		      e.preventDefault();
+		    }
+		  }]);
+		
+		  function Dropzone(props, context) {
+		    _classCallCheck(this, Dropzone);
+		
+		    var _this = _possibleConstructorReturn(this, (Dropzone.__proto__ || Object.getPrototypeOf(Dropzone)).call(this, props, context));
+		
+		    _this.renderChildren = function (children) {
+		      if (typeof children === 'function') {
+		        return children(_this.state);
+		      }
+		      return children;
+		    };
+		
+		    _this.onClick = _this.onClick.bind(_this);
+		    _this.onDocumentDrop = _this.onDocumentDrop.bind(_this);
+		    _this.onDragStart = _this.onDragStart.bind(_this);
+		    _this.onDragEnter = _this.onDragEnter.bind(_this);
+		    _this.onDragLeave = _this.onDragLeave.bind(_this);
+		    _this.onDragOver = _this.onDragOver.bind(_this);
+		    _this.onDrop = _this.onDrop.bind(_this);
+		    _this.onFileDialogCancel = _this.onFileDialogCancel.bind(_this);
+		    _this.fileAccepted = _this.fileAccepted.bind(_this);
+		    _this.setRef = _this.setRef.bind(_this);
+		    _this.isFileDialogActive = false;
+		    _this.state = {
+		      isDragActive: false,
+		      acceptedFiles: [],
+		      rejectedFiles: []
+		    };
+		    return _this;
+		  }
+		
+		  _createClass(Dropzone, [{
+		    key: 'componentDidMount',
+		    value: function componentDidMount() {
+		      var preventDropOnDocument = this.props.preventDropOnDocument;
+		
+		      this.dragTargets = [];
+		
+		      if (preventDropOnDocument) {
+		        document.addEventListener('dragover', Dropzone.onDocumentDragOver, false);
+		        document.addEventListener('drop', this.onDocumentDrop, false);
+		      }
+		      // Tried implementing addEventListener, but didn't work out
+		      document.body.onfocus = this.onFileDialogCancel;
+		    }
+		  }, {
+		    key: 'componentWillUnmount',
+		    value: function componentWillUnmount() {
+		      var preventDropOnDocument = this.props.preventDropOnDocument;
+		
+		      if (preventDropOnDocument) {
+		        document.removeEventListener('dragover', Dropzone.onDocumentDragOver);
+		        document.removeEventListener('drop', this.onDocumentDrop);
+		      }
+		      // Can be replaced with removeEventListener, if addEventListener works
+		      document.body.onfocus = null;
+		    }
+		  }, {
+		    key: 'onDocumentDrop',
+		    value: function onDocumentDrop(e) {
+		      if (this.node.contains(e.target)) {
+		        // if we intercepted an event for our instance, let it propagate down to the instance's onDrop handler
+		        return;
+		      }
+		      e.preventDefault();
+		      this.dragTargets = [];
+		    }
+		  }, {
+		    key: 'onDragStart',
+		    value: function onDragStart(e) {
+		      if (this.props.onDragStart) {
+		        this.props.onDragStart.call(this, e);
+		      }
+		    }
+		  }, {
+		    key: 'onDragEnter',
+		    value: function onDragEnter(e) {
+		      e.preventDefault();
+		
+		      // Count the dropzone and any children that are entered.
+		      if (this.dragTargets.indexOf(e.target) === -1) {
+		        this.dragTargets.push(e.target);
+		      }
+		
+		      var allFilesAccepted = this.allFilesAccepted((0, _getDataTransferItems2.default)(e, this.props.multiple));
+		
+		      this.setState({
+		        isDragActive: allFilesAccepted,
+		        isDragReject: !allFilesAccepted
+		      });
+		
+		      if (this.props.onDragEnter) {
+		        this.props.onDragEnter.call(this, e);
+		      }
+		    }
+		  }, {
+		    key: 'onDragOver',
+		    value: function onDragOver(e) {
+		      // eslint-disable-line class-methods-use-this
+		      e.preventDefault();
+		      e.stopPropagation();
+		      try {
+		        e.dataTransfer.dropEffect = 'copy'; // eslint-disable-line no-param-reassign
+		      } catch (err) {
+		        // continue regardless of error
+		      }
+		
+		      if (this.props.onDragOver) {
+		        this.props.onDragOver.call(this, e);
+		      }
+		      return false;
+		    }
+		  }, {
+		    key: 'onDragLeave',
+		    value: function onDragLeave(e) {
+		      var _this2 = this;
+		
+		      e.preventDefault();
+		
+		      // Only deactivate once the dropzone and all children have been left.
+		      this.dragTargets = this.dragTargets.filter(function (el) {
+		        return el !== e.target && _this2.node.contains(el);
+		      });
+		      if (this.dragTargets.length > 0) {
+		        return;
+		      }
+		
+		      this.setState({
+		        isDragActive: false,
+		        isDragReject: false
+		      });
+		
+		      if (this.props.onDragLeave) {
+		        this.props.onDragLeave.call(this, e);
+		      }
+		    }
+		  }, {
+		    key: 'onDrop',
+		    value: function onDrop(e) {
+		      var _this3 = this;
+		
+		      var _props = this.props,
+		          onDrop = _props.onDrop,
+		          onDropAccepted = _props.onDropAccepted,
+		          onDropRejected = _props.onDropRejected,
+		          multiple = _props.multiple,
+		          disablePreview = _props.disablePreview;
+		
+		      var fileList = (0, _getDataTransferItems2.default)(e, multiple);
+		      var acceptedFiles = [];
+		      var rejectedFiles = [];
+		
+		      // Stop default browser behavior
+		      e.preventDefault();
+		
+		      // Reset the counter along with the drag on a drop.
+		      this.dragTargets = [];
+		      this.isFileDialogActive = false;
+		
+		      fileList.forEach(function (file) {
+		        if (!disablePreview) {
+		          file.preview = window.URL.createObjectURL(file); // eslint-disable-line no-param-reassign
+		        }
+		
+		        if (_this3.fileAccepted(file) && _this3.fileMatchSize(file)) {
+		          acceptedFiles.push(file);
+		        } else {
+		          rejectedFiles.push(file);
+		        }
+		      });
+		
+		      if (onDrop) {
+		        onDrop.call(this, acceptedFiles, rejectedFiles, e);
+		      }
+		
+		      if (rejectedFiles.length > 0 && onDropRejected) {
+		        onDropRejected.call(this, rejectedFiles, e);
+		      }
+		
+		      if (acceptedFiles.length > 0 && onDropAccepted) {
+		        onDropAccepted.call(this, acceptedFiles, e);
+		      }
+		
+		      // Reset drag state
+		      this.setState({
+		        isDragActive: false,
+		        isDragReject: false,
+		        acceptedFiles: acceptedFiles,
+		        rejectedFiles: rejectedFiles
+		      });
+		    }
+		  }, {
+		    key: 'onClick',
+		    value: function onClick(e) {
+		      var _props2 = this.props,
+		          onClick = _props2.onClick,
+		          disableClick = _props2.disableClick;
+		
+		      if (!disableClick) {
+		        e.stopPropagation();
+		        this.open();
+		        if (onClick) {
+		          onClick.call(this, e);
+		        }
+		      }
+		    }
+		  }, {
+		    key: 'onFileDialogCancel',
+		    value: function onFileDialogCancel() {
+		      // timeout will not recognize context of this method
+		      var onFileDialogCancel = this.props.onFileDialogCancel;
+		      var fileInputEl = this.fileInputEl;
+		      var isFileDialogActive = this.isFileDialogActive;
+		      // execute the timeout only if the onFileDialogCancel is defined and FileDialog
+		      // is opened in the browser
+		
+		      if (onFileDialogCancel && isFileDialogActive) {
+		        setTimeout(function () {
+		          // Returns an object as FileList
+		          var FileList = fileInputEl.files;
+		          if (!FileList.length) {
+		            isFileDialogActive = false;
+		            onFileDialogCancel();
+		          }
+		        }, 300);
+		      }
+		    }
+		  }, {
+		    key: 'setRef',
+		    value: function setRef(ref) {
+		      this.node = ref;
+		    }
+		  }, {
+		    key: 'fileAccepted',
+		    value: function fileAccepted(file) {
+		      // Firefox versions prior to 53 return a bogus MIME type for every file drag, so dragovers with
+		      // that MIME type will always be accepted
+		      return file.type === 'application/x-moz-file' || (0, _attrAccept2.default)(file, this.props.accept);
+		    }
+		  }, {
+		    key: 'fileMatchSize',
+		    value: function fileMatchSize(file) {
+		      return file.size <= this.props.maxSize && file.size >= this.props.minSize;
+		    }
+		  }, {
+		    key: 'allFilesAccepted',
+		    value: function allFilesAccepted(files) {
+		      return files.every(this.fileAccepted);
+		    }
+		  }, {
+		    key: 'open',
+		    value: function open() {
+		      this.isFileDialogActive = true;
+		      this.fileInputEl.value = null;
+		      this.fileInputEl.click();
+		    }
+		  }, {
+		    key: 'render',
+		    value: function render() {
+		      var _this4 = this;
+		
+		      var _props3 = this.props,
+		          accept = _props3.accept,
+		          activeClassName = _props3.activeClassName,
+		          inputProps = _props3.inputProps,
+		          multiple = _props3.multiple,
+		          name = _props3.name,
+		          rejectClassName = _props3.rejectClassName,
+		          children = _props3.children,
+		          rest = _objectWithoutProperties(_props3, ['accept', 'activeClassName', 'inputProps', 'multiple', 'name', 'rejectClassName', 'children']);
+		
+		      var activeStyle = rest.activeStyle,
+		          className = rest.className,
+		          rejectStyle = rest.rejectStyle,
+		          style = rest.style,
+		          props = _objectWithoutProperties(rest, ['activeStyle', 'className', 'rejectStyle', 'style']);
+		
+		      var _state = this.state,
+		          isDragActive = _state.isDragActive,
+		          isDragReject = _state.isDragReject;
+		
+		
+		      className = className || '';
+		
+		      if (isDragActive && activeClassName) {
+		        className += ' ' + activeClassName;
+		      }
+		      if (isDragReject && rejectClassName) {
+		        className += ' ' + rejectClassName;
+		      }
+		
+		      if (!className && !style && !activeStyle && !rejectStyle) {
+		        style = {
+		          width: 200,
+		          height: 200,
+		          borderWidth: 2,
+		          borderColor: '#666',
+		          borderStyle: 'dashed',
+		          borderRadius: 5
+		        };
+		        activeStyle = {
+		          borderStyle: 'solid',
+		          backgroundColor: '#eee'
+		        };
+		        rejectStyle = {
+		          borderStyle: 'solid',
+		          backgroundColor: '#ffdddd'
+		        };
+		      }
+		
+		      var appliedStyle = void 0;
+		      if (activeStyle && isDragActive) {
+		        appliedStyle = _extends({}, style, activeStyle);
+		      } else if (rejectStyle && isDragReject) {
+		        appliedStyle = _extends({}, style, rejectStyle);
+		      } else {
+		        appliedStyle = _extends({}, style);
+		      }
+		
+		      var inputAttributes = {
+		        accept: accept,
+		        type: 'file',
+		        style: { display: 'none' },
+		        multiple: supportMultiple && multiple,
+		        ref: function ref(el) {
+		          return _this4.fileInputEl = el;
+		        }, // eslint-disable-line
+		        onChange: this.onDrop
+		      };
+		
+		      if (name && name.length) {
+		        inputAttributes.name = name;
+		      }
+		
+		      // Remove custom properties before passing them to the wrapper div element
+		      var customProps = ['acceptedFiles', 'preventDropOnDocument', 'disablePreview', 'disableClick', 'onDropAccepted', 'onDropRejected', 'onFileDialogCancel', 'maxSize', 'minSize'];
+		      var divProps = _extends({}, props);
+		      customProps.forEach(function (prop) {
+		        return delete divProps[prop];
+		      });
+		
+		      return _react2.default.createElement(
+		        'div',
+		        _extends({
+		          className: className,
+		          style: appliedStyle
+		        }, divProps /* expand user provided props first so event handlers are never overridden */, {
+		          onClick: this.onClick,
+		          onDragStart: this.onDragStart,
+		          onDragEnter: this.onDragEnter,
+		          onDragOver: this.onDragOver,
+		          onDragLeave: this.onDragLeave,
+		          onDrop: this.onDrop,
+		          ref: this.setRef
+		        }),
+		        this.renderChildren(children),
+		        _react2.default.createElement('input', _extends({}, inputProps /* expand user provided inputProps first so inputAttributes override them */, inputAttributes))
+		      );
+		    }
+		  }]);
+		
+		  return Dropzone;
+		}(_react2.default.Component);
+		
+		Dropzone.defaultProps = {
+		  preventDropOnDocument: true,
+		  disablePreview: false,
+		  disableClick: false,
+		  multiple: true,
+		  maxSize: Infinity,
+		  minSize: 0
+		};
+		
+		Dropzone.propTypes = {
+		  onClick: _react2.default.PropTypes.func,
+		  onDrop: _react2.default.PropTypes.func,
+		  onDropAccepted: _react2.default.PropTypes.func,
+		  onDropRejected: _react2.default.PropTypes.func,
+		  onDragStart: _react2.default.PropTypes.func,
+		  onDragEnter: _react2.default.PropTypes.func,
+		  onDragOver: _react2.default.PropTypes.func,
+		  onDragLeave: _react2.default.PropTypes.func,
+		
+		  children: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.node, _react2.default.PropTypes.func]), // Contents of the dropzone
+		  style: _react2.default.PropTypes.object, // CSS styles to apply
+		  activeStyle: _react2.default.PropTypes.object, // CSS styles to apply when drop will be accepted
+		  rejectStyle: _react2.default.PropTypes.object, // CSS styles to apply when drop will be rejected
+		  className: _react2.default.PropTypes.string, // Optional className
+		  activeClassName: _react2.default.PropTypes.string, // className for accepted state
+		  rejectClassName: _react2.default.PropTypes.string, // className for rejected state
+		
+		  preventDropOnDocument: _react2.default.PropTypes.bool, // If false, allow dropped items to take over the current browser window
+		  disablePreview: _react2.default.PropTypes.bool, // Enable/disable preview generation
+		  disableClick: _react2.default.PropTypes.bool, // Disallow clicking on the dropzone container to open file dialog
+		  onFileDialogCancel: _react2.default.PropTypes.func, // Provide a callback on clicking the cancel button of the file dialog
+		
+		  inputProps: _react2.default.PropTypes.object, // Pass additional attributes to the <input type="file"/> tag
+		  multiple: _react2.default.PropTypes.bool, // Allow dropping multiple files
+		  accept: _react2.default.PropTypes.string, // Allow specific types of files. See https://github.com/okonet/attr-accept for more information
+		  name: _react2.default.PropTypes.string, // name attribute for the input tag
+		  maxSize: _react2.default.PropTypes.number,
+		  minSize: _react2.default.PropTypes.number
+		};
+		
+		exports.default = Dropzone;
+		module.exports = exports['default'];
+
+	/***/ },
+	/* 1 */
+	/***/ function(module, exports) {
+
+		module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+	/***/ },
+	/* 2 */
+	/***/ function(module, exports) {
+
+		module.exports=function(t){function n(e){if(r[e])return r[e].exports;var o=r[e]={exports:{},id:e,loaded:!1};return t[e].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var r={};return n.m=t,n.c=r,n.p="",n(0)}([function(t,n,r){"use strict";n.__esModule=!0,r(8),r(9),n["default"]=function(t,n){if(t&&n){var r=function(){var r=Array.isArray(n)?n:n.split(","),e=t.name||"",o=t.type||"",i=o.replace(/\/.*$/,"");return{v:r.some(function(t){var n=t.trim();return"."===n.charAt(0)?e.toLowerCase().endsWith(n.toLowerCase()):/\/\*$/.test(n)?i===n.replace(/\/.*$/,""):o===n})}}();if("object"==typeof r)return r.v}return!0},t.exports=n["default"]},function(t,n){var r=t.exports={version:"1.2.2"};"number"==typeof __e&&(__e=r)},function(t,n){var r=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=r)},function(t,n,r){var e=r(2),o=r(1),i=r(4),u=r(19),c="prototype",f=function(t,n){return function(){return t.apply(n,arguments)}},s=function(t,n,r){var a,p,l,y,d=t&s.G,h=t&s.P,v=d?e:t&s.S?e[n]||(e[n]={}):(e[n]||{})[c],x=d?o:o[n]||(o[n]={});d&&(r=n);for(a in r)p=!(t&s.F)&&v&&a in v,l=(p?v:r)[a],y=t&s.B&&p?f(l,e):h&&"function"==typeof l?f(Function.call,l):l,v&&!p&&u(v,a,l),x[a]!=l&&i(x,a,y),h&&((x[c]||(x[c]={}))[a]=l)};e.core=o,s.F=1,s.G=2,s.S=4,s.P=8,s.B=16,s.W=32,t.exports=s},function(t,n,r){var e=r(5),o=r(18);t.exports=r(22)?function(t,n,r){return e.setDesc(t,n,o(1,r))}:function(t,n,r){return t[n]=r,t}},function(t,n){var r=Object;t.exports={create:r.create,getProto:r.getPrototypeOf,isEnum:{}.propertyIsEnumerable,getDesc:r.getOwnPropertyDescriptor,setDesc:r.defineProperty,setDescs:r.defineProperties,getKeys:r.keys,getNames:r.getOwnPropertyNames,getSymbols:r.getOwnPropertySymbols,each:[].forEach}},function(t,n){var r=0,e=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++r+e).toString(36))}},function(t,n,r){var e=r(20)("wks"),o=r(2).Symbol;t.exports=function(t){return e[t]||(e[t]=o&&o[t]||(o||r(6))("Symbol."+t))}},function(t,n,r){r(26),t.exports=r(1).Array.some},function(t,n,r){r(25),t.exports=r(1).String.endsWith},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){var r={}.toString;t.exports=function(t){return r.call(t).slice(8,-1)}},function(t,n,r){var e=r(10);t.exports=function(t,n,r){if(e(t),void 0===n)return t;switch(r){case 1:return function(r){return t.call(n,r)};case 2:return function(r,e){return t.call(n,r,e)};case 3:return function(r,e,o){return t.call(n,r,e,o)}}return function(){return t.apply(n,arguments)}}},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n,r){t.exports=function(t){var n=/./;try{"/./"[t](n)}catch(e){try{return n[r(7)("match")]=!1,!"/./"[t](n)}catch(o){}}return!0}},function(t,n){t.exports=function(t){try{return!!t()}catch(n){return!0}}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n,r){var e=r(16),o=r(11),i=r(7)("match");t.exports=function(t){var n;return e(t)&&(void 0!==(n=t[i])?!!n:"RegExp"==o(t))}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n,r){var e=r(2),o=r(4),i=r(6)("src"),u="toString",c=Function[u],f=(""+c).split(u);r(1).inspectSource=function(t){return c.call(t)},(t.exports=function(t,n,r,u){"function"==typeof r&&(o(r,i,t[n]?""+t[n]:f.join(String(n))),"name"in r||(r.name=n)),t===e?t[n]=r:(u||delete t[n],o(t,n,r))})(Function.prototype,u,function(){return"function"==typeof this&&this[i]||c.call(this)})},function(t,n,r){var e=r(2),o="__core-js_shared__",i=e[o]||(e[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n,r){var e=r(17),o=r(13);t.exports=function(t,n,r){if(e(n))throw TypeError("String#"+r+" doesn't accept regex!");return String(o(t))}},function(t,n,r){t.exports=!r(15)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n){var r=Math.ceil,e=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?e:r)(t)}},function(t,n,r){var e=r(23),o=Math.min;t.exports=function(t){return t>0?o(e(t),9007199254740991):0}},function(t,n,r){"use strict";var e=r(3),o=r(24),i=r(21),u="endsWith",c=""[u];e(e.P+e.F*r(14)(u),"String",{endsWith:function(t){var n=i(this,t,u),r=arguments,e=r.length>1?r[1]:void 0,f=o(n.length),s=void 0===e?f:Math.min(o(e),f),a=String(t);return c?c.call(n,a,s):n.slice(s-a.length,s)===a}})},function(t,n,r){var e=r(5),o=r(3),i=r(1).Array||Array,u={},c=function(t,n){e.each.call(t.split(","),function(t){void 0==n&&t in i?u[t]=i[t]:t in[]&&(u[t]=r(12)(Function.call,[][t],n))})};c("pop,reverse,shift,keys,values,entries",1),c("indexOf,every,some,forEach,map,filter,find,findIndex,includes",3),c("join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill"),o(o.S,"Array",u)}]);
+
+	/***/ },
+	/* 3 */
+	/***/ function(module, exports) {
+
+		"use strict";
+		
+		Object.defineProperty(exports, "__esModule", {
+		  value: true
+		});
+		exports.default = getDataTransferFiles;
+		function getDataTransferFiles(event) {
+		  var isMultipleAllowed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+		
+		  var dataTransferItemsList = [];
+		  if (event.dataTransfer) {
+		    var dt = event.dataTransfer;
+		    if (dt.files && dt.files.length) {
+		      dataTransferItemsList = dt.files;
+		    } else if (dt.items && dt.items.length) {
+		      // During the drag even the dataTransfer.files is null
+		      // but Chrome implements some drag store, which is accesible via dataTransfer.items
+		      dataTransferItemsList = dt.items;
+		    }
+		  } else if (event.target && event.target.files) {
+		    dataTransferItemsList = event.target.files;
+		  }
+		
+		  if (dataTransferItemsList.length > 0) {
+		    dataTransferItemsList = isMultipleAllowed ? dataTransferItemsList : [dataTransferItemsList[0]];
+		  }
+		
+		  // Convert from DataTransferItemsList to the native Array
+		  return Array.prototype.slice.call(dataTransferItemsList);
+		}
+		module.exports = exports["default"];
+
+	/***/ }
+	/******/ ])
+	});
+	;
+	//# sourceMappingURL=index.js.map
+
+/***/ },
+/* 245 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38305,13 +39070,13 @@
 	exports.default = Auth;
 
 /***/ },
-/* 244 */
+/* 246 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 245 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38326,7 +39091,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _CompanyUpload = __webpack_require__(246);
+	var _CompanyUpload = __webpack_require__(243);
 
 	var _CompanyUpload2 = _interopRequireDefault(_CompanyUpload);
 
@@ -38364,145 +39129,7 @@
 	exports.default = Sample;
 
 /***/ },
-/* 246 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _ItemSize = __webpack_require__(239);
-
-	var _ItemSize2 = _interopRequireDefault(_ItemSize);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var CompanyUpload = function (_React$Component) {
-		_inherits(CompanyUpload, _React$Component);
-
-		function CompanyUpload(props) {
-			_classCallCheck(this, CompanyUpload);
-
-			var _this = _possibleConstructorReturn(this, (CompanyUpload.__proto__ || Object.getPrototypeOf(CompanyUpload)).call(this, props));
-
-			_this.priceChange = function (event) {
-				_this.setState({
-					price: event.target.value
-				});
-			};
-
-			_this.hidePopup = function () {
-				_this.props.hideCompanyUpload();
-			};
-
-			_this.state = {
-				title: _this.props.title,
-				timestamp: _this.props.timestamp,
-				email: _this.props.email,
-				size: _this.props.size,
-				price: '',
-				notes: '',
-				link: '',
-				offeredSize: ''
-			};
-
-			_this.hidePopup = _this.hidePopup.bind(_this);
-			return _this;
-		}
-
-		_createClass(CompanyUpload, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'company-upload' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'transparent-background' },
-						' '
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'consumer-request' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'item-title' },
-							this.state.title
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'price-offered' },
-							_react2.default.createElement('input', { type: 'text', value: this.state.price, placeholder: 'Price' })
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'item-size-upload' },
-							_react2.default.createElement(_ItemSize2.default, null)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'image-upload' },
-							_react2.default.createElement(
-								'div',
-								null,
-								'Drag and drop attachments here or ',
-								_react2.default.createElement(
-									'p',
-									null,
-									'browse'
-								)
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'sellers-notes' },
-							_react2.default.createElement('textarea', { value: this.state.notes, placeholder: 'Notes' })
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'seller-link' },
-							_react2.default.createElement('input', { type: 'text', value: this.state.link, placeholder: 'Link' })
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'upload-buttons' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'cancel-button', onClick: this.hidePopup },
-								' Cancel '
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'submit-button' },
-								' Submit '
-							)
-						)
-					)
-				);
-			}
-		}]);
-
-		return CompanyUpload;
-	}(_react2.default.Component);
-
-	exports.default = CompanyUpload;
-
-/***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38517,15 +39144,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _LoginForm = __webpack_require__(248);
+	var _LoginForm = __webpack_require__(249);
 
 	var _LoginForm2 = _interopRequireDefault(_LoginForm);
 
-	var _BasePage = __webpack_require__(249);
+	var _BasePage = __webpack_require__(250);
 
 	var _BasePage2 = _interopRequireDefault(_BasePage);
 
-	var _authUserCheck = __webpack_require__(243);
+	var _authUserCheck = __webpack_require__(245);
 
 	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
 
@@ -38653,7 +39280,7 @@
 	};
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38750,7 +39377,7 @@
 	exports.default = LoginForm;
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38786,7 +39413,7 @@
 	exports.default = BasePage;
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38801,11 +39428,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SignupForm = __webpack_require__(251);
+	var _SignupForm = __webpack_require__(252);
 
 	var _SignupForm2 = _interopRequireDefault(_SignupForm);
 
-	var _BasePage = __webpack_require__(249);
+	var _BasePage = __webpack_require__(250);
 
 	var _BasePage2 = _interopRequireDefault(_BasePage);
 
@@ -38931,7 +39558,7 @@
 	};
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

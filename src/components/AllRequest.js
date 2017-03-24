@@ -114,7 +114,7 @@ export default class AllRequest extends React.Component {
                                     desc={ data.itemDesc } 
                                     min={ data.min }
                                     max={ data.max }
-                                    size={ data.size}
+                                    size={ data.size }
                                     timestamp={ data.timestamp }
                                     email={ data.email }
                                     key={ i }

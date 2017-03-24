@@ -17,25 +17,30 @@ export default class UserDetails extends React.Component {
 			minRange: "minRange",
 			maxRange: "maxRange",
 			size : "",
-			category: ""
+			category: "",
+			search: ""
 		}
 
 		this.validateAndStore = this.validateAndStore.bind(this)
 		this.handleDescription = this.handleDescription.bind(this)
 		this.handleMinRange = this.handleMinRange.bind(this)
 		this.handleMaxRange = this.handleMaxRange.bind(this)
+		this.handleSearch = this.handleSearch.bind(this)
+
 		this.clearStates = this.clearStates.bind(this)
 		this.getItemSize = this.getItemSize.bind(this)
 		this.getItemCategory = this.getItemCategory.bind(this)
 	}
 
 	validateAndStore = () => {
+
 		let desc = this.state.desc
 		let min = this.state.min
 		let max = this.state.max
 		let size = this.state.size
 		let category = this.state.category
 
+		console.log(category)
 
 		if(desc==="" && min==="" && max===""){
 			console.log("Empty all data")
@@ -109,8 +114,8 @@ export default class UserDetails extends React.Component {
 								+'", "min" : "'+ min 
 								+'", "max" : "'+ max 
 								+'", "size" : "'+ size
-								+'", "category" : "'+ category
-								+'", "timestamp" : "'+ Date.now()
+								+'", "category" : '+ JSON.stringify(category)
+								+', "timestamp" : "'+ Date.now()
 								+'", "sellers" : []}'
 
 			const xhr = new XMLHttpRequest()
@@ -167,6 +172,12 @@ export default class UserDetails extends React.Component {
 		})
 	}
 
+	handleSearch = (e) => {
+		this.setState({
+			search: e.target.value
+		})
+	}
+
 	getItemSize = (itemsize) =>{
 		this.setState({
 			size : itemsize
@@ -176,6 +187,8 @@ export default class UserDetails extends React.Component {
 	getItemCategory = (itemCat) => {
 		this.setState({
 			category : itemCat
+		}, () => {
+			console.log(this.state.category)
 		})
 	}
 
@@ -222,14 +235,35 @@ export default class UserDetails extends React.Component {
 						Request
 					</div> */}
 					</div>
-					<ItemSize ref={(input) => {this.sizeOfItem = input;}} returnSize = {this.getItemSize}/>
-					<ItemRequest storeData= {() => this.validateAndStore()} returnCategory = {this.getItemCategory}/>
+					<ItemSize ref={(input) => {this.sizeOfItem = input;}} returnSize = {this.getItemSize} />
+
+					<ItemRequest userType={ this.props.details.userType } 
+											 storeData= {() => this.validateAndStore()} 
+											 returnCategory = {this.getItemCategory} 
+					/>
+				</div>
+			)
+		} else if (localStorage.getItem('userType') === 'seller' && this.props.details.userType === 'seller') {
+			return (
+				<div className="currentuser">					
+					<div className="searchItem" >
+
+						<div className="searchField">
+							<input type="text" 
+								   onChange={ this.handleSearch } 
+								   value={ this.state.search }
+								   placeholder="Search item category"
+							/>
+						</div>
+					</div>
+					<ItemRequest userType={ this.props.details.userType } 
+											 returnCategory={ this.getItemCategory }
+					/>
 				</div>
 			)
 		} else {
 			return (
-				<div className="currentuser">
-				</div>
+				<div></div>
 			)
 		}
 	}

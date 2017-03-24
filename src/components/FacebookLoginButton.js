@@ -9,7 +9,7 @@ export default class FacebookLoginButton extends React.Component {
 		this.sendParent = this.sendParent.bind(this)
 		this.state = {
 			loginStatus: "",
-			usertype: "",
+			userType: "",
 			username: null,
 			email: null,
 			age: null,
@@ -29,8 +29,8 @@ export default class FacebookLoginButton extends React.Component {
 			this.onLogin.bind(this))
 	}
 
-	sendParent = (usertype,username,email,birthday,photo) => {
-		this.props.userInfo(usertype,username,email,birthday,photo)
+	sendParent = (userType,username,email,birthday,photo) => {
+		this.props.userInfo(userType,username,email,birthday,photo)
 	}
 
 	onLogin = () => {
@@ -49,7 +49,7 @@ export default class FacebookLoginButton extends React.Component {
 				, (response) => {
 
 					this.setState({
-						usertype : "consumer",
+						userType : "consumer",
 						username: response.name,
 						email: response.email,
 						age: response.birthday,
@@ -67,7 +67,7 @@ export default class FacebookLoginButton extends React.Component {
 	onLogout = (response) => {
 		console.log("logged out")
 		this.setState({
-			usertype : "",
+			userType : "",
 			username: null,
 			email: null,
 			age: null,

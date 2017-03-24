@@ -32,16 +32,23 @@
 	float: left;
 
 	input {
-		width: 100%;
-		outline: none;
-		background: transparent;
-		border: none;
-		border-bottom: 1px solid gray;
-		margin-top: 23px;
-		line-height: 30px;
-		font-size: large;
-		text-align: center;
+    width: 100%;
+    outline: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid gray;
+    margin-top: 25px;
+    line-height: 30px;
+    font-size: xx-large;
+    text-align: left;
+    padding: 0 20px 20px 20px;
+    margin-bottom: 25px;
 	}
+}
+
+.searchItem {
+	@extend .description;
+	width: 100%;
 }
 
 .no-desc{
