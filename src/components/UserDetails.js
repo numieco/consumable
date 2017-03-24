@@ -36,10 +36,6 @@ export default class UserDetails extends React.Component {
 		let size = this.state.size
 		let category = this.state.category
 
-		
-		console.log("the size is" +size + "and the item is " + category)
-
-
 
 		if(desc==="" && min==="" && max===""){
 			console.log("Empty all data")

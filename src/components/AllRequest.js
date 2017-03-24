@@ -107,6 +107,8 @@ export default class AllRequest extends React.Component {
                         return (
                             <div key={i}> 
                                 <SingleRequest 
+                                    individual= "true"
+                                    seller={data.sellers}
                                     photo={ data.photo } 
                                     name={ data.name } 
                                     desc={ data.itemDesc } 

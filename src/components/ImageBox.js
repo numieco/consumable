@@ -3,7 +3,7 @@ import React from "react";
 export default class ImageBox extends React.Component{
     constructor(){
         super()
-        this.setState({
+        this.state({
             name : "",
             image : "",
             price : ""
