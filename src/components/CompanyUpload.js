@@ -14,12 +14,18 @@ export default class CompanyUpload extends React.Component {
 			price: '',
 			notes: '',
 			link: '',
+			isImageUploaded: false,
+			numberOfImages: '',
+			images: [],
 			offeredSize: ''
 		}
 
 		this.hidePopup = this.hidePopup.bind(this)
 		this.onDrop = this.onDrop.bind(this)
 		this.submitSellersOffer = this.submitSellersOffer.bind(this) 
+		this.handlePrice = this.handlePrice.bind(this)
+		this.handleNotes = this.handleNotes.bind(this)
+		this.handleLink = this.handleLink.bind(this)
 	}
 
 	priceChange = (event) => {
@@ -33,14 +39,49 @@ export default class CompanyUpload extends React.Component {
 	}
 
 	onDrop = (accepted, rejected) => {
-		console.log('accepted')
-		console.log(accepted)
-		console.log('rejected')
-		console.log(rejected)
+		let images = this.state.images
+		if (accepted.length > 0) {
+
+			console.log(accepted)
+			accepted.forEach((file) => {
+				images.push(file)
+			})
+
+			this.setState({
+				isImageUploaded: true,
+				numberOfImages: images.length,
+				images: images
+			}, () => console.log(this.state.images))
+		} else {
+			this.setState({
+				isImageUploaded: images.length > 0 ? true : false ,
+				numberOfImages: images.length,
+				images: images
+			})
+		}
+
 	}
 
 	submitSellersOffer = () => {
 
+	}
+
+	handlePrice = (event) => {
+		this.setState({
+			price: event.target.value
+		})
+	}
+
+	handleNotes = (event) => {
+		this.setState({
+			notes: event.target.value
+		})
+	}
+
+	handleLink = (event) => {
+		this.setState({
+			link: event.target.value
+		})
 	}
 
 	render () {
@@ -53,7 +94,7 @@ export default class CompanyUpload extends React.Component {
 					</div>
 
 					<div className='price-offered'>
-						<input type='text' value={this.state.price} placeholder='Price'/>
+						<input type='number' value={this.state.price} onChange={ this.handlePrice } placeholder='Price' />
 					</div>
 
 					<div className='item-size-upload'>
@@ -61,19 +102,27 @@ export default class CompanyUpload extends React.Component {
 					</div>
 
 					<div>
-						<Dropzone className='image-upload'
-											onDrop={ this.onDrop }
-											accept='image/*'>
+						<Dropzone 
+							className='image-upload'
+							onDrop={ this.onDrop }
+							accept='image/*'
+							multiple={true}
+						>
 							Drag and drop attachments here or <p>browse</p>
+							{
+								this.state.isImageUploaded
+								? <div> { this.state.numberOfImages } Uploaded </div>
+								: <div> </div>
+							}
 						</Dropzone>
 					</div>
 
 					<div className='sellers-notes'>
-						<textarea value={ this.state.notes } placeholder='Notes' />
+						<textarea value={ this.state.notes } onChange={ this.handleNotes } placeholder='Notes' />
 					</div>
 
 					<div className='seller-link'>
-						<input type='text' value={ this.state.link } placeholder='Link' />
+						<input type='text' value={ this.state.link } onChange={ this.handleLink } placeholder='Link' />
 					</div>
 
 					<div className='upload-buttons'>

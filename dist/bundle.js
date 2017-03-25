@@ -37890,10 +37890,18 @@
 	                            } });
 	                    })
 	                ),
-	                _react2.default.createElement(
+	                this.props.userType == 'customer' ? _react2.default.createElement(
 	                    "div",
 	                    { className: "itemRequestBtn", onClick: this.clearState.bind(this) },
-	                    this.props.userType == 'customer' ? 'Request' : 'Search'
+	                    " Request "
+	                ) : this.props.userType == 'seller' ? _react2.default.createElement(
+	                    "div",
+	                    { className: "itemRequestBtn", onClick: this.clearState.bind(this) },
+	                    " Search "
+	                ) : _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    " "
 	                )
 	            );
 	        }
@@ -38352,13 +38360,49 @@
 			};
 
 			_this.onDrop = function (accepted, rejected) {
-				console.log('accepted');
-				console.log(accepted);
-				console.log('rejected');
-				console.log(rejected);
+				var images = _this.state.images;
+				if (accepted.length > 0) {
+
+					console.log(accepted);
+					accepted.forEach(function (file) {
+						images.push(file);
+					});
+
+					_this.setState({
+						isImageUploaded: true,
+						numberOfImages: images.length,
+						images: images
+					}, function () {
+						return console.log(_this.state.images);
+					});
+				} else {
+					_this.setState({
+						isImageUploaded: images.length > 0 ? true : false,
+						numberOfImages: images.length,
+						images: images
+					});
+				}
 			};
 
 			_this.submitSellersOffer = function () {};
+
+			_this.handlePrice = function (event) {
+				_this.setState({
+					price: event.target.value
+				});
+			};
+
+			_this.handleNotes = function (event) {
+				_this.setState({
+					notes: event.target.value
+				});
+			};
+
+			_this.handleLink = function (event) {
+				_this.setState({
+					link: event.target.value
+				});
+			};
 
 			_this.state = {
 				title: _this.props.title,
@@ -38368,12 +38412,18 @@
 				price: '',
 				notes: '',
 				link: '',
+				isImageUploaded: false,
+				numberOfImages: '',
+				images: [],
 				offeredSize: ''
 			};
 
 			_this.hidePopup = _this.hidePopup.bind(_this);
 			_this.onDrop = _this.onDrop.bind(_this);
 			_this.submitSellersOffer = _this.submitSellersOffer.bind(_this);
+			_this.handlePrice = _this.handlePrice.bind(_this);
+			_this.handleNotes = _this.handleNotes.bind(_this);
+			_this.handleLink = _this.handleLink.bind(_this);
 			return _this;
 		}
 
@@ -38399,7 +38449,7 @@
 						_react2.default.createElement(
 							'div',
 							{ className: 'price-offered' },
-							_react2.default.createElement('input', { type: 'text', value: this.state.price, placeholder: 'Price' })
+							_react2.default.createElement('input', { type: 'number', value: this.state.price, onChange: this.handlePrice, placeholder: 'Price' })
 						),
 						_react2.default.createElement(
 							'div',
@@ -38411,26 +38461,40 @@
 							null,
 							_react2.default.createElement(
 								_reactDropzone2.default,
-								{ className: 'image-upload',
+								{
+									className: 'image-upload',
 									onDrop: this.onDrop,
-									accept: 'image/*' },
+									accept: 'image/*',
+									multiple: true
+								},
 								'Drag and drop attachments here or ',
 								_react2.default.createElement(
 									'p',
 									null,
 									'browse'
+								),
+								this.state.isImageUploaded ? _react2.default.createElement(
+									'div',
+									null,
+									' ',
+									this.state.numberOfImages,
+									' Uploaded '
+								) : _react2.default.createElement(
+									'div',
+									null,
+									' '
 								)
 							)
 						),
 						_react2.default.createElement(
 							'div',
 							{ className: 'sellers-notes' },
-							_react2.default.createElement('textarea', { value: this.state.notes, placeholder: 'Notes' })
+							_react2.default.createElement('textarea', { value: this.state.notes, onChange: this.handleNotes, placeholder: 'Notes' })
 						),
 						_react2.default.createElement(
 							'div',
 							{ className: 'seller-link' },
-							_react2.default.createElement('input', { type: 'text', value: this.state.link, placeholder: 'Link' })
+							_react2.default.createElement('input', { type: 'text', value: this.state.link, onChange: this.handleLink, placeholder: 'Link' })
 						),
 						_react2.default.createElement(
 							'div',
