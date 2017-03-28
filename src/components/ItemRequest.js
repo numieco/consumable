@@ -1,6 +1,6 @@
 import React from "react";
 
-const items = ["Botique","Baby Items", "Others"];
+const items = ["Botique", "Others"];
 
 export default class ItemRequest extends React.Component{
     constructor(){

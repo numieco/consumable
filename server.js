@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const passport = require('passport')
 const config = require('./src/server/db-config')
+const socket = require('socket.io')
 
 const port = process.env.PORT || 8089
 
@@ -50,57 +51,95 @@ app.get('*', (req, res) => {
 	res.sendFile(path.resolve(__dirname, "dist", "index.html"))
 })
 
+
 /*
-	Database connection with Insert and Fetch records.
+	Add Socket to listen Database requests.
 */
 
-const MongoClient = mongodb.MongoClient
-const dbURL = "mongodb://localhost:27017/item-request"
+const io = socket.listen(
+	app.listen(port, () => {
+		console.log("database server started at port: " + port)
+	})
+)
 
-MongoClient.connect(dbURL, (err, db) => {
-
-	let collection = db.collection("allRequests")
-
-	if (err) console.log("Unable to connect database. \nError: " + err)
-	
-	else {
-		console.log("Connected to database.")
+const dataTransfer = io.on('connection', (socket) => {
 
 	/*
-			Handling /insertRequest	URL hit, 
-			and fetching user's data from request body (req.body). 
+		Database connection with Insert and Fetch records.
 	*/
 
-		app.post("/insertRequest", (req, res) => {
+	const MongoClient = mongodb.MongoClient
+	const dbURL = "mongodb://localhost:27017/item-request"
 
-			collection.insert(req.body, (err, records) => {
-				if(err) throw(err)
+	MongoClient.connect(dbURL, (err, db) => {
+
+		let collection = db.collection("allRequests")
+
+		if (err) console.log("Unable to connect database. \nError: " + err)
+		
+		else {
+
+		/*
+				Handling /insertRequest	URL hit, 
+				and fetching user's data from request body (req.body). 
+		*/
+
+			app.post("/insertRequest", (req, res) => {
+
+				collection.insert(req.body, (err, records) => {
+					if(err) throw(err)
+				})
+				res.writeHead(200, {"Content-Type": "text/plain"})
+				res.end("DONE INSERTED ONE")
+
 			})
-			res.writeHead(200, {"Content-Type": "text/plain"})
-			res.end("DONE INSERTED ONE")
 
+			app.post("/allRecords", (req, res) => {
+
+				res.writeHead(200, {"Content-Type": "application/json"})
+
+				let docs = collection.find()
+				let arrdata = ""
+				docs.toArray((err, items) => {
+					arrdata = '{"requests" : '+ JSON.stringify(items) +'}'
+					res.end(arrdata)
+				})
+			})
+
+			socket.on('sellerSubmmit', (data) => {
+				let seller = {
+					sellerEmail: data.sellerEmail,
+					price: data.price,
+					notes: data.notes,
+					link: data.link,
+					images: data.images,
+					offerStatus: data.offerStatus
+				}
+
+				collection.update({ timestamp: data.timestamp, email: data.email }, { $push : { sellers: seller} },
+					() => {
+						collection.findOne({ timestamp: data.timestamp, email: data.email }, 
+							(err, doc) => {
+								socket.emit('notifyOfferToUser', doc)
+						})
+
+					})
+				
+			})
+
+			socket.on('checkOffers', (data) => {
+				
+				collection.findOne({ timestamp: data.timestamp, email: data.email }, 
+					(err, doc) => {
+						socket.emit('returnOffers', doc)
+				})
+			})
+
+		}
+
+		app.on('close', () => {
+			console.log('Closing server !')
 		})
 
-		app.post("/allRecords", (req, res) => {
-
-			res.writeHead(200, {"Content-Type": "application/json"})
-
-			let docs = collection.find()
-			let arrdata = ""
-			docs.toArray((err, items) => {
-				arrdata = '{"requests" : '+ JSON.stringify(items) +'}'
-				res.end(arrdata)
-			})
-		})
-
-	}
-
-	app.on('close', () => {
-		console.log('Closing server !')
 	})
-
-})
-
-app.listen(port, () =>{
-	console.log("database server started at port: " + port)
 })

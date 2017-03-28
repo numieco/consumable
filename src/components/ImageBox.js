@@ -8,15 +8,14 @@ export default class ImageBox extends React.Component{
                     x
                 </div>
                 <div className="personName">
-                    Hello
-                    {this.props.personName}
+                    {this.props.offers.sellerEmail}
                 </div>
                 <div className="boxImage">
-                    <img src="http://placehold.it/350x150" alt="image" />
+                    <img src="image" alt="image" />
                 </div>
                 <div className="footer">
                     <div className="footer-price">
-                        {this.props.price}
+                        {this.props.offers.price}
                     </div>
                     <div className="accept-btn">
                         Accept
