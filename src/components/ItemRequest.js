@@ -49,9 +49,17 @@ export default class ItemRequest extends React.Component{
                     {items.map((item)=> <Checkbox resetValue={this.state.resetChkBoxVal} label={item} key={item} toggleCheckBox={() => this.itemChecked(item)} />)}
                     
                 </div>
-                <div className="itemRequestBtn" onClick={this.clearState.bind(this)}>
-                    {(this.props.userType == 'customer') ? 'Request' : 'Search'}
-                </div>
+
+                {
+                    this.props.userType == 'customer'
+                    ? <div className="itemRequestBtn" onClick={this.clearState.bind(this)} > Request </div>
+                    : (
+                        this.props.userType == 'seller'
+                        ? <div className="itemRequestBtn" onClick={this.clearState.bind(this)} > Search </div>
+                        : <div> </div>
+                      )
+                }
+
             </div>
         )
     }

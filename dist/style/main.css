@@ -650,7 +650,8 @@ body {
         width: 100%;
         border: none;
         font-size: medium;
-        outline: none; }
+        outline: none;
+        font-family: 'Arimo', sans-serif; }
     .company-upload .consumer-request .upload-buttons {
       padding: 40px 20px 20px;
       display: inline-block;
