@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import LoginForm from '../components/LoginForm'
 import BasePage from '../components/BasePage.jsx'
 import Auth from '../server/auth/authUserCheck'
+import Home from '../containers/Home.jsx'
 
 export default class Login extends React.Component {
 
@@ -77,6 +78,11 @@ export default class Login extends React.Component {
     this.setState({
       user
     })
+  }
+
+  onBackButtonEvent(e) {
+    e.preventDefault()
+    this.transitionTo('Home')
   }
 
 	render () {

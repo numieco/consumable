@@ -2,7 +2,8 @@ $total-width: 100%;
 $title-width : 60%;
 $name-width : 20%;
 $fb-bt-width : 20%;
-$header-space: 10px;
+$header-space : 10px;
+$seller-logout-width : 20%;
 
 @media screen and (max-width :600px){
     .title-text{
@@ -14,6 +15,14 @@ $header-space: 10px;
 	border-bottom: 1px solid gray;
 	display: inline-block;
 	padding: 0 $header-space;
+
+    .seller-login-info {
+        width : 100%;
+        float : left;
+        text-align : center;
+        color : #609dff;
+        cursor : pointer;
+    }
 
     .title-text {
         float: left;
@@ -57,5 +66,27 @@ $header-space: 10px;
         .fb-button {
             margin : 2px 2px 2px 2px;
         }
-    }    
+    }
+
+    .seller-logout {
+        width : calc(#{$seller-logout-width} - #{$header-space * 2});
+        float : left;
+        margin-top : 15px;
+
+        .seller-logout-button {
+            width : 60px;
+            border-radius : 5px;
+            background-color : #609dff;
+            color : white;
+            cursor : pointer;  
+            float : right;  
+            padding : 10px 10px 10px 10px;
+            text-align : center;
+        }
+
+        .seller-logout-button :hover{
+            background-color : #2052a3;
+        }    
+    }
+    
 }

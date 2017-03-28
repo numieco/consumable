@@ -49,4 +49,30 @@
 		margin-top: 10;
 		background: green;
 	}
+
+	.viewButton {
+		margin-top: 15;
+		
+	}
+
+	.offer-view-button {
+		background: white;
+		border-radius : 5px;
+		height : 30px;
+		width : 60px;
+		cursor : pointer;
+	}
+
+	.offer-view-button:hover {
+		background : #609dff;
+		color : white;
+	}
+	
+	.sellerOffers {
+		width : 100%;
+		height : 300px;
+		border : 1px solid grey;
+		overflow : auto;
+		float : left;
+	}
 }

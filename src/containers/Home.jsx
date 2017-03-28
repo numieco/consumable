@@ -13,7 +13,7 @@ export default class Home extends React.Component {
 
 		this.state = {
 			details: {
-        userType: "",
+        		userType: "",
 				username: "",
 				email: "",
 				age: "",
