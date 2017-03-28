@@ -13,7 +13,8 @@ export default class AllRequest extends React.Component {
 			allReq: '',
             sellerEmail: '',
             everyoneReq : true,
-            invidualReq : false
+            invidualReq : false,
+            sellerSearch : false
 		}
 
 		this.refreshData = this.refreshData.bind(this)
@@ -145,10 +146,13 @@ export default class AllRequest extends React.Component {
             }
     		return (
                 <div>
-                <div className="requestSelector">
-                    <div className="everybody" onClick={this.everyoneRequest.bind(this)}> Everyone </div>
-                    <div className="individual" onClick={this.individualRequest.bind(this)}> Individual </div>
-                </div>
+                {(Auth.isUserAuthenticated() && localStorage.getItem('userType') === 'seller') ?
+                    <span> </span> : 
+                    <div className="requestSelector">
+                        <div className="everybody" onClick={this.everyoneRequest.bind(this)}> Everyone </div>
+                        <div className="individual" onClick={this.individualRequest.bind(this)}> Individual </div>
+                    </div>
+                }
     			<div className="list-requests">{list}</div>
                 </div>
     		)

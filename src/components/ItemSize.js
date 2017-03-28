@@ -25,17 +25,6 @@ export default class ItemSize extends React.Component{
         }
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps == this.props.staticSize){
-            let sizeSelected = nextProps.staticSize
-            updateSize(sizeSelected)
-            let className = "buttonFor"+sizeSelected
-            $("."+className).css({
-                "background-color": "#609dff",
-                "color": "white"
-            });
-        }
-    }
 
     updateSize(sizeSelected){
         this.setState({

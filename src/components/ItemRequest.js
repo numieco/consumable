@@ -42,6 +42,10 @@ export default class ItemRequest extends React.Component{
         this.props.storeData(item)
     }
 
+    sellerSearch(){
+        
+    }
+
     render(){
         return(
             <div className="category">
@@ -55,7 +59,7 @@ export default class ItemRequest extends React.Component{
                     ? <div className="itemRequestBtn" onClick={this.clearState.bind(this)} > Request </div>
                     : (
                         this.props.userType == 'seller'
-                        ? <div className="itemRequestBtn" onClick={this.clearState.bind(this)} > Search </div>
+                        ? <div className="itemRequestBtn" onClick={this.sellerSearch.bind(this)} > Search </div>
                         : <div> </div>
                       )
                 }
