@@ -40,7 +40,13 @@ export default class UserDetails extends React.Component {
 		let size = this.state.size
 		let category = this.state.category
 
-		console.log(category)
+		let keywords = desc.split(' ')
+
+		category.forEach((i) => {
+			keywords.push(i)
+		})
+
+		console.log(keywords)
 
 		if(desc==="" && min==="" && max===""){
 			console.log("Empty all data")
@@ -115,6 +121,7 @@ export default class UserDetails extends React.Component {
 								+'", "max" : "'+ max 
 								+'", "size" : "'+ size
 								+'", "category" : '+ JSON.stringify(category)
+								+', "keywords" : '+ JSON.stringify(keywords)
 								+', "timestamp" : "'+ Date.now()
 								+'", "sellers" : []}'
 
