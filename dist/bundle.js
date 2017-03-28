@@ -26611,15 +26611,15 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _UserDetails = __webpack_require__(237);
+	var _UserDetails = __webpack_require__(238);
 
 	var _UserDetails2 = _interopRequireDefault(_UserDetails);
 
-	var _AllRequest = __webpack_require__(241);
+	var _AllRequest = __webpack_require__(242);
 
 	var _AllRequest2 = _interopRequireDefault(_AllRequest);
 
-	var _authUserCheck = __webpack_require__(246);
+	var _authUserCheck = __webpack_require__(237);
 
 	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
 
@@ -26735,6 +26735,12 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _reactRouter = __webpack_require__(178);
+
+	var _authUserCheck = __webpack_require__(237);
+
+	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26781,21 +26787,38 @@
 
 			_this.checkForButton = function () {
 
-				if (_this.state.details.username == "" || _this.state.details.username == null) {
+				if (_authUserCheck2.default.isUserAuthenticated()) {
+					(0, _jquery2.default)('.dropdown').css({
+						'display': 'none'
+					});
+				} else if (_this.state.details.username == "" || _this.state.details.username == null) {
 					(0, _jquery2.default)('.dropdown-content').css({
 						'display': 'inline-block',
 						'background-color': 'white',
 						'box-shadow': '0px 0px 0px 0px'
 					});
-					console.log("why this is happening" + _this.state.details.username);
 				} else {
 					(0, _jquery2.default)('.dropdown-content').css({
 						'display': 'none',
 						'box-shadow': '0px 8px 16px 0px rgba(0,0,0,0.2)',
 						'background-color': '#f9f9f9'
 					});
-					console.log("it also enters this");
 				}
+			};
+
+			_this.sellerLogoutAction = function () {
+				_authUserCheck2.default.deauthenticateUser();
+				localStorage.removeItem('userType');
+				_this.setState({
+					details: {
+						userType: "",
+						username: null,
+						email: null,
+						age: null,
+						photo: null
+					}
+				});
+				location.reload();
 			};
 
 			_this.state = {
@@ -26810,16 +26833,47 @@
 
 			_this.userInfo = _this.userInfo.bind(_this);
 			_this.sendDetailToParent = _this.sendDetailToParent.bind(_this);
+
 			return _this;
 		}
 
 		_createClass(Header, [{
+			key: "componentWillMount",
+			value: function componentWillMount() {
+				var _this2 = this;
+
+				window.onclick = function (event) {
+					if (!(_this2.state.details.username == "" || _this2.state.details.username == null)) {
+						if (!event.target.matches('.img-clk-drpdown')) {
+							(0, _jquery2.default)(".dropdown-content").css({
+								'display': 'none'
+							});
+						}
+					}
+				};
+			}
+		}, {
 			key: "render",
 			value: function render() {
+
+				console.log("the value of state userType" + this.state.details.userType);
 				return _react2.default.createElement(
 					"div",
 					{ className: "header" },
 					this.checkForButton(),
+					!_authUserCheck2.default.isUserAuthenticated() && (this.state.details.userType == "" || this.state.details.userType == null) ? _react2.default.createElement(
+						"div",
+						{ className: "seller-login-info" },
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: '/Login' },
+							" Click here to login if you are a seller "
+						)
+					) : _react2.default.createElement(
+						"span",
+						null,
+						" "
+					),
 					_react2.default.createElement(
 						"h2",
 						{ className: "title-text" },
@@ -26842,13 +26896,26 @@
 						_react2.default.createElement(
 							"div",
 							{ className: "header-photo", onClick: this.clickToshowBtn.bind(this) },
-							this.state.details.username == "" || this.state.details.username == null ? _react2.default.createElement("span", null) : _react2.default.createElement("img", { src: this.state.details.photo, alt: this.state.details.photo })
+							this.state.details.username == "" || this.state.details.username == null ? _react2.default.createElement("span", null) : _react2.default.createElement("img", { src: this.state.details.photo, className: "img-clk-drpdown", alt: this.state.details.photo })
 						),
 						_react2.default.createElement(
 							"div",
 							{ className: "dropdown-content" },
 							_react2.default.createElement(_FacebookLoginButton2.default, { fb: FB, userInfo: this.userInfo })
 						)
+					),
+					_authUserCheck2.default.isUserAuthenticated() ? _react2.default.createElement(
+						"div",
+						{ className: "seller-logout" },
+						_react2.default.createElement(
+							"div",
+							{ className: "seller-logout-button", onClick: this.sellerLogoutAction.bind(this) },
+							" Log Out "
+						)
+					) : _react2.default.createElement(
+						"span",
+						null,
+						" "
 					)
 				);
 			}
@@ -37257,6 +37324,52 @@
 
 /***/ },
 /* 237 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Auth = function () {
+	  function Auth() {
+	    _classCallCheck(this, Auth);
+	  }
+
+	  _createClass(Auth, null, [{
+	    key: 'authenticateUser',
+	    value: function authenticateUser(token) {
+	      localStorage.setItem('token', token);
+	    }
+	  }, {
+	    key: 'isUserAuthenticated',
+	    value: function isUserAuthenticated() {
+	      return localStorage.getItem('token') !== null;
+	    }
+	  }, {
+	    key: 'deauthenticateUser',
+	    value: function deauthenticateUser() {
+	      localStorage.removeItem('token');
+	    }
+	  }, {
+	    key: 'getToken',
+	    value: function getToken() {
+	      return localStorage.getItem('token');
+	    }
+	  }]);
+
+	  return Auth;
+	}();
+
+	exports.default = Auth;
+
+/***/ },
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37271,15 +37384,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NoUser = __webpack_require__(238);
+	var _NoUser = __webpack_require__(239);
 
 	var _NoUser2 = _interopRequireDefault(_NoUser);
 
-	var _ItemSize = __webpack_require__(239);
+	var _ItemSize = __webpack_require__(240);
 
 	var _ItemSize2 = _interopRequireDefault(_ItemSize);
 
-	var _ItemRequest = __webpack_require__(240);
+	var _ItemRequest = __webpack_require__(241);
 
 	var _ItemRequest2 = _interopRequireDefault(_ItemRequest);
 
@@ -37311,7 +37424,13 @@
 				var size = _this.state.size;
 				var category = _this.state.category;
 
-				console.log(category);
+				var keywords = desc.split(' ');
+
+				category.forEach(function (i) {
+					keywords.push(i);
+				});
+
+				console.log(keywords);
 
 				if (desc === "" && min === "" && max === "") {
 					console.log("Empty all data");
@@ -37370,7 +37489,7 @@
 						maxRange: "maxRange"
 					});
 
-					var data = '{ "email" : "' + _this.props.details.email + '", "name" : "' + _this.props.details.username + '", "photo" : "' + _this.props.details.photo + '", "age" : "' + _this.getAge(_this.props.details.age) + '", "itemDesc" : "' + desc + '", "min" : "' + min + '", "max" : "' + max + '", "size" : "' + size + '", "category" : ' + JSON.stringify(category) + ', "timestamp" : "' + Date.now() + '", "sellers" : []}';
+					var data = '{ "email" : "' + _this.props.details.email + '", "name" : "' + _this.props.details.username + '", "photo" : "' + _this.props.details.photo + '", "age" : "' + _this.getAge(_this.props.details.age) + '", "itemDesc" : "' + desc + '", "min" : "' + min + '", "max" : "' + max + '", "size" : "' + size + '", "category" : ' + JSON.stringify(category) + ', "keywords" : ' + JSON.stringify(keywords) + ', "timestamp" : "' + Date.now() + '", "sellers" : []}';
 
 					var xhr = new XMLHttpRequest();
 					xhr.open('POST', '/insertRequest');
@@ -37569,7 +37688,7 @@
 	exports.default = UserDetails;
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37660,7 +37779,7 @@
 	exports.default = NoUser;
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37720,6 +37839,19 @@
 	    }
 
 	    _createClass(ItemSize, [{
+	        key: "componentWillReceiveProps",
+	        value: function componentWillReceiveProps(nextProps) {
+	            if (nextProps == this.props.staticSize) {
+	                var sizeSelected = nextProps.staticSize;
+	                updateSize(sizeSelected);
+	                var className = "buttonFor" + sizeSelected;
+	                (0, _jquery2.default)("." + className).css({
+	                    "background-color": "#609dff",
+	                    "color": "white"
+	                });
+	            }
+	        }
+	    }, {
 	        key: "updateSize",
 	        value: function updateSize(sizeSelected) {
 	            this.setState({
@@ -37798,7 +37930,7 @@
 	}(_react2.default.Component);
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37964,7 +38096,7 @@
 	}(_react2.default.Component);
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37979,11 +38111,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SingleRequest = __webpack_require__(242);
+	var _SingleRequest = __webpack_require__(243);
 
 	var _SingleRequest2 = _interopRequireDefault(_SingleRequest);
 
-	var _authUserCheck = __webpack_require__(246);
+	var _authUserCheck = __webpack_require__(237);
 
 	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
 
@@ -38183,7 +38315,7 @@
 	exports.default = AllRequest;
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38198,11 +38330,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _CompanyUpload = __webpack_require__(243);
+	var _CompanyUpload = __webpack_require__(244);
 
 	var _CompanyUpload2 = _interopRequireDefault(_CompanyUpload);
 
-	var _ImageBox = __webpack_require__(245);
+	var _ImageBox = __webpack_require__(246);
 
 	var _ImageBox2 = _interopRequireDefault(_ImageBox);
 
@@ -38383,7 +38515,7 @@
 	exports.default = SingleRequest;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38398,11 +38530,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDropzone = __webpack_require__(244);
+	var _reactDropzone = __webpack_require__(245);
 
 	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
-	var _ItemSize = __webpack_require__(239);
+	var _ItemSize = __webpack_require__(240);
 
 	var _ItemSize2 = _interopRequireDefault(_ItemSize);
 
@@ -38602,7 +38734,7 @@
 	exports.default = CompanyUpload;
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function webpackUniversalModuleDefinition(root, factory) {
@@ -39169,7 +39301,7 @@
 	//# sourceMappingURL=index.js.map
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39246,52 +39378,6 @@
 	exports.default = ImageBox;
 
 /***/ },
-/* 246 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var Auth = function () {
-	  function Auth() {
-	    _classCallCheck(this, Auth);
-	  }
-
-	  _createClass(Auth, null, [{
-	    key: 'authenticateUser',
-	    value: function authenticateUser(token) {
-	      localStorage.setItem('token', token);
-	    }
-	  }, {
-	    key: 'isUserAuthenticated',
-	    value: function isUserAuthenticated() {
-	      return localStorage.getItem('token') !== null;
-	    }
-	  }, {
-	    key: 'deauthenticateUser',
-	    value: function deauthenticateUser() {
-	      localStorage.removeItem('token');
-	    }
-	  }, {
-	    key: 'getToken',
-	    value: function getToken() {
-	      return localStorage.getItem('token');
-	    }
-	  }]);
-
-	  return Auth;
-	}();
-
-	exports.default = Auth;
-
-/***/ },
 /* 247 */
 /***/ function(module, exports) {
 
@@ -39313,7 +39399,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _CompanyUpload = __webpack_require__(243);
+	var _CompanyUpload = __webpack_require__(244);
 
 	var _CompanyUpload2 = _interopRequireDefault(_CompanyUpload);
 
@@ -39374,7 +39460,7 @@
 
 	var _BasePage2 = _interopRequireDefault(_BasePage);
 
-	var _authUserCheck = __webpack_require__(246);
+	var _authUserCheck = __webpack_require__(237);
 
 	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
 
