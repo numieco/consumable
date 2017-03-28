@@ -1,5 +1,7 @@
 import React from "react"
 import SingleRequest from "../components/SingleRequest"
+import Auth from '../server/auth/authUserCheck'
+
 import $ from "jquery"
 
 export default class AllRequest extends React.Component {
@@ -8,7 +10,8 @@ export default class AllRequest extends React.Component {
 		super(props)
 
 		this.state = {
-			allReq: "",
+			allReq: '',
+            sellerEmail: '',
             everyoneReq : true,
             invidualReq : false
 		}
@@ -18,6 +21,19 @@ export default class AllRequest extends React.Component {
 
 	componentDidMount() {
 		this.refreshData()
+
+            console.log("going here")
+
+
+        if(Auth.isUserAuthenticated() 
+            && localStorage.getItem('userType') === 'seller') {
+
+            this.setState({
+
+                sellerEmail: localStorage.getItem('sellerEmail')
+
+            }, () => localStorage.removeItem('sellerEmail'))
+        }
 	}
 
 	refreshData = () => {
@@ -96,6 +112,7 @@ export default class AllRequest extends React.Component {
                                 email={ data.email }
         						key={ i }
                                 details={ this.props.details }
+                                sellerEmail={ this.state.sellerEmail }
         					/> 
         				</div>
         			)
@@ -119,6 +136,7 @@ export default class AllRequest extends React.Component {
                                     email={ data.email }
                                     key={ i }
                                     details={ this.props.details }
+                                    sellerEmail={ this.state.sellerEmail }
                                 /> 
                             </div>
                         ) 

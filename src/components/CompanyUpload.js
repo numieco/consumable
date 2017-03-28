@@ -2,6 +2,8 @@ import React from 'react'
 import Dropzone from 'react-dropzone'
 import ItemSize from './ItemSize'
 
+let socket = io.connect()
+
 export default class CompanyUpload extends React.Component {
 
 
@@ -18,7 +20,8 @@ export default class CompanyUpload extends React.Component {
 			isImageUploaded: false,
 			numberOfImages: '',
 			images: [],
-			offeredSize: ''
+			sellerEmail: this.props.sellerEmail,
+			offerStatus: 'pending'
 		}
 
 		this.hidePopup = this.hidePopup.bind(this)
@@ -46,7 +49,9 @@ export default class CompanyUpload extends React.Component {
 
 			console.log(accepted)
 			accepted.forEach((file) => {
-				images.push(file)
+
+				images.push(file.preview)
+			
 			})
 
 			this.setState({
@@ -66,6 +71,9 @@ export default class CompanyUpload extends React.Component {
 
 
 	submitSellersOffer = () => {
+
+		console.log('submit clicked')
+		socket.emit('sellerSubmmit', this.state)
 
 	}
 
@@ -129,8 +137,8 @@ export default class CompanyUpload extends React.Component {
 					</div>
 
 					<div className='upload-buttons'>
-						<div className='cancel-button' onClick={ this.hidePopup }> Cancel </div>
-						<div className='submit-button' onClick={ this.submitSellersOffer }> Submit </div>
+						<div className='cancel-button' onClick={ this.hidePopup } > Cancel </div>
+						<div className='submit-button' onClick={ this.submitSellersOffer } > Submit </div>
 					</div>
 				</div>
 			</div>

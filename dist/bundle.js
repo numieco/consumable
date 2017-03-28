@@ -62,19 +62,19 @@
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Sample = __webpack_require__(247);
+	var _Sample = __webpack_require__(248);
 
 	var _Sample2 = _interopRequireDefault(_Sample);
 
-	var _Login = __webpack_require__(248);
+	var _Login = __webpack_require__(249);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _Signup = __webpack_require__(251);
+	var _Signup = __webpack_require__(252);
 
 	var _Signup2 = _interopRequireDefault(_Signup);
 
-	var _BasePage = __webpack_require__(250);
+	var _BasePage = __webpack_require__(251);
 
 	var _BasePage2 = _interopRequireDefault(_BasePage);
 
@@ -26619,7 +26619,7 @@
 
 	var _AllRequest2 = _interopRequireDefault(_AllRequest);
 
-	var _authUserCheck = __webpack_require__(245);
+	var _authUserCheck = __webpack_require__(246);
 
 	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
 
@@ -26631,7 +26631,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(246);
+	__webpack_require__(247);
 
 	var Home = function (_React$Component) {
 		_inherits(Home, _React$Component);
@@ -37821,7 +37821,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var items = ["Botique", "Baby Items", "Others"];
+	var items = ["Botique", "Others"];
 
 	var ItemRequest = function (_React$Component) {
 	    _inherits(ItemRequest, _React$Component);
@@ -37983,6 +37983,10 @@
 
 	var _SingleRequest2 = _interopRequireDefault(_SingleRequest);
 
+	var _authUserCheck = __webpack_require__(246);
+
+	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
+
 	var _jquery = __webpack_require__(236);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -38060,7 +38064,8 @@
 	        };
 
 	        _this.state = {
-	            allReq: "",
+	            allReq: '',
+	            sellerEmail: '',
 	            everyoneReq: true,
 	            invidualReq: false
 	        };
@@ -38073,6 +38078,19 @@
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
 	            this.refreshData();
+
+	            console.log("going here");
+
+	            if (_authUserCheck2.default.isUserAuthenticated() && localStorage.getItem('userType') === 'seller') {
+
+	                this.setState({
+
+	                    sellerEmail: localStorage.getItem('sellerEmail')
+
+	                }, function () {
+	                    return localStorage.removeItem('sellerEmail');
+	                });
+	            }
 	        }
 	    }, {
 	        key: "render",
@@ -38098,7 +38116,8 @@
 	                                timestamp: data.timestamp,
 	                                email: data.email,
 	                                key: i,
-	                                details: _this2.props.details
+	                                details: _this2.props.details,
+	                                sellerEmail: _this2.state.sellerEmail
 	                            })
 	                        );
 	                    }).reverse();
@@ -38118,7 +38137,8 @@
 	                                    timestamp: data.timestamp,
 	                                    email: data.email,
 	                                    key: i,
-	                                    details: _this2.props.details
+	                                    details: _this2.props.details,
+	                                    sellerEmail: _this2.state.sellerEmail
 	                                })
 	                            );
 	                        }
@@ -38182,6 +38202,10 @@
 
 	var _CompanyUpload2 = _interopRequireDefault(_CompanyUpload);
 
+	var _ImageBox = __webpack_require__(245);
+
+	var _ImageBox2 = _interopRequireDefault(_ImageBox);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38189,6 +38213,10 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var socket = io.connect();
+	var sellers = {};
+	var hasOffer = false;
 
 	var SingleRequest = function (_React$Component) {
 		_inherits(SingleRequest, _React$Component);
@@ -38206,6 +38234,29 @@
 				}
 			};
 
+			_this.checkOffers = function () {
+
+				_this.setState({
+					showOffersToCustomer: !_this.state.showOffersToCustomer
+				});
+
+				socket.emit('checkOffers', { timestamp: _this.props.timestamp, email: _this.props.email });
+
+				socket.on('returnOffers', function (data) {
+
+					if (data.sellers.length > 0) {
+
+						var getData = _this.state.offersBySellers;
+						getData.push(data);
+
+						_this.setState({
+							offersBySellers: getData
+						});
+					}
+					sellers = data.sellers;
+				});
+			};
+
 			_this.proposeItems = function () {
 				_this.setState({
 					showSellerUpload: true
@@ -38220,22 +38271,38 @@
 
 			_this.state = {
 				isCustomer: true,
-				showSellerUpload: false
+				showSellerUpload: false,
+				showOffersToCustomer: false,
+				offersBySellers: []
 			};
 
 			_this.proposeItems = _this.proposeItems.bind(_this);
 			_this.hideCompanyUpload = _this.hideCompanyUpload.bind(_this);
+			_this.checkOffers = _this.checkOffers.bind(_this);
 			return _this;
 		}
 
 		_createClass(SingleRequest, [{
 			key: "render",
 			value: function render() {
+				var _this2 = this;
+
+				var offer = void 0;
+
+				{
+					this.state.offersBySellers.map(function (data, id) {
+						if (_this2.props.timestamp == data.timestamp) {
+							offer = data.sellers.map(function (seller, sellerId) {
+								return _react2.default.createElement(_ImageBox2.default, { offers: seller, key: sellerId });
+							});
+						}
+					});
+				}
 
 				if (this.isCustomer()) {
 					return _react2.default.createElement(
 						"div",
-						{ className: "singleReq" },
+						{ className: "singleReq", onClick: this.checkOffers },
 						_react2.default.createElement(
 							"div",
 							{ className: "singlePhoto" },
@@ -38258,6 +38325,11 @@
 							this.props.min,
 							" - $",
 							this.props.max
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "offersBySellers" },
+							this.state.showOffersToCustomer ? offer : _react2.default.createElement("div", null)
 						)
 					);
 				} else {
@@ -38297,7 +38369,8 @@
 							timestamp: this.props.timestamp,
 							email: this.props.email,
 							size: this.props.size,
-							hideCompanyUpload: this.hideCompanyUpload
+							hideCompanyUpload: this.hideCompanyUpload,
+							sellerEmail: this.props.sellerEmail
 						}) : _react2.default.createElement("div", null)
 					);
 				}
@@ -38341,6 +38414,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var socket = io.connect();
+
 	var CompanyUpload = function (_React$Component) {
 		_inherits(CompanyUpload, _React$Component);
 
@@ -38365,7 +38440,8 @@
 
 					console.log(accepted);
 					accepted.forEach(function (file) {
-						images.push(file);
+
+						images.push(file.preview);
 					});
 
 					_this.setState({
@@ -38384,7 +38460,11 @@
 				}
 			};
 
-			_this.submitSellersOffer = function () {};
+			_this.submitSellersOffer = function () {
+
+				console.log('submit clicked');
+				socket.emit('sellerSubmmit', _this.state);
+			};
 
 			_this.handlePrice = function (event) {
 				_this.setState({
@@ -38415,7 +38495,8 @@
 				isImageUploaded: false,
 				numberOfImages: '',
 				images: [],
-				offeredSize: ''
+				sellerEmail: _this.props.sellerEmail,
+				offerStatus: 'pending'
 			};
 
 			_this.hidePopup = _this.hidePopup.bind(_this);
@@ -39089,6 +39170,83 @@
 
 /***/ },
 /* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ImageBox = function (_React$Component) {
+	    _inherits(ImageBox, _React$Component);
+
+	    function ImageBox() {
+	        _classCallCheck(this, ImageBox);
+
+	        return _possibleConstructorReturn(this, (ImageBox.__proto__ || Object.getPrototypeOf(ImageBox)).apply(this, arguments));
+	    }
+
+	    _createClass(ImageBox, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "imageBox" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "close-btn" },
+	                    "x"
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "personName" },
+	                    this.props.offers.sellerEmail
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "boxImage" },
+	                    _react2.default.createElement("img", { src: "image", alt: "image" })
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "footer" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "footer-price" },
+	                        this.props.offers.price
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "accept-btn" },
+	                        "Accept"
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ImageBox;
+	}(_react2.default.Component);
+
+	exports.default = ImageBox;
+
+/***/ },
+/* 246 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -39134,13 +39292,13 @@
 	exports.default = Auth;
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39193,7 +39351,7 @@
 	exports.default = Sample;
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39208,15 +39366,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _LoginForm = __webpack_require__(249);
+	var _LoginForm = __webpack_require__(250);
 
 	var _LoginForm2 = _interopRequireDefault(_LoginForm);
 
-	var _BasePage = __webpack_require__(250);
+	var _BasePage = __webpack_require__(251);
 
 	var _BasePage2 = _interopRequireDefault(_BasePage);
 
-	var _authUserCheck = __webpack_require__(245);
+	var _authUserCheck = __webpack_require__(246);
 
 	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
 
@@ -39287,6 +39445,7 @@
 
 	          _authUserCheck2.default.authenticateUser(xhr.response.token);
 	          localStorage.setItem('userType', 'seller');
+	          localStorage.setItem('sellerEmail', _this2.state.user.email);
 	          _this2.context.router.push('/');
 	        } else {
 	          var errors = xhr.response.errors ? xhr.response.errors : {};
@@ -39344,7 +39503,7 @@
 	};
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39441,7 +39600,7 @@
 	exports.default = LoginForm;
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39477,7 +39636,7 @@
 	exports.default = BasePage;
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39492,11 +39651,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SignupForm = __webpack_require__(252);
+	var _SignupForm = __webpack_require__(253);
 
 	var _SignupForm2 = _interopRequireDefault(_SignupForm);
 
-	var _BasePage = __webpack_require__(250);
+	var _BasePage = __webpack_require__(251);
 
 	var _BasePage2 = _interopRequireDefault(_BasePage);
 
@@ -39622,7 +39781,7 @@
 	};
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

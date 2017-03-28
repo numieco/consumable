@@ -1,17 +1,24 @@
 import React from "react"
 import CompanyUpload from "./CompanyUpload"
-import ImageBox from "../components/ImageBox"
+import ImageBox from "./ImageBox"
 
+
+let socket = io.connect()
+let sellers = {}
+let hasOffer = false
 export default class SingleRequest extends React.Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
 			isCustomer : true,
-			showSellerUpload: false
+			showSellerUpload: false,
+			showOffersToCustomer: false,
+			offersBySellers: []
 		}
 		this.proposeItems = this.proposeItems.bind(this)
 		this.hideCompanyUpload = this.hideCompanyUpload.bind(this)
+		this.checkOffers = this.checkOffers.bind(this)
 	}
 
 	isCustomer = () => {
@@ -20,6 +27,30 @@ export default class SingleRequest extends React.Component {
 		} else {
 			return false
 		}
+	}
+
+	checkOffers = () => {
+
+		this.setState({
+			showOffersToCustomer: !this.state.showOffersToCustomer
+		})
+
+		socket.emit('checkOffers', {timestamp: this.props.timestamp, email: this.props.email})
+
+		socket.on('returnOffers', (data) => {
+
+			if(data.sellers.length > 0) {
+
+				let getData = this.state.offersBySellers
+				getData.push(data)
+
+				this.setState({
+					offersBySellers: getData
+				})
+			}
+			sellers = data.sellers
+
+		})
 	}
 
 	proposeItems = () => {
@@ -34,40 +65,26 @@ export default class SingleRequest extends React.Component {
 		})
 	}
 
-	componentWillReceiveProps(nextProps){
-		if (nextProps.individual == "true" ) {
-			this.setState({
-				showViewBtn: true
-			})
-		console.log("It enters the componentWillMount")		
-		}else{
-			this.setState({
-				showViewBtn: false
-			})
-		}	
-	}
-
-	showImages = () =>{
-		console.log("It enters the showImages")
-		this.setState({
-			showOffers: true
-		})	
-	}
-
-	offerDetail = () => {
-		console.log("IT enters the offerDetail")
-		var offers = this.props.seller.map((item, i) =>{
-			return <ImageBox key ={i} sellerTitle = {item.title} sellerImage = {item.image} sellerLink = {item.link} sellerprice = {item.price} />
-		})
-		return offers
-	}
-
 	render() {
 		
+		let offer
+
+		{
+			this.state.offersBySellers.map((data, id) => {
+				if(this.props.timestamp == data.timestamp) {
+					offer = data.sellers.map((seller, sellerId) => {
+						return( <ImageBox offers={ seller } key={ sellerId } /> )
+					})
+
+				}
+			})
+		}
+
 		if (this.isCustomer()) {
 			console.log("It re-renders")
 			return (
-				<div className="singleReq" >
+				<div className="singleReq" onClick={ this.checkOffers }>
+
 					<div className="singlePhoto">
 						<img src={this.props.photo} alt={this.props.photo} />
 					</div>
@@ -79,18 +96,18 @@ export default class SingleRequest extends React.Component {
 					</div>
 					<div className="singleRange">
 						${this.props.min} - ${this.props.max}
-					</div> 
-					{this.state.showViewBtn ?
-						<div className="viewButton">
-							<button className="offer-view-button" onClick={this.showImages.bind(this)}> View </button>
-						</div> : <div> </div>	
-					}
-					{this.state.showOffers ?
-						<div className="sellerOffers">
-							{this.offerDetail.bind(this)}
-						</div> : <div> </div>
-					}
+					</div>
+					<div className="offersBySellers"> 
+						{
+							this.state.showOffersToCustomer
+							? offer
+							: <div />
+						} 
+					</div>
+					
 				</div>
+
+
 			)
 
 		} else {
@@ -120,6 +137,7 @@ export default class SingleRequest extends React.Component {
 								email={ this.props.email }
 								size={ this.props.size }
 								hideCompanyUpload={ this.hideCompanyUpload }
+								sellerEmail={ this.props.sellerEmail }
 						/>
 						: <div></div>
 					}
