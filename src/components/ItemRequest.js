@@ -17,8 +17,16 @@ export default class ItemRequest extends React.Component{
     }
 
     itemChecked(itmselectd){
-        if (this.selectedItems.indexOf(itmselectd) !== -1) {
-            this.selectedItems.pop(itmselectd)
+        var index = this.selectedItems.indexOf(itmselectd)
+
+        if (index !== -1) {
+            this.selectedItems.splice(index, 1)
+            this.setState({
+                item : this.selectedItems
+            }, ()=> {
+                this.props.returnCategory(this.state.item)
+            })
+            
         } else {
             this.selectedItems.push(itmselectd)
             this.setState({
@@ -33,16 +41,15 @@ export default class ItemRequest extends React.Component{
     }
 
     clearState(){
-        let item = this.state.item;
-        console.log("the item is "+item)
         this.setState({
             item : ""
         })
         this.setState({resetChkBoxVal : true})
-        this.props.storeData(item)
-    }
-
-    sellerSearch(){
+        if(this.props.userType == 'customer'){
+            this.props.storeData()
+        }else if(this.props.userType == 'seller'){
+            this.props.showSpecificReq()
+        }
         
     }
 
@@ -59,7 +66,7 @@ export default class ItemRequest extends React.Component{
                     ? <div className="itemRequestBtn" onClick={this.clearState.bind(this)} > Request </div>
                     : (
                         this.props.userType == 'seller'
-                        ? <div className="itemRequestBtn" onClick={this.sellerSearch.bind(this)} > Search </div>
+                        ? <div className="itemRequestBtn" onClick={this.clearState.bind(this)} > Search </div>
                         : <div> </div>
                       )
                 }

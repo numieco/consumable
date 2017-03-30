@@ -18,7 +18,8 @@ export default class Home extends React.Component {
 				email: "",
 				age: "",
 				photo: "",
-				user: ""		
+				user: "",
+				sellerSearch : false		
 			}
 		}
 
@@ -60,13 +61,18 @@ export default class Home extends React.Component {
 		this.refs.child.refreshData()
 	}
 
+	setSellerSearch = (searchText, category) => {
+		this.refs.child.sellerSearchedData(searchText,category)
+	}
+
 	render(){
 		return(
 			<div className="container">
 				<Header fb={FB} userDetails={this.userDetails} />
 				<UserDetails details={this.state.details} 
 							name={this.state.details.username}
-							refreshData={this.refreshData} />
+							refreshData={this.refreshData}
+							sellerSearch = {(searchText, category) => this.setSellerSearch(searchText, category)} />
 				<AllRequest ref="child" details={this.state.details} />
 
 			</div>

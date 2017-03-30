@@ -133,12 +133,10 @@ export default class UserDetails extends React.Component {
 				if(xhr.status === 200) {
 					this.clearStates()
 					this.props.refreshData()
-					this.sizeOfItem.clearStates()
 				} else {
 					console.log(xhr.response.error)
 					this.clearStates()
 					this.props.refreshData()
-					this.sizeOfItem.clearStates()
 				}
 			})
 			xhr.send(data)
@@ -151,7 +149,7 @@ export default class UserDetails extends React.Component {
 			min: "",
 			max: ""
 		})
-		this.sizeOfItem.clearStates
+		this.sizeOfItem.clearStates()
 	}
 
 	getAge = (dob) => {
@@ -195,8 +193,14 @@ export default class UserDetails extends React.Component {
 		this.setState({
 			category : itemCat
 		}, () => {
-			console.log(this.state.category)
+			console.log("category" +this.state.category)
 		})
+	}
+
+	searchRequest = () => {
+		let category = this.state.category
+		let searchText = this.state.search.split(' ')
+		this.props.sellerSearch(searchText, category)
 	}
 
 	render() {
@@ -264,6 +268,7 @@ export default class UserDetails extends React.Component {
 						</div>
 					</div>
 					<ItemRequest userType={ this.props.details.userType } 
+									showSpecificReq = {this.searchRequest.bind(this)}
 											 returnCategory={ this.getItemCategory }
 					/>
 				</div>

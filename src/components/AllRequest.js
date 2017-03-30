@@ -1,8 +1,10 @@
 import React from "react"
 import SingleRequest from "../components/SingleRequest"
 import Auth from '../server/auth/authUserCheck'
-
 import $ from "jquery"
+
+let socket = io.connect()
+let returnedResults = []
 
 export default class AllRequest extends React.Component {
 
@@ -18,6 +20,7 @@ export default class AllRequest extends React.Component {
 		}
 
 		this.refreshData = this.refreshData.bind(this)
+        
 	}
 
 	componentDidMount() {
@@ -93,6 +96,22 @@ export default class AllRequest extends React.Component {
         })
     }
 
+    sellerSearchedData (searchText, category){
+        console.log("searchText" + searchText + "category" + category)
+        socket.emit('searchedWords', {searchText : searchText, category : category})
+        socket.on('searchresults', (data) => {
+            console.log(data)
+            data.forEach((item) =>{
+                returnedResults.push(item)
+            })
+            console.log(returnedResults)
+            this.setState({
+                sellerSearch : true
+            })
+        })
+
+
+    }
 	render() {
         // checking if the everyone tab is clicked or individual tab is clicked. If everyone is true then all the request is listed 
         // else if individual is true only the request made by current user is listed
@@ -100,23 +119,49 @@ export default class AllRequest extends React.Component {
             let list
             if (this.state.everyoneReq) {
         		list = this.state.allReq.requests.map((data, i) => {
-        			return (
-        				<div key={i}> 
-        					<SingleRequest 
-        						photo={ data.photo } 
-        						name={ data.name } 
-        						desc={ data.itemDesc } 
-        						min={ data.min }
-        						max={ data.max }
-                                size={ data.size}
-                                timestamp={ data.timestamp }
-                                email={ data.email }
-        						key={ i }
-                                details={ this.props.details }
-                                sellerEmail={ this.state.sellerEmail }
-        					/> 
-        				</div>
-        			)
+                    if(this.state.sellerSearch){
+                        let searchList = returnedResults.map((item) => {
+                                    if(item._id == data._id){
+                                        return (
+                                            <div key={i}> 
+                                                <SingleRequest 
+                                                    photo={ data.photo } 
+                                                    name={ data.name } 
+                                                    desc={ data.itemDesc } 
+                                                    min={ data.min }
+                                                    max={ data.max }
+                                                    size={ data.size}
+                                                    timestamp={ data.timestamp }
+                                                    email={ data.email }
+                                                    key={ i }
+                                                    details={ this.props.details }
+                                                    sellerEmail={ this.state.sellerEmail }
+                                                /> 
+                                            </div>
+                                        )
+                                    }
+                                })
+                        return searchList
+
+                    }else {
+                        return (
+                            <div key={i}> 
+                                <SingleRequest 
+                                    photo={ data.photo } 
+                                    name={ data.name } 
+                                    desc={ data.itemDesc } 
+                                    min={ data.min }
+                                    max={ data.max }
+                                    size={ data.size}
+                                    timestamp={ data.timestamp }
+                                    email={ data.email }
+                                    key={ i }
+                                    details={ this.props.details }
+                                    sellerEmail={ this.state.sellerEmail }
+                                /> 
+                            </div>
+                        )
+                    }	
         		}).reverse()
 
             } else if (this.state.invidualReq) {
