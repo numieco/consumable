@@ -33,7 +33,7 @@ export default class AllRequest extends React.Component {
 
             this.setState({
                 sellerEmail: localStorage.getItem('sellerEmail')
-            }, () => localStorage.removeItem('sellerEmail'))
+            })
         
         }
 	}

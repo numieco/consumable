@@ -14,7 +14,7 @@ export default class ImageBox extends React.Component{
                     {this.props.offers.sellerEmail}
                 </div>
                 <div className="boxImage">
-                    <img src="image" alt="image" />
+                    <img src={this.props.offers.images[0]} alt="image" />
                 </div>
                 <div className="footer">
                     <div className="footer-price">

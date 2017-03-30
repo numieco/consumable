@@ -38267,8 +38267,6 @@
 
 	                this.setState({
 	                    sellerEmail: localStorage.getItem('sellerEmail')
-	                }, function () {
-	                    return localStorage.removeItem('sellerEmail');
 	                });
 	            }
 	        }
@@ -38680,20 +38678,20 @@
 
 			_this.onDrop = function (accepted, rejected) {
 				var images = _this.state.images;
+
 				if (accepted.length > 0) {
-
-					console.log(accepted);
 					accepted.forEach(function (file) {
+						var fileReader = new FileReader();
+						fileReader.onloadend = function () {
 
-						images.push(file.preview);
-					});
-
-					_this.setState({
-						isImageUploaded: true,
-						numberOfImages: images.length,
-						images: images
-					}, function () {
-						return console.log(_this.state.images);
+							images.push(fileReader.result);
+							_this.setState({
+								isImageUploaded: true,
+								numberOfImages: images.length,
+								images: images
+							});
+						};
+						fileReader.readAsDataURL(file);
 					});
 				} else {
 					_this.setState({
@@ -38707,7 +38705,14 @@
 			_this.submitSellersOffer = function () {
 
 				console.log('submit clicked');
-				socket.emit('sellerSubmmit', _this.state);
+
+				if (_this.state.price !== '' && _this.state.images.length > 0 && _this.state.notes !== '' && _this.state.link !== '') {
+
+					socket.emit('sellerSubmmit', _this.state);
+					_this.hidePopup();
+				} else {
+					alert('please fill the form');
+				}
 			};
 
 			_this.handlePrice = function (event) {
@@ -39464,7 +39469,7 @@
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "boxImage" },
-	                    _react2.default.createElement("img", { src: "image", alt: "image" })
+	                    _react2.default.createElement("img", { src: this.props.offers.images[0], alt: "image" })
 	                ),
 	                _react2.default.createElement(
 	                    "div",
