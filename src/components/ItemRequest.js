@@ -1,4 +1,5 @@
 import React from "react"
+import $ from "jquery"
 
 const items = ["Botique", "Others"]
 
@@ -6,10 +7,9 @@ export default class ItemRequest extends React.Component{
     constructor(){
         super();
         this.state = {
-            item : [],
-            resetChkBoxVal : false
+            item : []
         }
-        // this.itemChecked = this.itemChecked.bind(this)
+        console.log("itemrequest re-renddered")
     }
     
     componentWillMount(){
@@ -44,20 +44,24 @@ export default class ItemRequest extends React.Component{
         this.setState({
             item : ""
         })
-        this.setState({resetChkBoxVal : true})
         if(this.props.userType == 'customer'){
             this.props.storeData()
-        }else if(this.props.userType == 'seller'){
-            this.props.showSpecificReq()
         }
+        $("input").prop("checked", false)
         
     }
+        
 
     render(){
+        console.log("item req renders")
         return(
             <div className="category">
                 <div className="itemRequest">
-                    {items.map((item)=> <Checkbox resetValue={this.state.resetChkBoxVal} label={item} key={item} toggleCheckBox={() => this.itemChecked(item)} />)}
+                    
+                    {items.map((item)=> (<div className="singleItem" key={item}>
+                                            <input type="checkbox" id={item} value={item} onChange={() => this.itemChecked(item)} />
+                                            <label htmlFor={item}>{item}</label>
+                                         </div>))}
                     
                 </div>
 
@@ -66,46 +70,12 @@ export default class ItemRequest extends React.Component{
                     ? <div className="itemRequestBtn" onClick={this.clearState.bind(this)} > Request </div>
                     : (
                         this.props.userType == 'seller'
-                        ? <div className="itemRequestBtn" onClick={this.clearState.bind(this)} > Search </div>
+                        ? <div className="itemRequestBtn" onClick={this.props.showSpecificReq} > Search </div>
                         : <div> </div>
                       )
                 }
 
             </div>
         )
-    }
-}
-
-class Checkbox extends React.Component{
-    constructor(){
-        super();
-        this.state = {
-            isChecked : false
-        }
-    }
-
-    changeChkState(){
-        this.setState({
-            isChecked : !(this.state.isChecked)
-        });
-        this.props.toggleCheckBox()
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(nextProps.resetValue == true){
-            this.setState({
-                isChecked : false
-            });
-        }
-        
-
-    }
-    render(){
-       
-        return(
-            <div className="singleItem">
-                <input type="checkbox" id={this.props.label} value={this.props.label} checked={this.state.isChecked} onChange={this.changeChkState.bind(this)} />
-                <label htmlFor={this.props.label}>{this.props.label}</label>
-            </div>);
     }
 }

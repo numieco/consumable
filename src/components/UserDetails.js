@@ -205,6 +205,7 @@ export default class UserDetails extends React.Component {
 	searchRequest = () => {
 		let category = this.state.category
 		let searchText = (this.state.search.length > 0) ? this.state.search.split(' ') : ''
+		console.log("the search text in request" +searchText)
 		this.props.sellerSearch(searchText, category)
 	}
 
@@ -256,7 +257,7 @@ export default class UserDetails extends React.Component {
 						Request
 					</div> */}
 					</div>
-					<ItemSize ref={(input) => {this.sizeOfItem = input;}} returnSize = {this.getItemSize} />
+					<ItemSize ref={(input) => {this.sizeOfItem = input}} returnSize = {this.getItemSize} />
 
 					<ItemRequest 
 						userType={ this.props.details.userType } 
