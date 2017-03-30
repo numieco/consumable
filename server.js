@@ -102,8 +102,8 @@ const dataTransfer = io.on('connection', (socket) => {
 					and fetching all item requests from database.
 			*/
 
-			socket.on('all-records', (data) => {
-				
+			socket.on('all-records', () => {
+
 				let docs = collection.find()
 				let docList = ''
 				docs.toArray((err, items) => {
@@ -118,6 +118,25 @@ const dataTransfer = io.on('connection', (socket) => {
 				})
 
 			})
+
+			socket.on('refresh', () => {
+
+				let docs = collection.find()
+				let docList = ''
+				docs.toArray((err, items) => {
+
+					if(err) {
+						io.sockets.emit('refresh-ack', { error: err })
+					}
+
+					docList = '{ "status" : '+ 200 +', "data" : { "requests" : '+ JSON.stringify(items) +'}}'
+					io.sockets.emit('refresh-ack', JSON.parse(docList))
+
+				})
+
+			})
+
+
 
 			socket.on('sellerSubmmit', (data) => {
 				let seller = {

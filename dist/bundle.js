@@ -26705,12 +26705,14 @@
 					"div",
 					{ className: "container" },
 					_react2.default.createElement(_Header2.default, { fb: FB, userDetails: this.userDetails }),
-					_react2.default.createElement(_UserDetails2.default, { details: this.state.details,
+					_react2.default.createElement(_UserDetails2.default, {
+						details: this.state.details,
 						name: this.state.details.username,
 						refreshData: this.refreshData,
 						sellerSearch: function sellerSearch(searchText, category) {
 							return _this2.setSellerSearch(searchText, category);
-						} }),
+						}
+					}),
 					_react2.default.createElement(_AllRequest2.default, { ref: "child", details: this.state.details })
 				);
 			}
@@ -37438,9 +37440,12 @@
 
 				var keywords = desc.split(' ');
 
-				category.forEach(function (i) {
-					keywords.push(i);
-				});
+				if (category.length > 0) {
+
+					category.forEach(function (i) {
+						keywords.push(i);
+					});
+				}
 
 				console.log(keywords);
 
@@ -37509,11 +37514,11 @@
 
 						if (response.status === 200) {
 							_this.clearStates();
-							_this.props.refreshData();
+							socket.emit('refresh');
 						} else {
 							console.log(response.error);
 							_this.clearStates();
-							_this.props.refreshData();
+							socket.emit('refresh');
 						}
 					});
 				}
@@ -37620,7 +37625,8 @@
 							_react2.default.createElement(
 								"div",
 								{ className: "descField" },
-								_react2.default.createElement("input", { type: "text",
+								_react2.default.createElement("input", {
+									type: "text",
 									onChange: this.handleDescription,
 									value: this.state.desc,
 									placeholder: "Item Description"
@@ -37641,20 +37647,24 @@
 								_react2.default.createElement(
 									"div",
 									{ className: "lowRange" },
-									_react2.default.createElement("input", { className: this.state.minRange,
+									_react2.default.createElement("input", {
+										className: this.state.minRange,
 										type: "number",
 										value: this.state.min,
-										onChange: this.handleMinRange }),
+										onChange: this.handleMinRange
+									}),
 									"Low"
 								),
 								"-",
 								_react2.default.createElement(
 									"div",
 									{ className: "highRange" },
-									_react2.default.createElement("input", { className: this.state.maxRange,
+									_react2.default.createElement("input", {
+										className: this.state.maxRange,
 										type: "number",
 										value: this.state.max,
-										onChange: this.handleMaxRange }),
+										onChange: this.handleMaxRange
+									}),
 									"High"
 								)
 							)
@@ -37662,7 +37672,8 @@
 						_react2.default.createElement(_ItemSize2.default, { ref: function ref(input) {
 								_this2.sizeOfItem = input;
 							}, returnSize: this.getItemSize }),
-						_react2.default.createElement(_ItemRequest2.default, { userType: this.props.details.userType,
+						_react2.default.createElement(_ItemRequest2.default, {
+							userType: this.props.details.userType,
 							storeData: function storeData() {
 								return _this2.validateAndStore();
 							},
@@ -37679,14 +37690,16 @@
 							_react2.default.createElement(
 								"div",
 								{ className: "searchField" },
-								_react2.default.createElement("input", { type: "text",
+								_react2.default.createElement("input", {
+									type: "text",
 									onChange: this.handleSearch,
 									value: this.state.search,
 									placeholder: "Search item category"
 								})
 							)
 						),
-						_react2.default.createElement(_ItemRequest2.default, { userType: this.props.details.userType,
+						_react2.default.createElement(_ItemRequest2.default, {
+							userType: this.props.details.userType,
 							showSpecificReq: this.searchRequest.bind(this),
 							returnCategory: this.getItemCategory
 						})
@@ -38167,20 +38180,24 @@
 	        var _this = _possibleConstructorReturn(this, (AllRequest.__proto__ || Object.getPrototypeOf(AllRequest)).call(this, props));
 
 	        _this.refreshData = function () {
-
+	            console.log('called');
 	            socket.emit('all-records');
-	            socket.on('all-records-ack', _this.allRecordsAck);
+	            socket.on('all-records-ack', function (response) {
+	                return _this.allRecordsAck(response);
+	            });
 	        };
 
 	        _this.allRecordsAck = function (response) {
 
-	            console.log('all-records-ack');
-	            console.log(response.status);
-
 	            if (response.status === 200) {
-	                _this.setState({
-	                    allReq: response.data
-	                });
+	                if (JSON.stringify(response.data) !== JSON.stringify(_this.state.allReq)) {
+	                    console.log(JSON.stringify(response.data) !== JSON.stringify(_this.state.allReq));
+	                    _this.setState({
+	                        allReq: response.data
+	                    }, function () {
+	                        return console.log('set');
+	                    });
+	                }
 	            } else {
 	                console.log(response.error);
 	            }
@@ -38234,6 +38251,10 @@
 
 	        _this.refreshData = _this.refreshData.bind(_this);
 	        _this.allRecordsAck = _this.allRecordsAck.bind(_this);
+
+	        socket.on('refresh-ack', function (response) {
+	            return _this.allRecordsAck(response);
+	        });
 	        return _this;
 	    }
 
@@ -38250,6 +38271,13 @@
 	                    return localStorage.removeItem('sellerEmail');
 	                });
 	            }
+	        }
+	    }, {
+	        key: "componentWillUnmount",
+	        value: function componentWillUnmount() {
+	            this.setState({
+	                allReq: ''
+	            });
 	        }
 	    }, {
 	        key: "sellerSearchedData",

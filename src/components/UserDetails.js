@@ -44,9 +44,13 @@ export default class UserDetails extends React.Component {
 
 		let keywords = desc.split(' ')
 
-		category.forEach((i) => {
-			keywords.push(i)
-		})
+		if(category.length > 0) {
+
+			category.forEach((i) => {
+				keywords.push(i)
+			})
+		
+		}
 
 		console.log(keywords)
 
@@ -133,11 +137,11 @@ export default class UserDetails extends React.Component {
 
 				if(response.status === 200) {
 					this.clearStates()
-					this.props.refreshData()
+					socket.emit('refresh')
 				} else {
 					console.log(response.error)
 					this.clearStates()
-					this.props.refreshData()
+					socket.emit('refresh')
 				}
 
 			})	
@@ -216,10 +220,11 @@ export default class UserDetails extends React.Component {
 					<div className={this.state.descClass}>
 
 						<div className="descField">
-							<input type="text" 
-								   onChange={this.handleDescription} 
-								   value={this.state.desc}
-								   placeholder="Item Description"
+							<input
+								type="text" 
+					    	onChange={this.handleDescription} 
+				 	    	value={this.state.desc}
+								placeholder="Item Description"
 							/>
 						</div>
 					</div>
@@ -227,18 +232,22 @@ export default class UserDetails extends React.Component {
 					<div className="priceRange">
 						<div className="range-div">Price Range</div>
 						<div className="lowRange">
-							<input className={this.state.minRange} 
-									type="number"
-									value={this.state.min} 
-									onChange={this.handleMinRange}/>
+							<input
+								className={this.state.minRange} 
+								type="number"
+								value={this.state.min} 
+								onChange={this.handleMinRange}
+							/>
 							Low
 						</div>
 						 - 
 						<div className="highRange">
-							<input className={this.state.maxRange} 
-									type="number" 
-									value={this.state.max}
-									onChange={this.handleMaxRange}/>
+							<input
+								className={this.state.maxRange} 
+								type="number" 
+								value={this.state.max}
+								onChange={this.handleMaxRange}
+							/>
 							High
 						</div>
 					</div>
@@ -249,9 +258,10 @@ export default class UserDetails extends React.Component {
 					</div>
 					<ItemSize ref={(input) => {this.sizeOfItem = input;}} returnSize = {this.getItemSize} />
 
-					<ItemRequest userType={ this.props.details.userType } 
-											 storeData= {() => this.validateAndStore()} 
-											 returnCategory = {this.getItemCategory} 
+					<ItemRequest 
+						userType={ this.props.details.userType } 
+						storeData= {() => this.validateAndStore()} 
+						returnCategory = {this.getItemCategory} 
 					/>
 				</div>
 			)
@@ -261,16 +271,18 @@ export default class UserDetails extends React.Component {
 					<div className="searchItem" >
 
 						<div className="searchField">
-							<input type="text" 
-								   onChange={ this.handleSearch } 
-								   value={ this.state.search }
-								   placeholder="Search item category"
+							<input
+								type="text" 
+								onChange={ this.handleSearch } 
+								value={ this.state.search }
+								placeholder="Search item category"
 							/>
 						</div>
 					</div>
-					<ItemRequest userType={ this.props.details.userType } 
-									showSpecificReq = {this.searchRequest.bind(this)}
-											 returnCategory={ this.getItemCategory }
+					<ItemRequest 
+						userType={ this.props.details.userType } 
+						showSpecificReq = {this.searchRequest.bind(this)}
+						returnCategory={ this.getItemCategory }
 					/>
 				</div>
 			)

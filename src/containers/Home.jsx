@@ -13,7 +13,7 @@ export default class Home extends React.Component {
 
 		this.state = {
 			details: {
-        		userType: "",
+        userType: "",
 				username: "",
 				email: "",
 				age: "",
@@ -69,10 +69,12 @@ export default class Home extends React.Component {
 		return(
 			<div className="container">
 				<Header fb={FB} userDetails={this.userDetails} />
-				<UserDetails details={this.state.details} 
-							name={this.state.details.username}
-							refreshData={this.refreshData}
-							sellerSearch = {(searchText, category) => this.setSellerSearch(searchText, category)} />
+				<UserDetails 
+					details={this.state.details} 
+					name={this.state.details.username}
+					refreshData={this.refreshData}
+					sellerSearch = {(searchText, category) => this.setSellerSearch(searchText, category)} 
+				/>
 				<AllRequest ref="child" details={this.state.details} />
 
 			</div>

@@ -21,6 +21,8 @@ export default class AllRequest extends React.Component {
 
 		this.refreshData = this.refreshData.bind(this)
         this.allRecordsAck = this.allRecordsAck.bind(this)
+
+        socket.on('refresh-ack', (response) => this.allRecordsAck(response))
 	}
 
 	componentDidMount() {
@@ -34,25 +36,31 @@ export default class AllRequest extends React.Component {
             }, () => localStorage.removeItem('sellerEmail'))
         
         }
-
 	}
 
-	refreshData = () => {
+    componentWillUnmount() {
+        this.setState({
+            allReq: ''
+        })
+    }
 
+	refreshData = () => {
+        console.log('called')
         socket.emit('all-records')
-        socket.on('all-records-ack', this.allRecordsAck)
+        socket.on('all-records-ack', (response) => this.allRecordsAck(response))
 
 	}
 
     allRecordsAck = (response) => {
 
-        console.log('all-records-ack')
-        console.log(response.status)
-
         if(response.status === 200) {
-            this.setState({
-                allReq: response.data
-            })
+            if(JSON.stringify(response.data) !== JSON.stringify(this.state.allReq)) {
+                console.log(JSON.stringify(response.data) !== JSON.stringify(this.state.allReq))
+                this.setState({
+                    allReq: response.data
+                }, () => console.log('set'))
+
+            }
         } else {
             console.log( response.error )
         }
