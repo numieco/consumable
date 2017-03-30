@@ -135,6 +135,25 @@ const dataTransfer = io.on('connection', (socket) => {
 				})
 			})
 
+			socket.on('searchedWords', (data) => {
+				console.log(data)
+				let keywords = []
+				let categories = []
+
+				data.searchText.forEach((item) => {
+					keywords.push(item)
+				})
+				data.category.forEach((item) => {
+					categories.push(item)
+				})
+
+				collection.find({ $and : [{"category" : {$in : categories}},{"keywords" : {$in : keywords}}]}).toArray((err, docs) => {
+					console.log(docs)
+					let arrdata = docs
+					socket.emit('searchresults', arrdata)
+				})	
+			})
+
 		}
 
 		app.on('close', () => {
