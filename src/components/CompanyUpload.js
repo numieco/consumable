@@ -45,20 +45,24 @@ export default class CompanyUpload extends React.Component {
 
 	onDrop = (accepted, rejected) => {
 		let images = this.state.images
+
 		if (accepted.length > 0) {
-
-			console.log(accepted)
 			accepted.forEach((file) => {
+				let fileReader = new FileReader()
+				fileReader.onloadend = () => {
 
-				images.push(file.preview)
-			
+					images.push(fileReader.result)
+					this.setState({
+						isImageUploaded: true,
+						numberOfImages: images.length,
+						images: images
+					})
+				
+				}
+				fileReader.readAsDataURL(file)
 			})
 
-			this.setState({
-				isImageUploaded: true,
-				numberOfImages: images.length,
-				images: images
-			}, () => console.log(this.state.images))
+
 		} else {
 			this.setState({
 				isImageUploaded: images.length > 0 ? true : false ,
@@ -73,7 +77,18 @@ export default class CompanyUpload extends React.Component {
 	submitSellersOffer = () => {
 
 		console.log('submit clicked')
-		socket.emit('sellerSubmmit', this.state)
+
+		if(this.state.price !== ''
+			&& this.state.images.length > 0
+			&& this.state.notes !== ''
+			&& this.state.link !== '') {
+
+			socket.emit('sellerSubmmit', this.state)
+			this.hidePopup()
+			
+		} else {
+			alert('please fill the form')
+		}
 
 	}
 

@@ -136,8 +136,6 @@ const dataTransfer = io.on('connection', (socket) => {
 
 			})
 
-
-
 			socket.on('sellerSubmmit', (data) => {
 				let seller = {
 					sellerEmail: data.sellerEmail,
