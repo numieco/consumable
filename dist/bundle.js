@@ -37418,6 +37418,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var socket = io.connect();
+
 	var UserDetails = function (_React$Component) {
 		_inherits(UserDetails, _React$Component);
 
@@ -37501,21 +37503,19 @@
 
 					var data = '{ "email" : "' + _this.props.details.email + '", "name" : "' + _this.props.details.username + '", "photo" : "' + _this.props.details.photo + '", "age" : "' + _this.getAge(_this.props.details.age) + '", "itemDesc" : "' + desc + '", "min" : "' + min + '", "max" : "' + max + '", "size" : "' + size + '", "category" : ' + JSON.stringify(category) + ', "keywords" : ' + JSON.stringify(keywords) + ', "timestamp" : "' + Date.now() + '", "sellers" : []}';
 
-					var xhr = new XMLHttpRequest();
-					xhr.open('POST', '/insertRequest');
-					xhr.setRequestHeader('Content-type', 'application/json');
-					xhr.responseType = 'json';
-					xhr.addEventListener('load', function () {
-						if (xhr.status === 200) {
+					socket.emit('insert-request', data);
+
+					socket.on('insert-ack', function (response) {
+
+						if (response.status === 200) {
 							_this.clearStates();
 							_this.props.refreshData();
 						} else {
-							console.log(xhr.response.error);
+							console.log(response.error);
 							_this.clearStates();
 							_this.props.refreshData();
 						}
 					});
-					xhr.send(data);
 				}
 			};
 
@@ -38168,20 +38168,22 @@
 
 	        _this.refreshData = function () {
 
-	            var xhr = new XMLHttpRequest();
-	            xhr.open('post', '/allRecords');
-	            xhr.setRequestHeader('Content-type', 'application/json');
-	            xhr.responseType = 'json';
-	            xhr.addEventListener('load', function () {
-	                if (xhr.status === 200) {
-	                    _this.setState({
-	                        allReq: xhr.response
-	                    });
-	                } else {
-	                    console.log(xhr.response.error);
-	                }
-	            });
-	            xhr.send();
+	            socket.emit('all-records');
+	            socket.on('all-records-ack', _this.allRecordsAck);
+	        };
+
+	        _this.allRecordsAck = function (response) {
+
+	            console.log('all-records-ack');
+	            console.log(response.status);
+
+	            if (response.status === 200) {
+	                _this.setState({
+	                    allReq: response.data
+	                });
+	            } else {
+	                console.log(response.error);
+	            }
 	        };
 
 	        _this.everyoneRequest = function () {
@@ -38231,7 +38233,7 @@
 	        };
 
 	        _this.refreshData = _this.refreshData.bind(_this);
-
+	        _this.allRecordsAck = _this.allRecordsAck.bind(_this);
 	        return _this;
 	    }
 
@@ -38240,14 +38242,10 @@
 	        value: function componentDidMount() {
 	            this.refreshData();
 
-	            console.log("going here");
-
 	            if (_authUserCheck2.default.isUserAuthenticated() && localStorage.getItem('userType') === 'seller') {
 
 	                this.setState({
-
 	                    sellerEmail: localStorage.getItem('sellerEmail')
-
 	                }, function () {
 	                    return localStorage.removeItem('sellerEmail');
 	                });
@@ -38286,6 +38284,7 @@
 	            // checking if the everyone tab is clicked or individual tab is clicked. If everyone is true then all the request is listed 
 	            // else if individual is true only the request made by current user is listed
 	            if (this.state.allReq) {
+
 	                var list = void 0;
 	                if (this.state.everyoneReq) {
 	                    list = this.state.allReq.requests.map(function (data, i) {

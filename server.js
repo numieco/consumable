@@ -80,30 +80,43 @@ const dataTransfer = io.on('connection', (socket) => {
 		else {
 
 		/*
-				Handling /insertRequest	URL hit, 
-				and fetching user's data from request body (req.body). 
+				Handling insert-request event, 
+				and fetching user's data from request. 
 		*/
 
-			app.post("/insertRequest", (req, res) => {
+			socket.on('insert-request', (request) => {
 
-				collection.insert(req.body, (err, records) => {
-					if(err) throw(err)
+				collection.insert(JSON.parse(request), (err, records) => {
+					if (err) {
+						throw(err)
+						socket.emit('insert-ack', { error: err })
+					} 
+						
+					socket.emit('insert-ack', { status: 200, message: 'Inserted One Data' })
 				})
-				res.writeHead(200, {"Content-Type": "text/plain"})
-				res.end("DONE INSERTED ONE")
 
 			})
 
-			app.post("/allRecords", (req, res) => {
+			/*
+					Handling all-records event,
+					and fetching all item requests from database.
+			*/
 
-				res.writeHead(200, {"Content-Type": "application/json"})
-
+			socket.on('all-records', (data) => {
+				
 				let docs = collection.find()
-				let dataArray = ""
+				let docList = ''
 				docs.toArray((err, items) => {
-					dataArray = '{"requests" : '+ JSON.stringify(items) +'}'
-					res.end(dataArray)
+
+					if(err) {
+						socket.emit('all-records-ack', { error: err })
+					}
+
+					docList = '{ "status" : '+ 200 +', "data" : { "requests" : '+ JSON.stringify(items) +'}}'
+					socket.emit('all-records-ack', JSON.parse(docList))
+
 				})
+
 			})
 
 			socket.on('sellerSubmmit', (data) => {

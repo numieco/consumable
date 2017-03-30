@@ -20,43 +20,44 @@ export default class AllRequest extends React.Component {
 		}
 
 		this.refreshData = this.refreshData.bind(this)
-        
+        this.allRecordsAck = this.allRecordsAck.bind(this)
 	}
 
 	componentDidMount() {
 		this.refreshData()
 
-            console.log("going here")
-
-
         if(Auth.isUserAuthenticated() 
             && localStorage.getItem('userType') === 'seller') {
 
             this.setState({
-
                 sellerEmail: localStorage.getItem('sellerEmail')
-
             }, () => localStorage.removeItem('sellerEmail'))
+        
         }
+
 	}
 
 	refreshData = () => {
 
-		const xhr = new XMLHttpRequest()
-		xhr.open('post', '/allRecords')
-		xhr.setRequestHeader('Content-type', 'application/json')
-		xhr.responseType = 'json'
-		xhr.addEventListener('load', () => {
-			if(xhr.status === 200) {
-				this.setState({
-  					allReq: xhr.response
-  				})
-			} else {
-				console.log(xhr.response.error)
-			}
-		})
-		xhr.send()
+        socket.emit('all-records')
+        socket.on('all-records-ack', this.allRecordsAck)
+
 	}
+
+    allRecordsAck = (response) => {
+
+        console.log('all-records-ack')
+        console.log(response.status)
+
+        if(response.status === 200) {
+            this.setState({
+                allReq: response.data
+            })
+        } else {
+            console.log( response.error )
+        }
+
+    }
 
     everyoneRequest = () => {
         // if everone tab is clicked, it sets the corresponding varible to true 
@@ -123,6 +124,7 @@ export default class AllRequest extends React.Component {
         // checking if the everyone tab is clicked or individual tab is clicked. If everyone is true then all the request is listed 
         // else if individual is true only the request made by current user is listed
     	if (this.state.allReq) {
+
             let list
             if (this.state.everyoneReq) {
         		list = this.state.allReq.requests.map((data, i) => {

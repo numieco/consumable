@@ -4,6 +4,8 @@ import ItemSize from "../components/ItemSize"
 import ItemRequest from "../components/ItemRequest"
 import $ from "jquery"
 
+let socket = io.connect()
+
 export default class UserDetails extends React.Component {
 	
 	constructor(props) {
@@ -125,21 +127,20 @@ export default class UserDetails extends React.Component {
 								+', "timestamp" : "'+ Date.now()
 								+'", "sellers" : []}'
 
-			const xhr = new XMLHttpRequest()
-			xhr.open('POST', '/insertRequest')
-			xhr.setRequestHeader('Content-type', 'application/json')
-			xhr.responseType = 'json'
-			xhr.addEventListener('load', () => {
-				if(xhr.status === 200) {
+			socket.emit('insert-request', data)
+
+			socket.on('insert-ack', (response) => {
+
+				if(response.status === 200) {
 					this.clearStates()
 					this.props.refreshData()
 				} else {
-					console.log(xhr.response.error)
+					console.log(response.error)
 					this.clearStates()
 					this.props.refreshData()
 				}
-			})
-			xhr.send(data)
+
+			})	
 		}
 	}
 
