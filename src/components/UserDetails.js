@@ -199,7 +199,7 @@ export default class UserDetails extends React.Component {
 
 	searchRequest = () => {
 		let category = this.state.category
-		let searchText = this.state.search.split(' ')
+		let searchText = (this.state.search.length > 0) ? this.state.search.split(' ') : ''
 		this.props.sellerSearch(searchText, category)
 	}
 
@@ -208,7 +208,7 @@ export default class UserDetails extends React.Component {
 			&& this.props.details.email 
 			&& this.props.details.age 
 			&& this.props.details.photo 
-			&& localStorage.getItem('userType') !== 'seller') {
+			&& localStorage.getItem('userType') === 'customer') {
 			
 			return (
 				<div className="currentuser">					

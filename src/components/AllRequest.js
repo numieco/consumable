@@ -15,7 +15,7 @@ export default class AllRequest extends React.Component {
 			allReq: '',
             sellerEmail: '',
             everyoneReq : true,
-            invidualReq : false,
+            individualReq : false,
             sellerSearch : false
 		}
 
@@ -62,7 +62,7 @@ export default class AllRequest extends React.Component {
         // if everone tab is clicked, it sets the corresponding varible to true 
         this.setState({
             everyoneReq : true,
-            invidualReq : false
+            individualReq : false
         })
 
         // changing the color inorder show it is selected
@@ -80,7 +80,7 @@ export default class AllRequest extends React.Component {
     individualRequest = () => {
         // if individual tab is clicked, it sets the corresponding varible to true
         this.setState({
-            invidualReq : true,
+            individualReq : true,
             everyoneReq : false
         }) 
 
@@ -101,12 +101,19 @@ export default class AllRequest extends React.Component {
         socket.emit('searchedWords', {searchText : searchText, category : category})
         socket.on('searchresults', (data) => {
             console.log(data)
+            returnedResults = []
             data.forEach((item) =>{
                 returnedResults.push(item)
             })
             console.log(returnedResults)
             this.setState({
                 sellerSearch : true
+            })
+        })
+
+        socket.on('showAllResultsOnSearch', (data) => {
+            this.setState({
+                sellerSearch: false
             })
         })
 
@@ -121,29 +128,29 @@ export default class AllRequest extends React.Component {
         		list = this.state.allReq.requests.map((data, i) => {
                     if(this.state.sellerSearch){
                         let searchList = returnedResults.map((item) => {
-                                    if(item._id == data._id){
-                                        return (
-                                            <div key={i}> 
-                                                <SingleRequest 
-                                                    photo={ data.photo } 
-                                                    name={ data.name } 
-                                                    desc={ data.itemDesc } 
-                                                    min={ data.min }
-                                                    max={ data.max }
-                                                    size={ data.size}
-                                                    timestamp={ data.timestamp }
-                                                    email={ data.email }
-                                                    key={ i }
-                                                    details={ this.props.details }
-                                                    sellerEmail={ this.state.sellerEmail }
-                                                /> 
-                                            </div>
-                                        )
-                                    }
-                                })
+                            if(item._id == data._id){
+                                return (
+                                    <div key={i} > 
+                                        <SingleRequest 
+                                            photo={ data.photo } 
+                                            name={ data.name } 
+                                            desc={ data.itemDesc } 
+                                            min={ data.min }
+                                            max={ data.max }
+                                            size={ data.size }
+                                            timestamp={ data.timestamp }
+                                            email={ data.email }
+                                            key={ i }
+                                            details={ this.props.details }
+                                            sellerEmail={ this.state.sellerEmail }
+                                        /> 
+                                    </div>
+                                )
+                            }
+                        })
                         return searchList
 
-                    }else {
+                    } else {
                         return (
                             <div key={i}> 
                                 <SingleRequest 
@@ -152,7 +159,7 @@ export default class AllRequest extends React.Component {
                                     desc={ data.itemDesc } 
                                     min={ data.min }
                                     max={ data.max }
-                                    size={ data.size}
+                                    size={ data.size }
                                     timestamp={ data.timestamp }
                                     email={ data.email }
                                     key={ i }
@@ -164,14 +171,14 @@ export default class AllRequest extends React.Component {
                     }	
         		}).reverse()
 
-            } else if (this.state.invidualReq) {
+            } else if (this.state.individualReq) {
                 list = this.state.allReq.requests.map((data, i) => {
                     if (data.email == this.props.details.email) {
                         return (
                             <div key={i}> 
                                 <SingleRequest 
                                     individual= "true"
-                                    seller={data.sellers}
+                                    seller={ data.sellers }
                                     photo={ data.photo } 
                                     name={ data.name } 
                                     desc={ data.itemDesc } 
@@ -191,9 +198,9 @@ export default class AllRequest extends React.Component {
             }
     		return (
                 <div>
-                {(Auth.isUserAuthenticated() && localStorage.getItem('userType') === 'seller') ?
-                    <span> </span> : 
-                    <div className="requestSelector">
+                {(Auth.isUserAuthenticated() && localStorage.getItem('userType') === 'seller') 
+                ?   <span> </span> 
+                :   <div className="requestSelector">
                         <div className="everybody" onClick={this.everyoneRequest.bind(this)}> Everyone </div>
                         <div className="individual" onClick={this.individualRequest.bind(this)}> Individual </div>
                     </div>

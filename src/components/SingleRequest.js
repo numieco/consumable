@@ -106,8 +106,6 @@ export default class SingleRequest extends React.Component {
 					</div>
 					
 				</div>
-
-
 			)
 
 		} else {

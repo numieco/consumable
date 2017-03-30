@@ -26675,6 +26675,10 @@
 				_this.refs.child.refreshData();
 			};
 
+			_this.setSellerSearch = function (searchText, category) {
+				_this.refs.child.sellerSearchedData(searchText, category);
+			};
+
 			_this.state = {
 				details: {
 					userType: "",
@@ -26682,7 +26686,8 @@
 					email: "",
 					age: "",
 					photo: "",
-					user: ""
+					user: "",
+					sellerSearch: false
 				}
 			};
 
@@ -26694,13 +26699,18 @@
 		_createClass(Home, [{
 			key: "render",
 			value: function render() {
+				var _this2 = this;
+
 				return _react2.default.createElement(
 					"div",
 					{ className: "container" },
 					_react2.default.createElement(_Header2.default, { fb: FB, userDetails: this.userDetails }),
 					_react2.default.createElement(_UserDetails2.default, { details: this.state.details,
 						name: this.state.details.username,
-						refreshData: this.refreshData }),
+						refreshData: this.refreshData,
+						sellerSearch: function sellerSearch(searchText, category) {
+							return _this2.setSellerSearch(searchText, category);
+						} }),
 					_react2.default.createElement(_AllRequest2.default, { ref: "child", details: this.state.details })
 				);
 			}
@@ -37499,12 +37509,10 @@
 						if (xhr.status === 200) {
 							_this.clearStates();
 							_this.props.refreshData();
-							_this.sizeOfItem.clearStates();
 						} else {
 							console.log(xhr.response.error);
 							_this.clearStates();
 							_this.props.refreshData();
-							_this.sizeOfItem.clearStates();
 						}
 					});
 					xhr.send(data);
@@ -37517,7 +37525,7 @@
 					min: "",
 					max: ""
 				});
-				_this.sizeOfItem.clearStates;
+				_this.sizeOfItem.clearStates();
 			};
 
 			_this.getAge = function (dob) {
@@ -37561,8 +37569,14 @@
 				_this.setState({
 					category: itemCat
 				}, function () {
-					console.log(_this.state.category);
+					console.log("category" + _this.state.category);
 				});
+			};
+
+			_this.searchRequest = function () {
+				var category = _this.state.category;
+				var searchText = _this.state.search.length > 0 ? _this.state.search.split(' ') : '';
+				_this.props.sellerSearch(searchText, category);
 			};
 
 			_this.state = {
@@ -37595,7 +37609,7 @@
 			value: function render() {
 				var _this2 = this;
 
-				if (this.props.details.username && this.props.details.email && this.props.details.age && this.props.details.photo && localStorage.getItem('userType') !== 'seller') {
+				if (this.props.details.username && this.props.details.email && this.props.details.age && this.props.details.photo && localStorage.getItem('userType') === 'customer') {
 
 					return _react2.default.createElement(
 						"div",
@@ -37673,6 +37687,7 @@
 							)
 						),
 						_react2.default.createElement(_ItemRequest2.default, { userType: this.props.details.userType,
+							showSpecificReq: this.searchRequest.bind(this),
 							returnCategory: this.getItemCategory
 						})
 					);
@@ -37981,8 +37996,15 @@
 	        value: function itemChecked(itmselectd) {
 	            var _this2 = this;
 
-	            if (this.selectedItems.indexOf(itmselectd) !== -1) {
-	                this.selectedItems.pop(itmselectd);
+	            var index = this.selectedItems.indexOf(itmselectd);
+
+	            if (index !== -1) {
+	                this.selectedItems.splice(index, 1);
+	                this.setState({
+	                    item: this.selectedItems
+	                }, function () {
+	                    _this2.props.returnCategory(_this2.state.item);
+	                });
 	            } else {
 	                this.selectedItems.push(itmselectd);
 	                this.setState({
@@ -37997,13 +38019,15 @@
 	    }, {
 	        key: "clearState",
 	        value: function clearState() {
-	            var item = this.state.item;
-	            console.log("the item is " + item);
 	            this.setState({
 	                item: ""
 	            });
 	            this.setState({ resetChkBoxVal: true });
-	            this.props.storeData(item);
+	            if (this.props.userType == 'customer') {
+	                this.props.storeData();
+	            } else if (this.props.userType == 'seller') {
+	                this.props.showSpecificReq();
+	            }
 	        }
 	    }, {
 	        key: "render",
@@ -38131,6 +38155,9 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var socket = io.connect();
+	var returnedResults = [];
+
 	var AllRequest = function (_React$Component) {
 	    _inherits(AllRequest, _React$Component);
 
@@ -38161,7 +38188,7 @@
 	            // if everone tab is clicked, it sets the corresponding varible to true 
 	            _this.setState({
 	                everyoneReq: true,
-	                invidualReq: false
+	                individualReq: false
 	            });
 
 	            // changing the color inorder show it is selected
@@ -38179,7 +38206,7 @@
 	        _this.individualRequest = function () {
 	            // if individual tab is clicked, it sets the corresponding varible to true
 	            _this.setState({
-	                invidualReq: true,
+	                individualReq: true,
 	                everyoneReq: false
 	            });
 
@@ -38199,10 +38226,12 @@
 	            allReq: '',
 	            sellerEmail: '',
 	            everyoneReq: true,
-	            invidualReq: false
+	            individualReq: false,
+	            sellerSearch: false
 	        };
 
 	        _this.refreshData = _this.refreshData.bind(_this);
+
 	        return _this;
 	    }
 
@@ -38225,9 +38254,34 @@
 	            }
 	        }
 	    }, {
+	        key: "sellerSearchedData",
+	        value: function sellerSearchedData(searchText, category) {
+	            var _this2 = this;
+
+	            console.log("searchText" + searchText + "category" + category);
+	            socket.emit('searchedWords', { searchText: searchText, category: category });
+	            socket.on('searchresults', function (data) {
+	                console.log(data);
+	                returnedResults = [];
+	                data.forEach(function (item) {
+	                    returnedResults.push(item);
+	                });
+	                console.log(returnedResults);
+	                _this2.setState({
+	                    sellerSearch: true
+	                });
+	            });
+
+	            socket.on('showAllResultsOnSearch', function (data) {
+	                _this2.setState({
+	                    sellerSearch: false
+	                });
+	            });
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            // checking if the everyone tab is clicked or individual tab is clicked. If everyone is true then all the request is listed 
 	            // else if individual is true only the request made by current user is listed
@@ -38235,27 +38289,30 @@
 	                var list = void 0;
 	                if (this.state.everyoneReq) {
 	                    list = this.state.allReq.requests.map(function (data, i) {
-	                        return _react2.default.createElement(
-	                            "div",
-	                            { key: i },
-	                            _react2.default.createElement(_SingleRequest2.default, {
-	                                photo: data.photo,
-	                                name: data.name,
-	                                desc: data.itemDesc,
-	                                min: data.min,
-	                                max: data.max,
-	                                size: data.size,
-	                                timestamp: data.timestamp,
-	                                email: data.email,
-	                                key: i,
-	                                details: _this2.props.details,
-	                                sellerEmail: _this2.state.sellerEmail
-	                            })
-	                        );
-	                    }).reverse();
-	                } else if (this.state.invidualReq) {
-	                    list = this.state.allReq.requests.map(function (data, i) {
-	                        if (data.email == _this2.props.details.email) {
+	                        if (_this3.state.sellerSearch) {
+	                            var searchList = returnedResults.map(function (item) {
+	                                if (item._id == data._id) {
+	                                    return _react2.default.createElement(
+	                                        "div",
+	                                        { key: i },
+	                                        _react2.default.createElement(_SingleRequest2.default, {
+	                                            photo: data.photo,
+	                                            name: data.name,
+	                                            desc: data.itemDesc,
+	                                            min: data.min,
+	                                            max: data.max,
+	                                            size: data.size,
+	                                            timestamp: data.timestamp,
+	                                            email: data.email,
+	                                            key: i,
+	                                            details: _this3.props.details,
+	                                            sellerEmail: _this3.state.sellerEmail
+	                                        })
+	                                    );
+	                                }
+	                            });
+	                            return searchList;
+	                        } else {
 	                            return _react2.default.createElement(
 	                                "div",
 	                                { key: i },
@@ -38269,8 +38326,32 @@
 	                                    timestamp: data.timestamp,
 	                                    email: data.email,
 	                                    key: i,
-	                                    details: _this2.props.details,
-	                                    sellerEmail: _this2.state.sellerEmail
+	                                    details: _this3.props.details,
+	                                    sellerEmail: _this3.state.sellerEmail
+	                                })
+	                            );
+	                        }
+	                    }).reverse();
+	                } else if (this.state.individualReq) {
+	                    list = this.state.allReq.requests.map(function (data, i) {
+	                        if (data.email == _this3.props.details.email) {
+	                            return _react2.default.createElement(
+	                                "div",
+	                                { key: i },
+	                                _react2.default.createElement(_SingleRequest2.default, {
+	                                    individual: "true",
+	                                    seller: data.sellers,
+	                                    photo: data.photo,
+	                                    name: data.name,
+	                                    desc: data.itemDesc,
+	                                    min: data.min,
+	                                    max: data.max,
+	                                    size: data.size,
+	                                    timestamp: data.timestamp,
+	                                    email: data.email,
+	                                    key: i,
+	                                    details: _this3.props.details,
+	                                    sellerEmail: _this3.state.sellerEmail
 	                                })
 	                            );
 	                        }
@@ -38279,7 +38360,11 @@
 	                return _react2.default.createElement(
 	                    "div",
 	                    null,
-	                    _react2.default.createElement(
+	                    _authUserCheck2.default.isUserAuthenticated() && localStorage.getItem('userType') === 'seller' ? _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        " "
+	                    ) : _react2.default.createElement(
 	                        "div",
 	                        { className: "requestSelector" },
 	                        _react2.default.createElement(
@@ -38407,7 +38492,6 @@
 				showOffersToCustomer: false,
 				offersBySellers: []
 			};
-
 			_this.proposeItems = _this.proposeItems.bind(_this);
 			_this.hideCompanyUpload = _this.hideCompanyUpload.bind(_this);
 			_this.checkOffers = _this.checkOffers.bind(_this);
@@ -38432,6 +38516,7 @@
 				}
 
 				if (this.isCustomer()) {
+					console.log("It re-renders");
 					return _react2.default.createElement(
 						"div",
 						{ className: "singleReq", onClick: this.checkOffers },
@@ -39330,7 +39415,7 @@
 	    function ImageBox() {
 	        _classCallCheck(this, ImageBox);
 
-	        return _possibleConstructorReturn(this, (ImageBox.__proto__ || Object.getPrototypeOf(ImageBox)).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (ImageBox.__proto__ || Object.getPrototypeOf(ImageBox)).call(this));
 	    }
 
 	    _createClass(ImageBox, [{
@@ -39464,6 +39549,10 @@
 
 	var _authUserCheck2 = _interopRequireDefault(_authUserCheck);
 
+	var _Home = __webpack_require__(233);
+
+	var _Home2 = _interopRequireDefault(_Home);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39555,6 +39644,12 @@
 	      this.setState({
 	        user: user
 	      });
+	    }
+	  }, {
+	    key: 'onBackButtonEvent',
+	    value: function onBackButtonEvent(e) {
+	      e.preventDefault();
+	      this.transitionTo('Home');
 	    }
 	  }, {
 	    key: 'render',

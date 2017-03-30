@@ -16,6 +16,12 @@ body {
   border-bottom: 1px solid gray;
   display: inline-block;
   padding: 0 10px; }
+  .header .seller-login-info {
+    width: 100%;
+    float: left;
+    text-align: center;
+    color: #609dff;
+    cursor: pointer; }
   .header .title-text {
     float: left;
     width: calc(60% - 20px); }
@@ -45,6 +51,21 @@ body {
       padding: 2% 2% 2% 2%; }
     .header .dropdown .fb-button {
       margin: 2px 2px 2px 2px; }
+  .header .seller-logout {
+    width: calc(20% - 20px);
+    float: left;
+    margin-top: 15px; }
+    .header .seller-logout .seller-logout-button {
+      width: 60px;
+      border-radius: 5px;
+      background-color: #609dff;
+      color: white;
+      cursor: pointer;
+      float: right;
+      padding: 10px 10px 10px 10px;
+      text-align: center; }
+    .header .seller-logout .seller-logout-button :hover {
+      background-color: #2052a3; }
 
 .currentuser {
   padding: 28px 10px;
@@ -256,6 +277,23 @@ body {
   .singleReq .connectBtn {
     margin-top: 10;
     background: green; }
+  .singleReq .viewButton {
+    margin-top: 15; }
+  .singleReq .offer-view-button {
+    background: white;
+    border-radius: 5px;
+    height: 30px;
+    width: 60px;
+    cursor: pointer; }
+  .singleReq .offer-view-button:hover {
+    background: #609dff;
+    color: white; }
+  .singleReq .sellerOffers {
+    width: 100%;
+    height: 300px;
+    border: 1px solid grey;
+    overflow: auto;
+    float: left; }
 
 .login-form-container, .signup-form-container {
   margin-top: 50px;

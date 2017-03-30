@@ -99,10 +99,10 @@ const dataTransfer = io.on('connection', (socket) => {
 				res.writeHead(200, {"Content-Type": "application/json"})
 
 				let docs = collection.find()
-				let arrdata = ""
+				let dataArray = ""
 				docs.toArray((err, items) => {
-					arrdata = '{"requests" : '+ JSON.stringify(items) +'}'
-					res.end(arrdata)
+					dataArray = '{"requests" : '+ JSON.stringify(items) +'}'
+					res.end(dataArray)
 				})
 			})
 
@@ -115,6 +115,8 @@ const dataTransfer = io.on('connection', (socket) => {
 					images: data.images,
 					offerStatus: data.offerStatus
 				}
+
+				console.log(data)
 
 				collection.update({ timestamp: data.timestamp, email: data.email }, { $push : { sellers: seller} },
 					() => {
@@ -140,18 +142,32 @@ const dataTransfer = io.on('connection', (socket) => {
 				let keywords = []
 				let categories = []
 
-				data.searchText.forEach((item) => {
-					keywords.push(item)
-				})
-				data.category.forEach((item) => {
-					categories.push(item)
-				})
+				console.log(data.category.length)
+				console.log(data.searchText)
 
-				collection.find({ $and : [{"category" : {$in : categories}},{"keywords" : {$in : keywords}}]}).toArray((err, docs) => {
-					console.log(docs)
-					let arrdata = docs
-					socket.emit('searchresults', arrdata)
-				})	
+				if(data.category.length > 0) {
+					data.category.forEach((item) => {
+						keywords.push(item)
+					})
+				}
+
+				if(data.searchText.length > 0){
+					data.searchText.forEach((item) => {
+						keywords.push(item)
+					})
+				}
+
+				if(keywords.length > 0) {
+
+					collection.find({"keywords" : {$in : keywords}}).toArray((err, docs) => {
+						let dataArray = docs
+						socket.emit('searchresults', dataArray)
+					})	
+
+				} else {
+					socket.emit('showAllResultsOnSearch')
+				}
+
 			})
 
 		}
