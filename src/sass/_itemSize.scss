@@ -1,4 +1,12 @@
 
+@media screen and (max-width : 371px){
+    .itemButtons{
+        margin-left : calc((100% - 265px)/2) !important;
+    }
+    .itemSize button{
+        width: 40px !important;
+    }
+}
 @media screen and (max-width: 768px){
     .itemSize{
         width: 100%; 
@@ -8,14 +16,14 @@
     .itemButtons{
         width : 100%;
         float : none;
-        margin-left : calc((100% - 280px)/2);
+        margin-left : calc((100% - 350px)/2);
     }
 
     .itemSize button{
         background-color: white;
-        height: 40px;
-        width: 40px;
-        border: 1px solid grey;
+        height: 25px;
+        width: 50px;
+        border: 1px solid #d9d9d9;
         color: #609dff;
         cursor: pointer;
         float: left;
@@ -56,9 +64,9 @@
     
     button{
         background-color: white;
-        height: 40px;
-        width: 40px;
-        border: 1px solid grey;
+        height: 25px;
+        width: 50px;
+        border: 1px solid #d9d9d9;
         color: #609dff;
         cursor: pointer;
         float: left;

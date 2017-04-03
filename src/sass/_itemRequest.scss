@@ -10,11 +10,12 @@ $category-width: 80%;
         .itemRequest{
             height: 30px;
             width: $category-width;
-            border : 1px solid grey;
+            border : 1px solid #d9d9d9;
             float: left;
             margin-top: 1vw;
             display: block;
             margin-right: 2.5vw;
+            padding : 5px 5px 5px 5px;
 
             .singleItem{
                 float: left;
@@ -26,11 +27,11 @@ $category-width: 80%;
         }
 
         .itemRequestBtn{
-            width: ($total-width - $category-width * 1.5);
+            width: 10%;
             float: left;
             font-size: 15px;
             padding: 10px 10px 10px 10px;
-            margin-top: 0.7vw;
+            margin-top: 1vw;
             text-align: center;
             color: white;
             background: #ff751a;
@@ -43,10 +44,11 @@ $category-width: 80%;
         .itemRequest{
             height: 30px;
             width : 100%;
-            border : 1px solid grey;
+            border : 1px solid #d9d9d9;
             float: left;
             margin-top: 1vw;
             display: block;
+             padding : 5px 5px 5px 5px;
 
             .singleItem{
                 float: left;
@@ -69,6 +71,55 @@ $category-width: 80%;
             border-radius: 5px;
             cursor: pointer;
         }
+    }
+
+    input[type="checkbox"]:checked + label::after {
+       content: '';
+       position: absolute;
+       width: 1.2ex;
+       height: 0.4ex;
+       top: 0.7ex;
+       left: 0.4ex;
+       border: 2px solid white;
+       border-top: none;
+       border-right: none;
+       -webkit-transform: rotate(-45deg);
+       -moz-transform: rotate(-45deg);
+       -o-transform: rotate(-45deg);
+       -ms-transform: rotate(-45deg);
+       transform: rotate(-45deg);
+    }
+
+    input[type="checkbox"]:checked + label::before {
+        background-color : #609dff;
+    }
+
+    input[type="checkbox"] {
+       line-height: 2.1ex;
+    }
+
+    input[type="checkbox"] {
+        position: absolute;
+        left: -999em;
+    }
+
+    input[type="checkbox"] + label {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer; 
+
+    }
+
+    input[type="checkbox"] + label::before {
+       content: "";
+       display: inline-block;
+       vertical-align: -25%;
+       height: 2ex;
+       width: 2ex;
+       border: 1px solid #d9d9d9;
+       background-color: white;
+       border-radius: 1px;
+       margin-right: 0.5em;
     }
 
  
