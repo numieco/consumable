@@ -374,6 +374,12 @@ body {
     border: 0;
     border-top: 0.5px solid gray; }
 
+@media screen and (max-width: 371px) {
+  .itemButtons {
+    margin-left: calc((100% - 265px)/2) !important; }
+  .itemSize button {
+    width: 40px !important; } }
+
 @media screen and (max-width: 768px) {
   .itemSize {
     width: 100%;
@@ -381,12 +387,12 @@ body {
   .itemButtons {
     width: 100%;
     float: none;
-    margin-left: calc((100% - 280px)/2); }
+    margin-left: calc((100% - 350px)/2); }
   .itemSize button {
     background-color: white;
-    height: 40px;
-    width: 40px;
-    border: 1px solid grey;
+    height: 25px;
+    width: 50px;
+    border: 1px solid #d9d9d9;
     color: #609dff;
     cursor: pointer;
     float: left;
@@ -411,9 +417,9 @@ body {
   clear: both; }
   .itemSize button {
     background-color: white;
-    height: 40px;
-    width: 40px;
-    border: 1px solid grey;
+    height: 25px;
+    width: 50px;
+    border: 1px solid #d9d9d9;
     color: #609dff;
     cursor: pointer;
     float: left;
@@ -446,11 +452,12 @@ body {
     .category .itemRequest {
       height: 30px;
       width: 80%;
-      border: 1px solid grey;
+      border: 1px solid #d9d9d9;
       float: left;
       margin-top: 1vw;
       display: block;
-      margin-right: 2.5vw; }
+      margin-right: 2.5vw;
+      padding: 5px 5px 5px 5px; }
       .category .itemRequest .singleItem {
         float: left;
         display: inline;
@@ -458,11 +465,11 @@ body {
         padding-top: 5px;
         font-size: 15px; }
     .category .itemRequestBtn {
-      width: -20%;
+      width: 10%;
       float: left;
       font-size: 15px;
       padding: 10px 10px 10px 10px;
-      margin-top: 0.7vw;
+      margin-top: 1vw;
       text-align: center;
       color: white;
       background: #ff751a;
@@ -472,10 +479,11 @@ body {
     .category .itemRequest {
       height: 30px;
       width: 100%;
-      border: 1px solid grey;
+      border: 1px solid #d9d9d9;
       float: left;
       margin-top: 1vw;
-      display: block; }
+      display: block;
+      padding: 5px 5px 5px 5px; }
       .category .itemRequest .singleItem {
         float: left;
         display: inline;
@@ -493,6 +501,42 @@ body {
       background: #ff751a;
       border-radius: 5px;
       cursor: pointer; } }
+  .category input[type="checkbox"]:checked + label::after {
+    content: '';
+    position: absolute;
+    width: 1.2ex;
+    height: 0.4ex;
+    top: 0.7ex;
+    left: 0.4ex;
+    border: 2px solid white;
+    border-top: none;
+    border-right: none;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg); }
+  .category input[type="checkbox"]:checked + label::before {
+    background-color: #609dff; }
+  .category input[type="checkbox"] {
+    line-height: 2.1ex; }
+  .category input[type="checkbox"] {
+    position: absolute;
+    left: -999em; }
+  .category input[type="checkbox"] + label {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer; }
+  .category input[type="checkbox"] + label::before {
+    content: "";
+    display: inline-block;
+    vertical-align: -25%;
+    height: 2ex;
+    width: 2ex;
+    border: 1px solid #d9d9d9;
+    background-color: white;
+    border-radius: 1px;
+    margin-right: 0.5em; }
 
 .imageBox {
   max-width: 250px;

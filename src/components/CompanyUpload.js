@@ -55,7 +55,7 @@ export default class CompanyUpload extends React.Component {
 					this.setState({
 						isImageUploaded: true,
 						numberOfImages: images.length,
-						images: images
+						images: 'images'
 					})
 				
 				}
@@ -67,12 +67,26 @@ export default class CompanyUpload extends React.Component {
 			this.setState({
 				isImageUploaded: images.length > 0 ? true : false ,
 				numberOfImages: images.length,
-				images: images
+				images: 'images'
 			})
 		}
 
 	}
 
+	componentDidMount (props) {
+
+			socket.on('isFirstUploadResults', (data) => {
+				socket.removeListener('isFirstUploadResults')
+
+				if (data < 1){ 
+					if (this.state.link)
+						alert('Linking directly to product increases sales 60% of time! '+ this.state.link)
+					else 
+						alert('80% of goods are sold with a direct link to the product '+ this.state.link)
+				}
+			})
+
+	}
 
 	submitSellersOffer = () => {
 
@@ -80,10 +94,11 @@ export default class CompanyUpload extends React.Component {
 
 		if(this.state.price !== ''
 			&& this.state.images.length > 0
-			&& this.state.notes !== ''
-			&& this.state.link !== '') {
+			&& this.state.notes !== '') {
 
-			socket.emit('sellerSubmmit', this.state)
+			socket.emit('isFirstUpload', this.state.sellerEmail)
+
+			socket.emit('sellerSubmit', this.state)
 			this.hidePopup()
 			
 		} else {

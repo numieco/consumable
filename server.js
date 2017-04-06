@@ -136,7 +136,17 @@ const dataTransfer = io.on('connection', (socket) => {
 
 			})
 
-			socket.on('sellerSubmmit', (data) => {
+			socket.on('isFirstUpload', (data) => {
+
+				collection.find({sellers: {$elemMatch: {sellerEmail: data}}}).toArray((err, doc) => {
+					if (err) {
+						console.log('event: isFirstUpload \nSomething went wrong. \n' + err)
+					}
+					socket.emit('isFirstUploadResults', doc.length)
+				})
+			})
+
+			socket.on('sellerSubmit', (data) => {
 				let seller = {
 					sellerEmail: data.sellerEmail,
 					price: data.price,
@@ -145,8 +155,6 @@ const dataTransfer = io.on('connection', (socket) => {
 					images: data.images,
 					offerStatus: data.offerStatus
 				}
-
-				console.log(data)
 
 				collection.update({ timestamp: data.timestamp, email: data.email }, { $push : { sellers: seller} },
 					() => {

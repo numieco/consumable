@@ -59,7 +59,7 @@ export default class ItemRequest extends React.Component{
                 <div className="itemRequest">
                     
                     {items.map((item)=> (<div className="singleItem" key={item}>
-                                            <input class="reg-checkbox" type="checkbox" id={item} value={item} onChange={() => this.itemChecked(item)} />
+                                            <input className="reg-checkbox" type="checkbox" id={item} value={item} onChange={() => this.itemChecked(item)} />
                                             <label htmlFor={item}>{item}</label>
                                          </div>))}
                     

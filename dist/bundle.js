@@ -37581,6 +37581,7 @@
 			_this.searchRequest = function () {
 				var category = _this.state.category;
 				var searchText = _this.state.search.length > 0 ? _this.state.search.split(' ') : '';
+				console.log("the search text in request" + searchText);
 				_this.props.sellerSearch(searchText, category);
 			};
 
@@ -37973,6 +37974,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _jquery = __webpack_require__(236);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37992,10 +37997,9 @@
 	        var _this = _possibleConstructorReturn(this, (ItemRequest.__proto__ || Object.getPrototypeOf(ItemRequest)).call(this));
 
 	        _this.state = {
-	            item: [],
-	            resetChkBoxVal: false
+	            item: []
 	        };
-	        // this.itemChecked = this.itemChecked.bind(this)
+	        console.log("itemrequest re-renddered");
 	        return _this;
 	    }
 
@@ -38035,18 +38039,17 @@
 	            this.setState({
 	                item: ""
 	            });
-	            this.setState({ resetChkBoxVal: true });
 	            if (this.props.userType == 'customer') {
 	                this.props.storeData();
-	            } else if (this.props.userType == 'seller') {
-	                this.props.showSpecificReq();
 	            }
+	            (0, _jquery2.default)("input").prop("checked", false);
 	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
 	            var _this3 = this;
 
+	            console.log("item req renders");
 	            return _react2.default.createElement(
 	                "div",
 	                { className: "category" },
@@ -38054,9 +38057,18 @@
 	                    "div",
 	                    { className: "itemRequest" },
 	                    items.map(function (item) {
-	                        return _react2.default.createElement(Checkbox, { resetValue: _this3.state.resetChkBoxVal, label: item, key: item, toggleCheckBox: function toggleCheckBox() {
-	                                return _this3.itemChecked(item);
-	                            } });
+	                        return _react2.default.createElement(
+	                            "div",
+	                            { className: "singleItem", key: item },
+	                            _react2.default.createElement("input", { className: "reg-checkbox", type: "checkbox", id: item, value: item, onChange: function onChange() {
+	                                    return _this3.itemChecked(item);
+	                                } }),
+	                            _react2.default.createElement(
+	                                "label",
+	                                { htmlFor: item },
+	                                item
+	                            )
+	                        );
 	                    })
 	                ),
 	                this.props.userType == 'customer' ? _react2.default.createElement(
@@ -38065,7 +38077,7 @@
 	                    " Request "
 	                ) : this.props.userType == 'seller' ? _react2.default.createElement(
 	                    "div",
-	                    { className: "itemRequestBtn", onClick: this.clearState.bind(this) },
+	                    { className: "itemRequestBtn", onClick: this.props.showSpecificReq },
 	                    " Search "
 	                ) : _react2.default.createElement(
 	                    "div",
@@ -38080,57 +38092,6 @@
 	}(_react2.default.Component);
 
 	exports.default = ItemRequest;
-
-	var Checkbox = function (_React$Component2) {
-	    _inherits(Checkbox, _React$Component2);
-
-	    function Checkbox() {
-	        _classCallCheck(this, Checkbox);
-
-	        var _this4 = _possibleConstructorReturn(this, (Checkbox.__proto__ || Object.getPrototypeOf(Checkbox)).call(this));
-
-	        _this4.state = {
-	            isChecked: false
-	        };
-	        return _this4;
-	    }
-
-	    _createClass(Checkbox, [{
-	        key: "changeChkState",
-	        value: function changeChkState() {
-	            this.setState({
-	                isChecked: !this.state.isChecked
-	            });
-	            this.props.toggleCheckBox();
-	        }
-	    }, {
-	        key: "componentWillReceiveProps",
-	        value: function componentWillReceiveProps(nextProps) {
-	            if (nextProps.resetValue == true) {
-	                this.setState({
-	                    isChecked: false
-	                });
-	            }
-	        }
-	    }, {
-	        key: "render",
-	        value: function render() {
-
-	            return _react2.default.createElement(
-	                "div",
-	                { className: "singleItem" },
-	                _react2.default.createElement("input", { type: "checkbox", id: this.props.label, value: this.props.label, checked: this.state.isChecked, onChange: this.changeChkState.bind(this) }),
-	                _react2.default.createElement(
-	                    "label",
-	                    { htmlFor: this.props.label },
-	                    this.props.label
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Checkbox;
-	}(_react2.default.Component);
 
 /***/ },
 /* 242 */
@@ -38688,7 +38649,7 @@
 							_this.setState({
 								isImageUploaded: true,
 								numberOfImages: images.length,
-								images: images
+								images: 'images'
 							});
 						};
 						fileReader.readAsDataURL(file);
@@ -38697,7 +38658,7 @@
 					_this.setState({
 						isImageUploaded: images.length > 0 ? true : false,
 						numberOfImages: images.length,
-						images: images
+						images: 'images'
 					});
 				}
 			};
@@ -38706,9 +38667,11 @@
 
 				console.log('submit clicked');
 
-				if (_this.state.price !== '' && _this.state.images.length > 0 && _this.state.notes !== '' && _this.state.link !== '') {
+				if (_this.state.price !== '' && _this.state.images.length > 0 && _this.state.notes !== '') {
 
-					socket.emit('sellerSubmmit', _this.state);
+					socket.emit('isFirstUpload', _this.state.sellerEmail);
+
+					socket.emit('sellerSubmit', _this.state);
 					_this.hidePopup();
 				} else {
 					alert('please fill the form');
@@ -38758,6 +38721,19 @@
 		}
 
 		_createClass(CompanyUpload, [{
+			key: 'componentDidMount',
+			value: function componentDidMount(props) {
+				var _this2 = this;
+
+				socket.on('isFirstUploadResults', function (data) {
+					socket.removeListener('isFirstUploadResults');
+
+					if (data < 1) {
+						if (_this2.state.link) alert('Linking directly to product increases sales 60% of time! ' + _this2.state.link);else alert('80% of goods are sold with a direct link to the product ' + _this2.state.link);
+					}
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
