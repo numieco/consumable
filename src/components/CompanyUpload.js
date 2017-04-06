@@ -55,19 +55,17 @@ export default class CompanyUpload extends React.Component {
 					this.setState({
 						isImageUploaded: true,
 						numberOfImages: images.length,
-						images: 'images'
+						images: images
 					})
 				
 				}
 				fileReader.readAsDataURL(file)
 			})
-
-
 		} else {
 			this.setState({
 				isImageUploaded: images.length > 0 ? true : false ,
 				numberOfImages: images.length,
-				images: 'images'
+				images: images
 			})
 		}
 

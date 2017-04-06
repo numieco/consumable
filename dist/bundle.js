@@ -38649,7 +38649,7 @@
 							_this.setState({
 								isImageUploaded: true,
 								numberOfImages: images.length,
-								images: 'images'
+								images: images
 							});
 						};
 						fileReader.readAsDataURL(file);
@@ -38658,7 +38658,7 @@
 					_this.setState({
 						isImageUploaded: images.length > 0 ? true : false,
 						numberOfImages: images.length,
-						images: 'images'
+						images: images
 					});
 				}
 			};
