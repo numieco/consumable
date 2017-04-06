@@ -37447,8 +37447,10 @@
 					});
 				}
 
-				console.log(keywords);
-
+				socket.emit('isFirstRequest', _this.props.details.email);
+				socket.on('isFirstRequestReturn', function (data) {
+					if (data < 1) alert("Good description: need a red short dress for a party coming up or a long white dress for a summer wedding! \n\nBad description: A gucci bag (stay away from brand specific items)");
+				});
 				if (desc === "" && min === "" && max === "") {
 					console.log("Empty all data");
 					_this.setState({

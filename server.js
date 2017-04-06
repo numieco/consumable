@@ -91,7 +91,6 @@ const dataTransfer = io.on('connection', (socket) => {
 						throw(err)
 						socket.emit('insert-ack', { error: err })
 					} 
-						
 					socket.emit('insert-ack', { status: 200, message: 'Inserted One Data' })
 				})
 
@@ -165,6 +164,12 @@ const dataTransfer = io.on('connection', (socket) => {
 
 					})
 				
+			})
+
+			socket.on('isFirstRequest', (data) => {
+				collection.find({email: data}).toArray((err, docs) => {
+					socket.emit('isFirstRequestReturn', docs.length)
+				})
 			})
 
 			socket.on('checkOffers', (data) => {
