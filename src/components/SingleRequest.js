@@ -73,7 +73,14 @@ export default class SingleRequest extends React.Component {
 			this.state.offersBySellers.map((data, id) => {
 				if(this.props.timestamp == data.timestamp) {
 					offer = data.sellers.map((seller, sellerId) => {
-						return( <ImageBox offers={ seller } key={ sellerId } /> )
+						return ( 
+							<ImageBox 
+							  offers={ seller } 
+							  key={ sellerId } 
+							  requestTime={ this.props.timestamp } 
+							  customerEmail={ this.props.email } 
+							/> 
+						)
 					})
 
 				}

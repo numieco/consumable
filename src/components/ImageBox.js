@@ -1,9 +1,17 @@
 import React from "react";
 
 export default class ImageBox extends React.Component{
-    constructor(){
-        super()
+    constructor (props) {
+        super(props)
+
+        this.acceptOffer = this.acceptOffer.bind(this)
     }
+
+    acceptOffer = () => {
+        if (this.props.offers.link)
+            window.location.assign(this.props.offers.link)
+    }
+
     render(){
         return(
             <div className="imageBox">
@@ -20,7 +28,7 @@ export default class ImageBox extends React.Component{
                     <div className="footer-price">
                         {this.props.offers.price}
                     </div>
-                    <div className="accept-btn">
+                    <div className="accept-btn" onClick={ this.acceptOffer }>
                         Accept
                     </div>
                 </div>

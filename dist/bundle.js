@@ -38497,7 +38497,12 @@
 					this.state.offersBySellers.map(function (data, id) {
 						if (_this2.props.timestamp == data.timestamp) {
 							offer = data.sellers.map(function (seller, sellerId) {
-								return _react2.default.createElement(_ImageBox2.default, { offers: seller, key: sellerId });
+								return _react2.default.createElement(_ImageBox2.default, {
+									offers: seller,
+									key: sellerId,
+									requestTime: _this2.props.timestamp,
+									customerEmail: _this2.props.email
+								});
 							});
 						}
 					});
@@ -39422,10 +39427,17 @@
 	var ImageBox = function (_React$Component) {
 	    _inherits(ImageBox, _React$Component);
 
-	    function ImageBox() {
+	    function ImageBox(props) {
 	        _classCallCheck(this, ImageBox);
 
-	        return _possibleConstructorReturn(this, (ImageBox.__proto__ || Object.getPrototypeOf(ImageBox)).call(this));
+	        var _this = _possibleConstructorReturn(this, (ImageBox.__proto__ || Object.getPrototypeOf(ImageBox)).call(this, props));
+
+	        _this.acceptOffer = function () {
+	            if (_this.props.offers.link) window.location.assign(_this.props.offers.link);
+	        };
+
+	        _this.acceptOffer = _this.acceptOffer.bind(_this);
+	        return _this;
 	    }
 
 	    _createClass(ImageBox, [{
@@ -39459,7 +39471,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "accept-btn" },
+	                        { className: "accept-btn", onClick: this.acceptOffer },
 	                        "Accept"
 	                    )
 	                )
