@@ -26985,7 +26985,7 @@
 			_this.checkLoginStatus = function (response) {
 				console.log("checkLoginStatus");
 				var self = _this;
-				if (response.status === "connected") {
+				if (response.status === "connected" && localStorage.getItem('token') === null) {
 
 					localStorage.setItem('userType', 'customer');
 

@@ -40,7 +40,7 @@ export default class FacebookLoginButton extends React.Component {
 	checkLoginStatus = (response) => {
 		console.log("checkLoginStatus")
 		const self = this
-		if(response.status === "connected") {
+		if(response.status === "connected" && localStorage.getItem('token') === null) {
 
 			localStorage.setItem('userType', 'customer')
 
