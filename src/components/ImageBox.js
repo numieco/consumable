@@ -1,4 +1,6 @@
-import React from "react";
+import React from "react"
+
+let socket = io.connect()
 
 export default class ImageBox extends React.Component{
     constructor (props) {
@@ -8,8 +10,17 @@ export default class ImageBox extends React.Component{
     }
 
     acceptOffer = () => {
-        if (this.props.offers.link)
+        if (this.props.offers.link){
+            
             window.location.assign(this.props.offers.link)
+            socket.emit('pendingToInProcess',
+                {
+                    timestamp: this.props.requestTime, 
+                    email: this.props.customerEmail, 
+                    offerTime: this.props.offers.offerTime,
+                    sellerEmail: this.props.offers.sellerEmail
+                })
+        }
     }
 
     render(){

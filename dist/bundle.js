@@ -39424,6 +39424,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var socket = io.connect();
+
 	var ImageBox = function (_React$Component) {
 	    _inherits(ImageBox, _React$Component);
 
@@ -39433,7 +39435,16 @@
 	        var _this = _possibleConstructorReturn(this, (ImageBox.__proto__ || Object.getPrototypeOf(ImageBox)).call(this, props));
 
 	        _this.acceptOffer = function () {
-	            if (_this.props.offers.link) window.location.assign(_this.props.offers.link);
+	            if (_this.props.offers.link) {
+
+	                window.location.assign(_this.props.offers.link);
+	                socket.emit('pendingToInProcess', {
+	                    timestamp: _this.props.requestTime,
+	                    email: _this.props.customerEmail,
+	                    offerTime: _this.props.offers.offerTime,
+	                    sellerEmail: _this.props.offers.sellerEmail
+	                });
+	            }
 	        };
 
 	        _this.acceptOffer = _this.acceptOffer.bind(_this);

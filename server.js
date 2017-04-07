@@ -152,6 +152,7 @@ const dataTransfer = io.on('connection', (socket) => {
 					notes: data.notes,
 					link: data.link,
 					images: data.images,
+					offerTime: Date.now(),
 					offerStatus: data.offerStatus
 				}
 
@@ -211,6 +212,17 @@ const dataTransfer = io.on('connection', (socket) => {
 					socket.emit('showAllResultsOnSearch')
 				}
 
+			})
+
+			socket.on('pendingToInProcess', (data) => {
+
+//				collection.findOne({ timestamp: data.timestamp, email: data.email },
+//					(err, doc) => {
+//						console.log(doc)
+						collection.updateOne({"timestamp": data.timestamp, "email": data.email, "sellers.offerTime": data.offerTime },
+						  { $set: { "sellers.$.offerStatus" : "inProcess" }
+						}, (result) => {console.log(data.offerTime + " -- "+ data.sellerEmail)})
+//				})
 			})
 
 		}
