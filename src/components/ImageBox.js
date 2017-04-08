@@ -1,10 +1,15 @@
-import React from "react"
+import React from 'react'
+import { DidYouBuy, KeepPosted } from './Popups'
 
 let socket = io.connect()
 
 export default class ImageBox extends React.Component{
     constructor (props) {
         super(props)
+
+        this.state = {
+            inProcess: props.inProcess
+        }
 
         this.acceptOffer = this.acceptOffer.bind(this)
     }
@@ -43,6 +48,17 @@ export default class ImageBox extends React.Component{
                         Accept
                     </div>
                 </div>
-            </div>);
+
+                {
+                    this.state.inProcess 
+                    ? 
+                        <DidYouBuy 
+                        data={this.props} 
+                        changeInProcess={ () => {this.setState({ inProcess : false }) }} 
+                        /> 
+                    : <div />
+                }
+            </div>
+        )
     }
 }

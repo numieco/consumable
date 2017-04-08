@@ -16,10 +16,19 @@ export default class SingleRequest extends React.Component {
 			showOffersToCustomer: false,
 			offersBySellers: []
 		}
+
 		this.proposeItems = this.proposeItems.bind(this)
 		this.hideCompanyUpload = this.hideCompanyUpload.bind(this)
 		this.checkOffers = this.checkOffers.bind(this)
 	}
+
+	// componentDidMount () {
+	// 	this.props.seller.map((data, id) => {
+	// 		if(data.offerStatus === 'inProcess') {
+
+	// 		}
+	// 	})
+	// }
 
 	isCustomer = () => {
 		if (this.props.details.userType == "customer") {
@@ -79,6 +88,7 @@ export default class SingleRequest extends React.Component {
 							  key={ sellerId } 
 							  requestTime={ this.props.timestamp } 
 							  customerEmail={ this.props.email } 
+							  inProcess={seller.offerStatus==='inProcess' ? true : false}
 							/> 
 						)
 					})
@@ -90,6 +100,7 @@ export default class SingleRequest extends React.Component {
 		if (this.isCustomer()) {
 			console.log("It re-renders")
 			return (
+				<div>
 				<div className="singleReq" onClick={ this.checkOffers }>
 
 					<div className="singlePhoto">
@@ -104,6 +115,8 @@ export default class SingleRequest extends React.Component {
 					<div className="singleRange">
 						${this.props.min} - ${this.props.max}
 					</div>
+				</div>
+
 					<div className="offersBySellers"> 
 						{
 							this.state.showOffersToCustomer
@@ -112,6 +125,7 @@ export default class SingleRequest extends React.Component {
 						} 
 					</div>
 					
+
 				</div>
 			)
 

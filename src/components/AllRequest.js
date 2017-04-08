@@ -45,7 +45,6 @@ export default class AllRequest extends React.Component {
     }
 
 	refreshData = () => {
-        console.log('called')
         socket.emit('all-records')
         socket.on('all-records-ack', (response) => this.allRecordsAck(response))
 
@@ -58,7 +57,7 @@ export default class AllRequest extends React.Component {
                 console.log(JSON.stringify(response.data) !== JSON.stringify(this.state.allReq))
                 this.setState({
                     allReq: response.data
-                }, () => console.log('set'))
+                })
 
             }
         } else {
@@ -164,6 +163,7 @@ export default class AllRequest extends React.Component {
                         return (
                             <div key={i}> 
                                 <SingleRequest 
+                                    seller={ data.sellers }
                                     photo={ data.photo } 
                                     name={ data.name } 
                                     desc={ data.itemDesc } 

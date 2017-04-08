@@ -753,3 +753,54 @@ body {
         float: right;
         color: white;
         background: #609dff; }
+
+.did-you-buy, .keep-posted {
+  font-size: 16px;
+  text-align: center; }
+  .did-you-buy .popup-backgraound, .did-you-buy .keep-posted-bg, .keep-posted .popup-backgraound, .keep-posted .keep-posted-bg {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #c6c6c6;
+    opacity: 0.7;
+    z-index: 1; }
+  .did-you-buy .did-you-buy-container, .did-you-buy .keep-posted-container, .keep-posted .did-you-buy-container, .keep-posted .keep-posted-container {
+    background: white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    height: 90px;
+    min-width: 130px;
+    max-width: 200px;
+    border: 1px solid #c6c6c6;
+    margin: 0 auto;
+    display: block;
+    margin-top: 150px;
+    padding: 30px 50px; }
+    .did-you-buy .did-you-buy-container .popup-text, .did-you-buy .keep-posted-container .popup-text, .keep-posted .did-you-buy-container .popup-text, .keep-posted .keep-posted-container .popup-text {
+      width: 100%;
+      height: 52px; }
+    .did-you-buy .did-you-buy-container .yes-button, .did-you-buy .did-you-buy-container .no-button, .did-you-buy .keep-posted-container .yes-button, .did-you-buy .keep-posted-container .no-button, .keep-posted .did-you-buy-container .yes-button, .keep-posted .did-you-buy-container .no-button, .keep-posted .keep-posted-container .yes-button, .keep-posted .keep-posted-container .no-button {
+      text-align: center;
+      padding: 10px 20px;
+      color: white;
+      cursor: pointer; }
+    .did-you-buy .did-you-buy-container .yes-button, .did-you-buy .keep-posted-container .yes-button, .keep-posted .did-you-buy-container .yes-button, .keep-posted .keep-posted-container .yes-button {
+      background: green;
+      float: left; }
+    .did-you-buy .did-you-buy-container .no-button, .did-you-buy .keep-posted-container .no-button, .keep-posted .did-you-buy-container .no-button, .keep-posted .keep-posted-container .no-button {
+      background: red;
+      float: right; }
+
+.keep-posted .keep-posted-bg {
+  z-index: 3; }
+
+.keep-posted .keep-posted-container {
+  z-index: 4; }

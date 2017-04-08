@@ -215,16 +215,22 @@ const dataTransfer = io.on('connection', (socket) => {
 			})
 
 			socket.on('pendingToInProcess', (data) => {
-
-//				collection.findOne({ timestamp: data.timestamp, email: data.email },
-//					(err, doc) => {
-//						console.log(doc)
-						collection.updateOne({"timestamp": data.timestamp, "email": data.email, "sellers.offerTime": data.offerTime },
-						  { $set: { "sellers.$.offerStatus" : "inProcess" }
-						}, (result) => {console.log(data.offerTime + " -- "+ data.sellerEmail)})
-//				})
+				collection.updateOne({"timestamp": data.timestamp, "email": data.email, "sellers.offerTime": data.offerTime },
+				  { $set: { "sellers.$.offerStatus" : "inProcess" }
+				}, (result) => {console.log(data.offerTime + " -- "+ data.sellerEmail)})
 			})
 
+			socket.on('inProcessToAccepted', (data) => {
+				collection.updateOne({"timestamp": data.timestamp, "email": data.email, "sellers.offerTime": data.offerTime },
+				  { $set: { "sellers.$.offerStatus" : "accepted" }
+				}, (result) => {console.log(data.offerTime + " -- "+ data.sellerEmail)})				
+			})
+
+			socket.on('inProcessToRejected', (data) => {
+				collection.updateOne({"timestamp": data.timestamp, "email": data.email, "sellers.offerTime": data.offerTime },
+				  { $set: { "sellers.$.offerStatus" : "rejected" }
+				}, (result) => {console.log(data.offerTime + " -- "+ data.sellerEmail)})				
+			})
 		}
 
 		app.on('close', () => {

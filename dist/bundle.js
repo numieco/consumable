@@ -38143,7 +38143,6 @@
 	        var _this = _possibleConstructorReturn(this, (AllRequest.__proto__ || Object.getPrototypeOf(AllRequest)).call(this, props));
 
 	        _this.refreshData = function () {
-	            console.log('called');
 	            socket.emit('all-records');
 	            socket.on('all-records-ack', function (response) {
 	                return _this.allRecordsAck(response);
@@ -38157,8 +38156,6 @@
 	                    console.log(JSON.stringify(response.data) !== JSON.stringify(_this.state.allReq));
 	                    _this.setState({
 	                        allReq: response.data
-	                    }, function () {
-	                        return console.log('set');
 	                    });
 	                }
 	            } else {
@@ -38305,6 +38302,7 @@
 	                                "div",
 	                                { key: i },
 	                                _react2.default.createElement(_SingleRequest2.default, {
+	                                    seller: data.sellers,
 	                                    photo: data.photo,
 	                                    name: data.name,
 	                                    desc: data.itemDesc,
@@ -38480,11 +38478,20 @@
 				showOffersToCustomer: false,
 				offersBySellers: []
 			};
+
 			_this.proposeItems = _this.proposeItems.bind(_this);
 			_this.hideCompanyUpload = _this.hideCompanyUpload.bind(_this);
 			_this.checkOffers = _this.checkOffers.bind(_this);
 			return _this;
 		}
+
+		// componentDidMount () {
+		// 	this.props.seller.map((data, id) => {
+		// 		if(data.offerStatus === 'inProcess') {
+
+		// 		}
+		// 	})
+		// }
 
 		_createClass(SingleRequest, [{
 			key: "render",
@@ -38501,7 +38508,8 @@
 									offers: seller,
 									key: sellerId,
 									requestTime: _this2.props.timestamp,
-									customerEmail: _this2.props.email
+									customerEmail: _this2.props.email,
+									inProcess: seller.offerStatus === 'inProcess' ? true : false
 								});
 							});
 						}
@@ -38512,29 +38520,33 @@
 					console.log("It re-renders");
 					return _react2.default.createElement(
 						"div",
-						{ className: "singleReq", onClick: this.checkOffers },
+						null,
 						_react2.default.createElement(
 							"div",
-							{ className: "singlePhoto" },
-							_react2.default.createElement("img", { src: this.props.photo, alt: this.props.photo })
-						),
-						_react2.default.createElement(
-							"div",
-							{ className: "singleName" },
-							this.props.name
-						),
-						_react2.default.createElement(
-							"div",
-							{ className: "singleDesc" },
-							this.props.desc
-						),
-						_react2.default.createElement(
-							"div",
-							{ className: "singleRange" },
-							"$",
-							this.props.min,
-							" - $",
-							this.props.max
+							{ className: "singleReq", onClick: this.checkOffers },
+							_react2.default.createElement(
+								"div",
+								{ className: "singlePhoto" },
+								_react2.default.createElement("img", { src: this.props.photo, alt: this.props.photo })
+							),
+							_react2.default.createElement(
+								"div",
+								{ className: "singleName" },
+								this.props.name
+							),
+							_react2.default.createElement(
+								"div",
+								{ className: "singleDesc" },
+								this.props.desc
+							),
+							_react2.default.createElement(
+								"div",
+								{ className: "singleRange" },
+								"$",
+								this.props.min,
+								" - $",
+								this.props.max
+							)
 						),
 						_react2.default.createElement(
 							"div",
@@ -39404,7 +39416,7 @@
 /* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -39415,6 +39427,8 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _Popups = __webpack_require__(254);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39447,45 +39461,57 @@
 	            }
 	        };
 
+	        _this.state = {
+	            inProcess: props.inProcess
+	        };
+
 	        _this.acceptOffer = _this.acceptOffer.bind(_this);
 	        return _this;
 	    }
 
 	    _createClass(ImageBox, [{
-	        key: "render",
+	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
 	            return _react2.default.createElement(
-	                "div",
-	                { className: "imageBox" },
+	                'div',
+	                { className: 'imageBox' },
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "close-btn" },
-	                    "x"
+	                    'div',
+	                    { className: 'close-btn' },
+	                    'x'
 	                ),
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "personName" },
+	                    'div',
+	                    { className: 'personName' },
 	                    this.props.offers.sellerEmail
 	                ),
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "boxImage" },
-	                    _react2.default.createElement("img", { src: this.props.offers.images[0], alt: "image" })
+	                    'div',
+	                    { className: 'boxImage' },
+	                    _react2.default.createElement('img', { src: this.props.offers.images[0], alt: 'image' })
 	                ),
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "footer" },
+	                    'div',
+	                    { className: 'footer' },
 	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "footer-price" },
+	                        'div',
+	                        { className: 'footer-price' },
 	                        this.props.offers.price
 	                    ),
 	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "accept-btn", onClick: this.acceptOffer },
-	                        "Accept"
+	                        'div',
+	                        { className: 'accept-btn', onClick: this.acceptOffer },
+	                        'Accept'
 	                    )
-	                )
+	                ),
+	                this.state.inProcess ? _react2.default.createElement(_Popups.DidYouBuy, {
+	                    data: this.props,
+	                    changeInProcess: function changeInProcess() {
+	                        _this2.setState({ inProcess: false });
+	                    }
+	                }) : _react2.default.createElement('div', null)
 	            );
 	        }
 	    }]);
@@ -40105,6 +40131,181 @@
 	};
 
 	exports.default = SignupForm;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.KeepPosted = exports.DidYouBuy = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var socket = io.connect();
+
+	var DidYouBuy = exports.DidYouBuy = function (_React$Component) {
+	  _inherits(DidYouBuy, _React$Component);
+
+	  function DidYouBuy(props) {
+	    _classCallCheck(this, DidYouBuy);
+
+	    var _this = _possibleConstructorReturn(this, (DidYouBuy.__proto__ || Object.getPrototypeOf(DidYouBuy)).call(this, props));
+
+	    _this.acceptOffer = function () {
+	      console.log(_this.props);
+	      _this.setState({
+	        showKeepPosted: true
+	      });
+
+	      socket.emit('inProcessToAccepted', {
+	        "timestamp": _this.props.data.requestTime,
+	        "email": _this.props.data.customerEmail,
+	        "offerTime": _this.props.data.offers.offerTime
+	      });
+
+	      //change status to accepted
+	    };
+
+	    _this.rejectOffer = function () {
+	      _this.setState({
+	        showKeepPosted: true
+	      });
+
+	      socket.emit('inProcessToRejected', {
+	        "timestamp": _this.props.data.requestTime,
+	        "email": _this.props.data.customerEmail,
+	        "offerTime": _this.props.data.offers.offerTime
+	      });
+
+	      //rejected
+	    };
+
+	    _this.yesKeepPost = function () {
+	      _this.setState({ showKeepPosted: false });
+	      _this.props.changeInProcess();
+	      //Do nothing to offer
+	    };
+
+	    _this.noKeepPost = function () {
+	      _this.setState({ showKeepPosted: false });
+	      _this.props.changeInProcess();
+	      //Delete offer
+	    };
+
+	    console.log(props);
+
+	    _this.state = {
+	      showKeepPosted: false
+	    };
+
+	    _this.acceptOffer = _this.acceptOffer.bind(_this);
+	    _this.rejectOffer = _this.rejectOffer.bind(_this);
+
+	    _this.yesKeepPost = _this.yesKeepPost.bind(_this);
+	    _this.noKeepPost = _this.noKeepPost.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(DidYouBuy, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'did-you-buy' },
+	        _react2.default.createElement('div', { className: 'popup-backgraound' }),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'did-you-buy-container' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'popup-text' },
+	              'Did you buy this item? ',
+	              this.props.data.offers.offerTime
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'yes-button', onClick: this.acceptOffer },
+	              'Yes'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'no-button', onClick: this.rejectOffer },
+	              'No'
+	            )
+	          )
+	        ),
+	        this.state.showKeepPosted ? _react2.default.createElement(
+	          'div',
+	          { className: 'keep-posted' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'popup-backgraound' },
+	            ' '
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'keep-posted-container' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'popup-text' },
+	              'Would you like to keep this listing posted? '
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'yes-button', onClick: this.yesKeepPost },
+	              'Yes'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'no-button', onClick: this.noKeepPost },
+	              'No'
+	            )
+	          )
+	        ) : _react2.default.createElement('div', null)
+	      );
+	    }
+	  }]);
+
+	  return DidYouBuy;
+	}(_react2.default.Component);
+
+	var KeepPosted = exports.KeepPosted = function (_React$Component2) {
+	  _inherits(KeepPosted, _React$Component2);
+
+	  function KeepPosted() {
+	    _classCallCheck(this, KeepPosted);
+
+	    return _possibleConstructorReturn(this, (KeepPosted.__proto__ || Object.getPrototypeOf(KeepPosted)).apply(this, arguments));
+	  }
+
+	  _createClass(KeepPosted, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement('div', { className: 'keep-posted' });
+	    }
+	  }]);
+
+	  return KeepPosted;
+	}(_react2.default.Component);
 
 /***/ }
 /******/ ]);
