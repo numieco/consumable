@@ -94,7 +94,7 @@ body {
   text-align: center;
   float: left; }
   .description input, .searchItem input {
-    width: 100%;
+    width: calc(100% - 40px);
     outline: none;
     background: transparent;
     border: none;
