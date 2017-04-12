@@ -54,7 +54,7 @@ export default class ImageBox extends React.Component{
                         : (this.state.offerStatus === 'rejected'
                           ? <div className='rejected-button red-btn'> Rejected </div>
                           : this.state.offerStatus === 'accepted'
-                            ? <div className="accept-btn green-btn" onClick={ this.acceptOffer }> Accepted </div>
+                            ? <div className="accept-btn green-btn"> Accepted </div>
                             : <div className="accept-btn" onClick={ this.acceptOffer }> Accept </div>)
                     }
 

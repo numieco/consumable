@@ -39512,7 +39512,7 @@
 	                        ' Rejected '
 	                    ) : this.state.offerStatus === 'accepted' ? _react2.default.createElement(
 	                        'div',
-	                        { className: 'accept-btn green-btn', onClick: this.acceptOffer },
+	                        { className: 'accept-btn green-btn' },
 	                        ' Accepted '
 	                    ) : _react2.default.createElement(
 	                        'div',
