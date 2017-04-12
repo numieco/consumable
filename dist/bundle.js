@@ -38374,7 +38374,7 @@
 	            } else {
 	                return _react2.default.createElement(
 	                    "div",
-	                    { className: "loading green-btn" },
+	                    { className: "loading" },
 	                    "Loading..."
 	                );
 	            }

@@ -223,7 +223,7 @@ export default class AllRequest extends React.Component {
     	}
     	else {
     		return(
-    			<div className='loading green-btn'>Loading...</div>
+    			<div className='loading'>Loading...</div>
     		)
     	}
 	}
