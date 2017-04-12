@@ -123,29 +123,36 @@ export default class Header extends React.Component {
 				
 				<h2 className="title-text"> Consumable </h2>
 
-				{(this.state.details.username == "" || this.state.details.username == null) ? 
-				<h4 className="header-user-name"> </h4> : 
-				<h4 className="header-user-name"> Hi, {this.firstname()} </h4>}
 
-				<div className="dropdown">
-					<div className="header-photo" onClick={this.clickToshowBtn.bind(this)}>
+					{
+						Auth.isUserAuthenticated() 
+						?
+							<div className="seller-logout">
+								<div className="seller-logout-button" onClick={this.sellerLogoutAction.bind(this)}> Log Out </div>
+							</div> 
+						:
+							<div className="name-photo">
+								{
+									(this.state.details.username == "" || this.state.details.username == null) 
+									? <h4 className="header-user-name"> </h4> 
+									: <h4 className="header-user-name"> Hi, {this.firstname()} </h4>
+								}
+								<div className="dropdown">
+									<div className="header-photo" onClick={this.clickToshowBtn.bind(this)}>
 
-						{this.state.details.username == "" || this.state.details.username == null ? 
-						<span></span> :
-						<img src={this.state.details.photo} className="img-clk-drpdown" alt={this.state.details.photo} />
-						}
+										{
+											this.state.details.username == "" || this.state.details.username == null 
+											? <span></span> 
+											: <img src={this.state.details.photo} className="img-clk-drpdown" alt={this.state.details.photo} />
+										}
 
-					</div>
-					<div className="dropdown-content">
-						<FacebookLoginButton fb={FB} userInfo={this.userInfo}/>
-					</div>
-				</div>
-
-				{Auth.isUserAuthenticated() ?
-						<div className="seller-logout">
-							<div className="seller-logout-button" onClick={this.sellerLogoutAction.bind(this)}> Log Out </div>
-						</div> :
-					<span> </span>}
+									</div>
+									<div className="dropdown-content">
+										<FacebookLoginButton fb={FB} userInfo={this.userInfo}/>
+									</div>
+								</div>
+							</div>
+					}
 			</div>
 		)
 		

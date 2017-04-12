@@ -1,5 +1,5 @@
 $total-width: 100%;
-$title-width : 60%;
+$title-width : 100%;
 $name-width : 20%;
 $fb-bt-width : 20%;
 $header-space : 10px;
@@ -26,23 +26,20 @@ $seller-logout-width : 20%;
 
     .title-text {
         float: left;
-        width: calc(#{$title-width} - #{$header-space * 2});
+        width: calc(#{$title-width} - #{$header-space * 2} - 150px - 50px);
     }
 
     .header-user-name{
-        width: calc(#{$name-width} - #{$header-space * 2});
+        width: 150px;
         float : left;
-        font-size : 80%;
+        font-size : 15px;
         text-align : right;
         margin : 24px 0;
     }
 
     .dropdown {
-        width : calc(#{$fb-bt-width});
+        width : 50px;
         margin-top : 14px;
-        position : relative;
-        margin-left : 1%;
-        
         display : inline-block;
 
         .header-photo{
@@ -70,7 +67,7 @@ $seller-logout-width : 20%;
 
     .seller-logout {
         width : calc(#{$seller-logout-width} - #{$header-space * 2});
-        float : left;
+        float : right;
         margin-top : 15px;
 
         .seller-logout-button {

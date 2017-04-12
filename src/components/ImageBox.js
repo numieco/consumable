@@ -8,8 +8,11 @@ export default class ImageBox extends React.Component{
         super(props)
 
         this.state = {
-            inProcess: props.inProcess
+            inProcess: props.inProcess,
+            offerStatus: props.offers.offerStatus
         }
+
+        console.log(this.props)
 
         this.acceptOffer = this.acceptOffer.bind(this)
     }
@@ -44,9 +47,17 @@ export default class ImageBox extends React.Component{
                     <div className="footer-price">
                         {this.props.offers.price}
                     </div>
-                    <div className="accept-btn" onClick={ this.acceptOffer }>
-                        Accept
-                    </div>
+
+                    {
+                        this.state.offerStatus === 'inProcess'
+                        ? <div className='inProcess-button'> In Process </div>
+                        : (this.state.offerStatus === 'rejected'
+                          ? <div className='rejected-button'> Rejected </div>
+                          : this.state.offerStatus === 'accepted'
+                            ? <div className="accept-btn green-btn" onClick={ this.acceptOffer }> Accepted </div>
+                            : <div className="accept-btn" onClick={ this.acceptOffer }> Accept </div>)
+                    }
+
                 </div>
 
                 {

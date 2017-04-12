@@ -24,18 +24,16 @@ body {
     cursor: pointer; }
   .header .title-text {
     float: left;
-    width: calc(60% - 20px); }
+    width: calc(100% - 20px - 150px - 50px); }
   .header .header-user-name {
-    width: calc(20% - 20px);
+    width: 150px;
     float: left;
-    font-size: 80%;
+    font-size: 15px;
     text-align: right;
     margin: 24px 0; }
   .header .dropdown {
-    width: calc(20%);
+    width: 50px;
     margin-top: 14px;
-    position: relative;
-    margin-left: 1%;
     display: inline-block; }
     .header .dropdown .header-photo {
       width: 42px;
@@ -53,7 +51,7 @@ body {
       margin: 2px 2px 2px 2px; }
   .header .seller-logout {
     width: calc(20% - 20px);
-    float: left;
+    float: right;
     margin-top: 15px; }
     .header .seller-logout .seller-logout-button {
       width: 60px;
