@@ -38580,11 +38580,11 @@
 							" - $",
 							this.props.max
 						),
-						_react2.default.createElement(
+						this.props.details.userType === "seller" ? _react2.default.createElement(
 							"div",
 							{ className: "requestBtn connectBtn", onClick: this.proposeItems },
 							"Connect"
-						),
+						) : _react2.default.createElement("div", null),
 						this.state.showSellerUpload ? _react2.default.createElement(_CompanyUpload2.default, {
 							title: this.props.desc,
 							timestamp: this.props.timestamp,
@@ -39508,7 +39508,7 @@
 	                        ' In Process '
 	                    ) : this.state.offerStatus === 'rejected' ? _react2.default.createElement(
 	                        'div',
-	                        { className: 'rejected-button' },
+	                        { className: 'rejected-button red-btn' },
 	                        ' Rejected '
 	                    ) : this.state.offerStatus === 'accepted' ? _react2.default.createElement(
 	                        'div',
@@ -39524,6 +39524,12 @@
 	                    data: this.props,
 	                    changeInProcess: function changeInProcess() {
 	                        _this2.setState({ inProcess: false });
+	                    },
+	                    changeStatusToRejected: function changeStatusToRejected() {
+	                        _this2.setState({ offerStatus: 'rejected' });
+	                    },
+	                    changeStatusToAccepted: function changeStatusToAccepted() {
+	                        _this2.setState({ offerStatus: 'accepted' });
 	                    }
 	                }) : _react2.default.createElement('div', null)
 	            );
@@ -39582,6 +39588,8 @@
 	        "offerTime": _this.props.data.offers.offerTime
 	      });
 
+	      _this.props.changeStatusToAccepted();
+
 	      //change status to accepted
 	    };
 
@@ -39595,6 +39603,8 @@
 	        "email": _this.props.data.customerEmail,
 	        "offerTime": _this.props.data.offers.offerTime
 	      });
+
+	      _this.props.changeStatusToRejected();
 
 	      //rejected
 	    };

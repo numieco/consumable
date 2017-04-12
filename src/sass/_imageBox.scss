@@ -73,6 +73,18 @@
                 text-align: center;
                 padding-top : 5px;
             }
+
+            .rejected-button, .inProcess-button {
+                @extend .accept-btn;
+            }
+
+            .red-btn {
+                background: red;
+            }
+
+            .green-btn {
+                background: green;
+            }
         }
 
     }

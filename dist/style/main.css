@@ -584,7 +584,7 @@ body {
       height: 29px;
       border: 1px solid grey;
       float: left; }
-    .imageBox .footer .accept-btn {
+    .imageBox .footer .accept-btn, .imageBox .footer .rejected-button, .imageBox .footer .inProcess-button {
       width: 70px;
       height: 27px;
       color: white;
@@ -595,6 +595,10 @@ body {
       float: right;
       text-align: center;
       padding-top: 5px; }
+    .imageBox .footer .red-btn {
+      background: red; }
+    .imageBox .footer .green-btn {
+      background: green; }
 
 .requestSelector {
   width: 100%;

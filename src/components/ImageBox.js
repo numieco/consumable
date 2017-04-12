@@ -52,7 +52,7 @@ export default class ImageBox extends React.Component{
                         this.state.offerStatus === 'inProcess'
                         ? <div className='inProcess-button'> In Process </div>
                         : (this.state.offerStatus === 'rejected'
-                          ? <div className='rejected-button'> Rejected </div>
+                          ? <div className='rejected-button red-btn'> Rejected </div>
                           : this.state.offerStatus === 'accepted'
                             ? <div className="accept-btn green-btn" onClick={ this.acceptOffer }> Accepted </div>
                             : <div className="accept-btn" onClick={ this.acceptOffer }> Accept </div>)
@@ -66,6 +66,8 @@ export default class ImageBox extends React.Component{
                         <DidYouBuy 
                         data={this.props} 
                         changeInProcess={ () => {this.setState({ inProcess : false }) }} 
+                        changeStatusToRejected={ () => { this.setState({ offerStatus: 'rejected' }) } }
+                        changeStatusToAccepted={ () => { this.setState({ offerStatus: 'accepted' }) } }
                         /> 
                     : <div />
                 }

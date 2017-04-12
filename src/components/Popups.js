@@ -32,6 +32,8 @@ export class DidYouBuy extends React.Component {
       "offerTime": this.props.data.offers.offerTime 
     })
 
+    this.props.changeStatusToAccepted()
+
     //change status to accepted
   }
 
@@ -45,6 +47,8 @@ export class DidYouBuy extends React.Component {
       "email": this.props.data.customerEmail, 
       "offerTime": this.props.data.offers.offerTime 
     })
+
+    this.props.changeStatusToRejected()
 
     //rejected
 

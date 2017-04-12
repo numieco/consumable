@@ -144,9 +144,15 @@ export default class SingleRequest extends React.Component {
 					<div className="singleRange">
 						${this.props.min} - ${this.props.max}
 					</div>
-					<div className="requestBtn connectBtn" onClick={this.proposeItems} >
-						Connect
-					</div>
+					
+					{
+						this.props.details.userType === "seller"
+						? <div className="requestBtn connectBtn" onClick={this.proposeItems} >
+						    Connect
+						  </div>
+						: <div />
+					}
+
 
 					{
 						this.state.showSellerUpload
