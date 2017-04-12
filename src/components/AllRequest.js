@@ -12,6 +12,7 @@ export default class AllRequest extends React.Component {
 		super(props)
 
 		this.state = {
+            isLoading: true,
 			allReq: '',
             sellerEmail: '',
             everyoneReq : true,
@@ -26,6 +27,7 @@ export default class AllRequest extends React.Component {
 	}
 
 	componentDidMount() {
+        this.setState({ isLoading: false })
 		this.refreshData()
 
         if(Auth.isUserAuthenticated() 
@@ -221,7 +223,7 @@ export default class AllRequest extends React.Component {
     	}
     	else {
     		return(
-    			<div> no data </div>
+    			<div className='loading green-btn'>Loading...</div>
     		)
     	}
 	}

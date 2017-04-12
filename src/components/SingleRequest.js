@@ -22,14 +22,6 @@ export default class SingleRequest extends React.Component {
 		this.checkOffers = this.checkOffers.bind(this)
 	}
 
-	// componentDidMount () {
-	// 	this.props.seller.map((data, id) => {
-	// 		if(data.offerStatus === 'inProcess') {
-
-	// 		}
-	// 	})
-	// }
-
 	isCustomer = () => {
 		if (this.props.details.userType == "customer") {
 			return true
@@ -132,6 +124,7 @@ export default class SingleRequest extends React.Component {
 		} else {
 			return (
 				<div className="singleReq">
+				{this.state.isLoading ? <div className="loading" /> : <div />}
 					<div className="singlePhoto">
 						<img src={this.props.photo} alt={this.props.photo} />
 					</div>

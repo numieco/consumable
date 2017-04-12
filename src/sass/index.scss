@@ -11,6 +11,21 @@ body {
 	margin: 0 auto;
 }
 
+.loading {
+  height: 100vh;
+  line-height: 100vh;
+  text-align: center;
+  width: 100%;
+  background: white;
+  opacity: 0.7;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+}
+
 @import "header";
 @import "userDetails";
 @import "userDetailsMedia";

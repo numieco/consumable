@@ -38201,6 +38201,7 @@
 	        };
 
 	        _this.state = {
+	            isLoading: true,
 	            allReq: '',
 	            sellerEmail: '',
 	            everyoneReq: true,
@@ -38220,6 +38221,7 @@
 	    _createClass(AllRequest, [{
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
+	            this.setState({ isLoading: false });
 	            this.refreshData();
 
 	            if (_authUserCheck2.default.isUserAuthenticated() && localStorage.getItem('userType') === 'seller') {
@@ -38372,8 +38374,8 @@
 	            } else {
 	                return _react2.default.createElement(
 	                    "div",
-	                    null,
-	                    " no data "
+	                    { className: "loading green-btn" },
+	                    "Loading..."
 	                );
 	            }
 	        }
@@ -38484,14 +38486,6 @@
 			return _this;
 		}
 
-		// componentDidMount () {
-		// 	this.props.seller.map((data, id) => {
-		// 		if(data.offerStatus === 'inProcess') {
-
-		// 		}
-		// 	})
-		// }
-
 		_createClass(SingleRequest, [{
 			key: "render",
 			value: function render() {
@@ -38557,6 +38551,7 @@
 					return _react2.default.createElement(
 						"div",
 						{ className: "singleReq" },
+						this.state.isLoading ? _react2.default.createElement("div", { className: "loading" }) : _react2.default.createElement("div", null),
 						_react2.default.createElement(
 							"div",
 							{ className: "singlePhoto" },

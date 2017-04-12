@@ -7,6 +7,20 @@ body {
   min-height: 500px;
   margin: 0 auto; }
 
+.loading {
+  height: 100vh;
+  line-height: 100vh;
+  text-align: center;
+  width: 100%;
+  background: white;
+  opacity: 0.7;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999; }
+
 @media screen and (max-width: 600px) {
   .title-text {
     width: 64% !important; } }
@@ -539,7 +553,8 @@ body {
 .imageBox {
   min-width: 250px;
   min-height: 200px;
-  border: 1px solid grey;
+  border: 1px solid #c6c6c6;
+  border-radius: 5px;
   margin: 10px;
   padding: 10px;
   display: block;
@@ -551,10 +566,11 @@ body {
     text-align: center;
     border-radius: 50%;
     background: white;
-    border: 1px solid grey;
+    border: 1px solid #c6c6c6;
     cursor: pointer;
     margin-top: -24px;
-    margin-left: -24px; }
+    margin-left: -24px;
+    color: #c6c6c6; }
   .imageBox .personName {
     width: 90%;
     min-height: 30px;
