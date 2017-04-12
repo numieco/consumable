@@ -1,30 +1,25 @@
 
 
     .imageBox {
-        max-width: 250px;
+        min-width: 250px;
         min-height: 200px;
         border: 1px solid grey;
-        margin : 9 auto;
+        margin : 10px;
+        padding: 10px;
         display: block;
         float: left;
-        margin-left: 20px;
-        margin-right: 20px;
-        box-shadow: 2px 2px 2px 2px #888888;
 
         .close-btn{
-            left: -8px;
-            top: -9px;
             height: 25px;
             width: 25px;
             font-size: 19px;
             text-align: center;
             border-radius : 50%;
-            z-index: 10px;
-            position: relative;
-            opacity: 1;
             background: white;
             border : 1px solid grey;
             cursor : pointer;
+            margin-top: -24px;
+            margin-left: -24px;
         }
 
         .personName{
@@ -39,13 +34,15 @@
         .boxImage{
             width : 90%;
             min-height: 200px;
-            border : 1px solid grey;
-            margin : 0.9 auto;
+            margin : 0 auto;
+            position: relative;
 
             img{
-                max-width : 100%;
-                margin : 0 auto;
-                height : 200px;
+                width : 100%;
+                margin : auto;
+                position : absolute;
+                top: 0;
+                bottom : 0;
             }
         }
 
@@ -62,8 +59,9 @@
             }
 
             .accept-btn{
-                width: 70px;
-                height : 27px;
+                min-width: 100px;
+                height : 30px;
+                line-height: 25px;
                 color: white;
                 background: #609dff;
                 border-radius: 5px;
