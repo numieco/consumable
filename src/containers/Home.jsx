@@ -6,6 +6,8 @@ import Auth from '../server/auth/authUserCheck'
 
 require("../sass/index.scss")
 
+const socket = io.connect()
+
 export default class Home extends React.Component {
 
 	constructor(props) {
@@ -39,7 +41,10 @@ export default class Home extends React.Component {
 	    xhr.addEventListener('load', () => {
 	      if (xhr.status === 200) {
 	      	localStorage.setItem('userType', 'seller')
-	      	
+	      	socket.emit('getSellerName', localStorage.getItem('sellerEmail'))
+	      	socket.on('putSellerName', (data) => {
+	      		localStorage.setItem('sellerName', data.name)
+	      	})
 	        this.setState({
 	          details: {
 	          	userType: 'seller'

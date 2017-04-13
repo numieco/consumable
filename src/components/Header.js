@@ -94,6 +94,8 @@ export default class Header extends React.Component {
 	sellerLogoutAction = () =>{
 		Auth.deauthenticateUser()
 		localStorage.removeItem('userType')
+		localStorage.removeItem('sellerEmail')
+		localStorage.removeItem('sellerName')
 		this.setState({
 			details : {
 				userType : "",

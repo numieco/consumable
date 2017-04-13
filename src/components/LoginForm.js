@@ -5,7 +5,6 @@ const LoginForm = ({
   onSubmit,
   onChange,
   errors,
-  successMessage,
   user
 }) => (
 

@@ -26633,6 +26633,8 @@
 
 	__webpack_require__(248);
 
+	var socket = io.connect();
+
 	var Home = function (_React$Component) {
 		_inherits(Home, _React$Component);
 
@@ -26653,7 +26655,10 @@
 					xhr.addEventListener('load', function () {
 						if (xhr.status === 200) {
 							localStorage.setItem('userType', 'seller');
-
+							socket.emit('getSellerName', localStorage.getItem('sellerEmail'));
+							socket.on('putSellerName', function (data) {
+								localStorage.setItem('sellerName', data.name);
+							});
 							_this.setState({
 								details: {
 									userType: 'seller'
@@ -26821,6 +26826,8 @@
 			_this.sellerLogoutAction = function () {
 				_authUserCheck2.default.deauthenticateUser();
 				localStorage.removeItem('userType');
+				localStorage.removeItem('sellerEmail');
+				localStorage.removeItem('sellerName');
 				_this.setState({
 					details: {
 						userType: "",
@@ -38442,22 +38449,28 @@
 
 				_this.setState({
 					showOffersToCustomer: !_this.state.showOffersToCustomer
-				});
+				}, function () {
 
-				socket.emit('checkOffers', { timestamp: _this.props.timestamp, email: _this.props.email });
+					if (_this.state.showOffersToCustomer) {
 
-				socket.on('returnOffers', function (data) {
+						socket.emit('checkOffers', { timestamp: _this.props.timestamp, email: _this.props.email });
 
-					if (data.sellers.length > 0) {
+						socket.on('returnOffers', function (data) {
 
-						var getData = _this.state.offersBySellers;
-						getData.push(data);
+							socket.removeListener('returnOffers');
 
-						_this.setState({
-							offersBySellers: getData
+							if (data.sellers.length > 0) {
+
+								var getData = _this.state.offersBySellers;
+								getData.push(data);
+
+								_this.setState({
+									offersBySellers: getData
+								});
+							}
+							sellers = data.sellers;
 						});
 					}
-					sellers = data.sellers;
 				});
 			};
 
@@ -38721,6 +38734,7 @@
 				numberOfImages: '',
 				images: [],
 				sellerEmail: _this.props.sellerEmail,
+				sellerName: localStorage.getItem('sellerName'),
 				offerStatus: 'pending'
 			};
 
@@ -39482,7 +39496,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'personName' },
-	                    this.props.offers.sellerEmail
+	                    this.props.offers.sellerName
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -39958,7 +39972,6 @@
 		var onSubmit = _ref.onSubmit,
 		    onChange = _ref.onChange,
 		    errors = _ref.errors,
-		    successMessage = _ref.successMessage,
 		    user = _ref.user;
 		return _react2.default.createElement(
 			'div',

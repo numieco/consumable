@@ -21,6 +21,7 @@ export default class CompanyUpload extends React.Component {
 			numberOfImages: '',
 			images: [],
 			sellerEmail: this.props.sellerEmail,
+			sellerName: localStorage.getItem('sellerName'),
 			offerStatus: 'pending'
 		}
 

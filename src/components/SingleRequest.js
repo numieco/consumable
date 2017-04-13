@@ -34,22 +34,29 @@ export default class SingleRequest extends React.Component {
 
 		this.setState({
 			showOffersToCustomer: !this.state.showOffersToCustomer
-		})
+		}, () => {
 
-		socket.emit('checkOffers', {timestamp: this.props.timestamp, email: this.props.email})
+			if(this.state.showOffersToCustomer){
 
-		socket.on('returnOffers', (data) => {
+				socket.emit('checkOffers', {timestamp: this.props.timestamp, email: this.props.email})
 
-			if(data.sellers.length > 0) {
+				socket.on('returnOffers', (data) => {
 
-				let getData = this.state.offersBySellers
-				getData.push(data)
+					socket.removeListener('returnOffers')
 
-				this.setState({
-					offersBySellers: getData
+					if(data.sellers.length > 0) {
+
+						let getData = this.state.offersBySellers
+						getData.push(data)
+
+						this.setState({
+							offersBySellers: getData
+						})
+					}
+					sellers = data.sellers
+
 				})
 			}
-			sellers = data.sellers
 
 		})
 	}

@@ -38,7 +38,7 @@ export default class ImageBox extends React.Component{
                     x
                 </div>
                 <div className="personName">
-                    {this.props.offers.sellerEmail}
+                    {this.props.offers.sellerName}
                 </div>
                 <div className="boxImage">
                     <img src={this.props.offers.images[0]} alt="image" />

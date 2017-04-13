@@ -64,6 +64,16 @@ const io = socket.listen(
 
 const dataTransfer = io.on('connection', (socket) => {
 
+	mongodb.MongoClient.connect('mongodb://localhost:27017/react_app', (err, sellerDB) => {
+		let sellersData = sellerDB.collection('users')
+
+		socket.on('getSellerName', (data) => {
+			sellersData.findOne({ email: data }, (err, doc) => {
+				socket.emit('putSellerName', doc)
+			})
+		})
+	})
+
 	/*
 		Database connection with Insert and Fetch records.
 	*/
@@ -147,6 +157,7 @@ const dataTransfer = io.on('connection', (socket) => {
 
 			socket.on('sellerSubmit', (data) => {
 				let seller = {
+					sellerName: data.sellerName,
 					sellerEmail: data.sellerEmail,
 					price: data.price,
 					notes: data.notes,
