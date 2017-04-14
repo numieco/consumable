@@ -1,6 +1,6 @@
 .company-upload {
 
-	z-index: 999;
+	z-index: 9;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -21,7 +21,7 @@
 	}
 
 	.consumer-request {
-		z-index: 999;
+		z-index: 10;
 		width: 500px;
 		background: white;
 		display: block;
@@ -36,7 +36,6 @@
 			border-bottom: 1px solid #c6c6c6;
 			color: black;
 			background: white;
-			z-index: 100;
 			font-weight: bold;
 			font-size: x-large;
 		}

@@ -66,3 +66,27 @@
     z-index: 4;
   }
 }
+
+.show80percent {
+
+  @extend .did-you-buy;
+
+  .popup-backgraound {
+    @extend .popup-backgraound;
+    background: white;
+    z-index: 15;
+  }
+
+  .show80percent-container {
+    @extend .did-you-buy-container;
+    z-index: 16;
+  }
+
+  .no-button {
+    @extend .no-button;
+  }
+
+  .yes-button {
+    @extend .yes-button;
+  }
+}

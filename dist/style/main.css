@@ -574,7 +574,7 @@ body {
   .imageBox .personName {
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid #c6c6c6; }
+    border-bottom: 1px solid #eaecef; }
   .imageBox .boxImage {
     width: 90%;
     min-height: 200px;
@@ -675,7 +675,7 @@ body {
       cursor: pointer; } }
 
 .company-upload {
-  z-index: 999;
+  z-index: 9;
   position: fixed;
   top: 0;
   left: 0;
@@ -693,7 +693,7 @@ body {
     opacity: 0.5;
     z-index: -1; }
   .company-upload .consumer-request {
-    z-index: 999;
+    z-index: 10;
     width: 500px;
     background: white;
     display: block;
@@ -706,7 +706,6 @@ body {
       border-bottom: 1px solid #c6c6c6;
       color: black;
       background: white;
-      z-index: 100;
       font-weight: bold;
       font-size: x-large; }
     .company-upload .consumer-request .price-offered input, .company-upload .consumer-request .seller-link input {
@@ -768,10 +767,10 @@ body {
         color: white;
         background: #609dff; }
 
-.did-you-buy, .keep-posted {
+.did-you-buy, .show80percent, .keep-posted {
   font-size: 16px;
   text-align: center; }
-  .did-you-buy .popup-backgraound, .did-you-buy .keep-posted-bg, .keep-posted .popup-backgraound, .keep-posted .keep-posted-bg {
+  .did-you-buy .popup-backgraound, .show80percent .popup-backgraound, .did-you-buy .keep-posted-bg, .show80percent .keep-posted-bg, .keep-posted .popup-backgraound, .keep-posted .keep-posted-bg {
     position: fixed;
     width: 100%;
     height: 100vh;
@@ -782,7 +781,7 @@ body {
     background: #c6c6c6;
     opacity: 0.7;
     z-index: 1; }
-  .did-you-buy .did-you-buy-container, .did-you-buy .keep-posted-container, .keep-posted .did-you-buy-container, .keep-posted .keep-posted-container {
+  .did-you-buy .did-you-buy-container, .show80percent .did-you-buy-container, .show80percent .show80percent-container, .did-you-buy .keep-posted-container, .show80percent .keep-posted-container, .keep-posted .did-you-buy-container, .keep-posted .show80percent .show80percent-container, .show80percent .keep-posted .show80percent-container, .keep-posted .keep-posted-container {
     background: white;
     position: fixed;
     top: 0;
@@ -798,18 +797,18 @@ body {
     display: block;
     margin-top: 150px;
     padding: 30px 50px; }
-    .did-you-buy .did-you-buy-container .popup-text, .did-you-buy .keep-posted-container .popup-text, .keep-posted .did-you-buy-container .popup-text, .keep-posted .keep-posted-container .popup-text {
+    .did-you-buy .did-you-buy-container .popup-text, .show80percent .did-you-buy-container .popup-text, .show80percent .show80percent-container .popup-text, .did-you-buy .keep-posted-container .popup-text, .show80percent .keep-posted-container .popup-text, .keep-posted .did-you-buy-container .popup-text, .keep-posted .show80percent .show80percent-container .popup-text, .show80percent .keep-posted .show80percent-container .popup-text, .keep-posted .keep-posted-container .popup-text {
       width: 100%;
       height: 52px; }
-    .did-you-buy .did-you-buy-container .yes-button, .did-you-buy .did-you-buy-container .no-button, .did-you-buy .keep-posted-container .yes-button, .did-you-buy .keep-posted-container .no-button, .keep-posted .did-you-buy-container .yes-button, .keep-posted .did-you-buy-container .no-button, .keep-posted .keep-posted-container .yes-button, .keep-posted .keep-posted-container .no-button {
+    .did-you-buy .did-you-buy-container .yes-button, .show80percent .did-you-buy-container .yes-button, .show80percent .show80percent-container .yes-button, .did-you-buy .did-you-buy-container .no-button, .show80percent .did-you-buy-container .no-button, .show80percent .show80percent-container .no-button, .did-you-buy .keep-posted-container .yes-button, .show80percent .keep-posted-container .yes-button, .did-you-buy .keep-posted-container .no-button, .show80percent .keep-posted-container .no-button, .keep-posted .did-you-buy-container .yes-button, .keep-posted .show80percent .show80percent-container .yes-button, .show80percent .keep-posted .show80percent-container .yes-button, .keep-posted .did-you-buy-container .no-button, .keep-posted .show80percent .show80percent-container .no-button, .show80percent .keep-posted .show80percent-container .no-button, .keep-posted .keep-posted-container .yes-button, .keep-posted .keep-posted-container .no-button {
       text-align: center;
       padding: 10px 20px;
       color: white;
       cursor: pointer; }
-    .did-you-buy .did-you-buy-container .yes-button, .did-you-buy .keep-posted-container .yes-button, .keep-posted .did-you-buy-container .yes-button, .keep-posted .keep-posted-container .yes-button {
+    .did-you-buy .did-you-buy-container .yes-button, .show80percent .did-you-buy-container .yes-button, .show80percent .show80percent-container .yes-button, .did-you-buy .keep-posted-container .yes-button, .show80percent .keep-posted-container .yes-button, .keep-posted .did-you-buy-container .yes-button, .keep-posted .show80percent .show80percent-container .yes-button, .show80percent .keep-posted .show80percent-container .yes-button, .keep-posted .keep-posted-container .yes-button {
       background: green;
       float: left; }
-    .did-you-buy .did-you-buy-container .no-button, .did-you-buy .keep-posted-container .no-button, .keep-posted .did-you-buy-container .no-button, .keep-posted .keep-posted-container .no-button {
+    .did-you-buy .did-you-buy-container .no-button, .show80percent .did-you-buy-container .no-button, .show80percent .show80percent-container .no-button, .did-you-buy .keep-posted-container .no-button, .show80percent .keep-posted-container .no-button, .keep-posted .did-you-buy-container .no-button, .keep-posted .show80percent .show80percent-container .no-button, .show80percent .keep-posted .show80percent-container .no-button, .keep-posted .keep-posted-container .no-button {
       background: red;
       float: right; }
 
@@ -818,3 +817,10 @@ body {
 
 .keep-posted .keep-posted-container {
   z-index: 4; }
+
+.show80percent .popup-backgraound {
+  background: white;
+  z-index: 15; }
+
+.show80percent .show80percent-container {
+  z-index: 16; }

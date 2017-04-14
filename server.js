@@ -246,6 +246,7 @@ const dataTransfer = io.on('connection', (socket) => {
 
 		app.on('close', () => {
 			console.log('Closing server !')
+			db.close()
 		})
 
 	})

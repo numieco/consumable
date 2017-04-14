@@ -105,10 +105,39 @@ export class DidYouBuy extends React.Component {
   }
 }
 
-export class KeepPosted extends React.Component {
+export class Show80percent extends React.Component {
+
+  constructor (props) {
+    super (props)
+  }
+
+  componentDidMount() {
+    console.log('show80percent')
+  }
+
   render () {
     return (
-      <div className='keep-posted'>
+      <div className='show80percent'>
+        <div className='popup-backgraound' />
+        <div className='show80percent-container'>
+          <div className='popup-text'>
+            {
+              this.props.show60percent
+              ? "Hey there! Did you know that businesses that submit a product with a link sell their item  ~60% faster than those that don’t?"
+              : "Hey there! Did you know that businesses that submit a product with a link sell their item  ~80% faster than those that don’t?"
+            }
+          </div>
+
+          {
+            !this.props.show60percent
+            ? <div className='no-button' onClick={ this.props.goBack }> Go Back ! </div>
+            : null
+          }
+            
+          <div className='yes-button' onClick={ this.props.okClicked }>
+            OK!
+          </div>
+        </div>
       </div>
     )
   }

@@ -1,11 +1,11 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import ItemSize from './ItemSize'
+import { Show80percent, Show60percent } from './Popups'
 
 let socket = io.connect()
 
 export default class CompanyUpload extends React.Component {
-
 
 	constructor (props) {
 		super (props)
@@ -25,7 +25,6 @@ export default class CompanyUpload extends React.Component {
 			offerStatus: 'pending'
 		}
 
-		this.hidePopup = this.hidePopup.bind(this)
 		this.onDrop = this.onDrop.bind(this)
 		this.submitSellersOffer = this.submitSellersOffer.bind(this) 
 		this.handlePrice = this.handlePrice.bind(this)
@@ -39,11 +38,6 @@ export default class CompanyUpload extends React.Component {
 		})
 	}
 
-	hidePopup = () => {
-		this.props.hideCompanyUpload()
-	}
-
-
 	onDrop = (accepted, rejected) => {
 		let images = this.state.images
 
@@ -56,7 +50,7 @@ export default class CompanyUpload extends React.Component {
 					this.setState({
 						isImageUploaded: true,
 						numberOfImages: images.length,
-						images: images
+						images: 'images'
 					})
 				
 				}
@@ -66,7 +60,7 @@ export default class CompanyUpload extends React.Component {
 			this.setState({
 				isImageUploaded: images.length > 0 ? true : false ,
 				numberOfImages: images.length,
-				images: images
+				images: 'images'
 			})
 		}
 
@@ -74,17 +68,24 @@ export default class CompanyUpload extends React.Component {
 
 	componentDidMount (props) {
 
-			socket.on('isFirstUploadResults', (data) => {
-				socket.removeListener('isFirstUploadResults')
+		socket.on('isFirstUploadResults', (data) => {
+			if (data < 1){ 
+				if (this.state.link)
+					this.props.show60percent()
+				else 
+					this.props.show80percent()
+			} else {
+				socket.emit('sellerSubmit', this.state)
+				this.props.hideCompanyUpload()
+			}
+		})
 
-				if (data < 1){ 
-					if (this.state.link)
-						alert('Linking directly to product increases sales 60% of time! '+ this.state.link)
-					else 
-						alert('80% of goods are sold with a direct link to the product '+ this.state.link)
-				}
-			})
+	}
 
+	sendData = () => {
+		console.log('sendData')
+		socket.emit('sellerSubmit', this.state)
+		this.props.hideCompanyUpload()
 	}
 
 	submitSellersOffer = () => {
@@ -97,9 +98,6 @@ export default class CompanyUpload extends React.Component {
 
 			socket.emit('isFirstUpload', this.state.sellerEmail)
 
-			socket.emit('sellerSubmit', this.state)
-			this.hidePopup()
-			
 		} else {
 			alert('please fill the form')
 		}
@@ -126,15 +124,15 @@ export default class CompanyUpload extends React.Component {
 
 	render () {
 		return (
-			<div className='company-upload'>
+			<div className='company-upload'>	
 				<div className='transparent-background'> </div>
 				<div className='consumer-request'>
 					<div className='item-title'>
-						{ this.state.title}
+						{ this.state.title }
 					</div>
 
 					<div className='price-offered'>
-						<input type='number' value={this.state.price} onChange={ this.handlePrice } placeholder='Price' />
+						<input type='number' value={ this.state.price } onChange={ this.handlePrice } placeholder='Price'/>
 					</div>
 
 					<div className='item-size-upload'>
@@ -166,10 +164,13 @@ export default class CompanyUpload extends React.Component {
 					</div>
 
 					<div className='upload-buttons'>
-						<div className='cancel-button' onClick={ this.hidePopup } > Cancel </div>
+						<div className='cancel-button' onClick={ () => this.props.hideCompanyUpload() } > Cancel </div>
 						<div className='submit-button' onClick={ this.submitSellersOffer } > Submit </div>
 					</div>
 				</div>
+
+				{ this.state.show80percent ? <div> show this  </div> : null }
+
 			</div>
 		)
 	}

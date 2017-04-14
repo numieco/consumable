@@ -1,6 +1,7 @@
 import React from "react"
 import CompanyUpload from "./CompanyUpload"
 import ImageBox from "./ImageBox"
+import { Show80percent, Show60percent } from './Popups'
 
 
 let socket = io.connect()
@@ -14,12 +15,16 @@ export default class SingleRequest extends React.Component {
 			isCustomer : true,
 			showSellerUpload: false,
 			showOffersToCustomer: false,
-			offersBySellers: []
+			offersBySellers: [],
+			show80percent: false,
+			show60percent: false
 		}
 
 		this.proposeItems = this.proposeItems.bind(this)
 		this.hideCompanyUpload = this.hideCompanyUpload.bind(this)
 		this.checkOffers = this.checkOffers.bind(this)
+		this.goBack = this.goBack.bind(this)
+		this.okClicked = this.okClicked.bind(this)
 	}
 
 	isCustomer = () => {
@@ -69,14 +74,26 @@ export default class SingleRequest extends React.Component {
 	
 	hideCompanyUpload = () => {
 		this.setState({
-			showSellerUpload: false
+			showSellerUpload: false,
+			show80percent: false,
+			show60percent: false
 		})
+	}
+
+	goBack = () => {
+		this.setState({
+			show60percent: false,
+			show80percent: false
+		})
+	}
+
+	okClicked = () => {
+		this.refs.companyUpload.sendData()
 	}
 
 	render() {
 		
 		let offer
-
 		{
 			this.state.offersBySellers.map((data, id) => {
 				if(this.props.timestamp == data.timestamp) {
@@ -91,7 +108,6 @@ export default class SingleRequest extends React.Component {
 							/> 
 						)
 					})
-
 				}
 			})
 		}
@@ -100,31 +116,29 @@ export default class SingleRequest extends React.Component {
 			console.log("It re-renders")
 			return (
 				<div>
-				<div className="singleReq" onClick={ this.checkOffers }>
+					<div className="singleReq" onClick={ this.checkOffers }>
 
-					<div className="singlePhoto">
-						<img src={this.props.photo} alt={this.props.photo} />
+						<div className="singlePhoto">
+							<img src={this.props.photo} alt={this.props.photo} />
+						</div>
+						<div className="singleName">
+							{this.props.name}
+						</div>
+						<div className="singleDesc">
+							{this.props.desc}
+						</div>
+						<div className="singleRange">
+							${this.props.min} - ${this.props.max}
+						</div>
 					</div>
-					<div className="singleName">
-						{this.props.name}
-					</div>
-					<div className="singleDesc">
-						{this.props.desc}
-					</div>
-					<div className="singleRange">
-						${this.props.min} - ${this.props.max}
-					</div>
-				</div>
 
 					<div className="offersBySellers"> 
 						{
 							this.state.showOffersToCustomer
 							? offer
-							: <div />
+							: null
 						} 
 					</div>
-					
-
 				</div>
 			)
 
@@ -150,7 +164,7 @@ export default class SingleRequest extends React.Component {
 						? <div className="requestBtn connectBtn" onClick={this.proposeItems} >
 						    Connect
 						  </div>
-						: <div />
+						: null
 					}
 
 
@@ -163,8 +177,22 @@ export default class SingleRequest extends React.Component {
 								size={ this.props.size }
 								hideCompanyUpload={ this.hideCompanyUpload }
 								sellerEmail={ this.props.sellerEmail }
+								ref='companyUpload'
+								show80percent={ () => {this.setState({ show80percent: true, show60percent: false })} }
+								show60percent={ () => {this.setState({ show60percent: true, show80percent: false })} }
 						/>
-						: <div></div>
+						: null
+					}
+
+					{
+						(this.state.show80percent || this.state.show60percent)
+						? <Show80percent 
+								show60percent={ this.state.show60percent } 
+								goBack={ this.goBack } 
+								okClicked={ this.okClicked }
+							/>
+						: null
+
 					}
 
 				</div>
