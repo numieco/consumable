@@ -123,8 +123,8 @@ export class Show80percent extends React.Component {
           <div className='popup-text'>
             {
               this.props.show60percent
-              ? "Hey there! Did you know that businesses that submit a product with a link sell their item  ~60% faster than those that don’t?"
-              : "Hey there! Did you know that businesses that submit a product with a link sell their item  ~80% faster than those that don’t?"
+              ? "Sales increase ~60% when there's a direct link to product."
+              : "Hey there! Did you know that businesses that submit a product with a link sell their item  ~80% more than those that don’t?"
             }
           </div>
 

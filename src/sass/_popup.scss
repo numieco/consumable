@@ -12,33 +12,34 @@
     left: 0;
     right: 0;
 
-    background: #c6c6c6;
+    background: white;
     opacity: 0.7;
     z-index: 1;
   }
 
   .did-you-buy-container, .keep-posted-container {
-
+    z-index: 2;
     background: white;
     position: fixed;
     top: 0;
-    bottom: 0;
     left: 0;
     right: 0;
-    z-index: 2;
-
-    height: 90px;
-    min-width: 130px;
-    max-width: 200px;
-    border: 1px solid #c6c6c6;
-    margin: 0 auto; 
-    display: block;
-    margin-top: 150px;
-    padding: 30px 50px;
+    min-width: 230px;
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 215px;
+    display: inline-block;
+    box-shadow: 1px 1px 2px 1px #c6c6c6;
+    border-radius: 3px;    
 
     .popup-text {
-      width: 100%;
-      height: 52px;
+      width: calc(100% - 85px);
+      display: inline-block;
+      padding: 25px;
+      text-align: left;
+      color: gray;
+      line-height: 25px;
+      padding-right: 60px;
     }
 
     .yes-button, .no-button {
@@ -78,7 +79,18 @@
   }
 
   .show80percent-container {
-    @extend .did-you-buy-container;
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-width: 230px;
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 215px;
+    display: inline-block;
+    box-shadow: 1px 1px 2px 1px #c6c6c6;
+    border-radius: 3px;
     z-index: 16;
   }
 
