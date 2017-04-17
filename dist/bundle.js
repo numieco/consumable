@@ -39575,13 +39575,17 @@
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'yes-button', onClick: this.acceptOffer },
-	              'Yes'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'no-button', onClick: this.rejectOffer },
-	              'No'
+	              { className: 'popup-buttons' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'yes-button', onClick: this.acceptOffer },
+	                'Yes'
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'no-button', onClick: this.rejectOffer },
+	                'No'
+	              )
 	            )
 	          )
 	        ),
@@ -39603,13 +39607,17 @@
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'yes-button', onClick: this.yesKeepPost },
-	              'Yes'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'no-button', onClick: this.noKeepPost },
-	              'No'
+	              { className: 'popup-buttons' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'yes-button', onClick: this.yesKeepPost },
+	                'Yes'
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'no-button', onClick: this.noKeepPost },
+	                'No'
+	              )
 	            )
 	          )
 	        ) : _react2.default.createElement('div', null)
@@ -39647,17 +39655,37 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'popup-text' },
-	            this.props.show60percent ? "Sales increase ~60% when there's a direct link to product." : "Hey there! Did you know that businesses that submit a product with a link sell their item  ~80% more than those that don’t?"
+	            this.props.show60percent ? "Sales increase ~60% when there's a direct link to product." : _react2.default.createElement(
+	              'div',
+	              null,
+	              'Hey there! Did you know that businesses that submit a product ',
+	              _react2.default.createElement(
+	                'strong',
+	                null,
+	                'with a link'
+	              ),
+	              ' sell their item ',
+	              _react2.default.createElement(
+	                'strong',
+	                null,
+	                '~80% more'
+	              ),
+	              ' than those that don\u2019t?'
+	            )
 	          ),
-	          !this.props.show60percent ? _react2.default.createElement(
-	            'div',
-	            { className: 'no-button', onClick: this.props.goBack },
-	            ' Go Back ! '
-	          ) : null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'yes-button', onClick: this.props.okClicked },
-	            'OK!'
+	            { className: 'popup-buttons' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'ok-button', onClick: this.props.okClicked },
+	              'OK!'
+	            ),
+	            !this.props.show60percent ? _react2.default.createElement(
+	              'div',
+	              { className: 'goBack-button', onClick: this.props.goBack },
+	              ' Go Back ! '
+	            ) : null
 	          )
 	        )
 	      );

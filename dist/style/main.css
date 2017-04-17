@@ -781,7 +781,7 @@ body {
     background: white;
     opacity: 0.7;
     z-index: 1; }
-  .did-you-buy .did-you-buy-container, .show80percent .did-you-buy-container, .did-you-buy .keep-posted-container, .show80percent .keep-posted-container, .keep-posted .did-you-buy-container, .keep-posted .keep-posted-container {
+  .did-you-buy .did-you-buy-container, .show80percent .did-you-buy-container, .show80percent .show80percent-container, .did-you-buy .keep-posted-container, .show80percent .keep-posted-container, .keep-posted .did-you-buy-container, .keep-posted .show80percent .show80percent-container, .show80percent .keep-posted .show80percent-container, .keep-posted .keep-posted-container {
     z-index: 2;
     background: white;
     position: fixed;
@@ -795,25 +795,34 @@ body {
     display: inline-block;
     box-shadow: 1px 1px 2px 1px #c6c6c6;
     border-radius: 3px; }
-    .did-you-buy .did-you-buy-container .popup-text, .show80percent .did-you-buy-container .popup-text, .did-you-buy .keep-posted-container .popup-text, .show80percent .keep-posted-container .popup-text, .keep-posted .did-you-buy-container .popup-text, .keep-posted .keep-posted-container .popup-text {
+    .did-you-buy .did-you-buy-container .popup-text, .show80percent .did-you-buy-container .popup-text, .show80percent .show80percent-container .popup-text, .did-you-buy .keep-posted-container .popup-text, .show80percent .keep-posted-container .popup-text, .keep-posted .did-you-buy-container .popup-text, .keep-posted .show80percent .show80percent-container .popup-text, .show80percent .keep-posted .show80percent-container .popup-text, .keep-posted .keep-posted-container .popup-text {
       width: calc(100% - 85px);
       display: inline-block;
       padding: 25px;
       text-align: left;
-      color: gray;
+      color: #756F6F;
       line-height: 25px;
       padding-right: 60px; }
-    .did-you-buy .did-you-buy-container .yes-button, .show80percent .did-you-buy-container .yes-button, .did-you-buy .did-you-buy-container .no-button, .show80percent .did-you-buy-container .no-button, .did-you-buy .keep-posted-container .yes-button, .show80percent .keep-posted-container .yes-button, .did-you-buy .keep-posted-container .no-button, .show80percent .keep-posted-container .no-button, .keep-posted .did-you-buy-container .yes-button, .keep-posted .did-you-buy-container .no-button, .keep-posted .keep-posted-container .yes-button, .keep-posted .keep-posted-container .no-button {
-      text-align: center;
-      padding: 10px 20px;
-      color: white;
-      cursor: pointer; }
-    .did-you-buy .did-you-buy-container .yes-button, .show80percent .did-you-buy-container .yes-button, .did-you-buy .keep-posted-container .yes-button, .show80percent .keep-posted-container .yes-button, .keep-posted .did-you-buy-container .yes-button, .keep-posted .keep-posted-container .yes-button {
-      background: green;
-      float: left; }
-    .did-you-buy .did-you-buy-container .no-button, .show80percent .did-you-buy-container .no-button, .did-you-buy .keep-posted-container .no-button, .show80percent .keep-posted-container .no-button, .keep-posted .did-you-buy-container .no-button, .keep-posted .keep-posted-container .no-button {
-      background: red;
-      float: right; }
+      .did-you-buy .did-you-buy-container .popup-text .strong, .show80percent .did-you-buy-container .popup-text .strong, .show80percent .show80percent-container .popup-text .strong, .did-you-buy .keep-posted-container .popup-text .strong, .show80percent .keep-posted-container .popup-text .strong, .keep-posted .did-you-buy-container .popup-text .strong, .keep-posted .show80percent .show80percent-container .popup-text .strong, .show80percent .keep-posted .show80percent-container .popup-text .strong, .keep-posted .keep-posted-container .popup-text .strong {
+        font-weight: 900;
+        text-shadow: 0.02em 0 #756F6F; }
+    .did-you-buy .did-you-buy-container .popup-buttons, .show80percent .did-you-buy-container .popup-buttons, .show80percent .show80percent-container .popup-buttons, .did-you-buy .keep-posted-container .popup-buttons, .show80percent .keep-posted-container .popup-buttons, .keep-posted .did-you-buy-container .popup-buttons, .keep-posted .show80percent .show80percent-container .popup-buttons, .show80percent .keep-posted .show80percent-container .popup-buttons, .keep-posted .keep-posted-container .popup-buttons {
+      margin: 0 10px 10px 0;
+      display: inline-block;
+      width: calc(100% - 10px); }
+      .did-you-buy .did-you-buy-container .popup-buttons .yes-button, .show80percent .did-you-buy-container .popup-buttons .yes-button, .show80percent .show80percent-container .popup-buttons .yes-button, .did-you-buy .did-you-buy-container .popup-buttons .no-button, .show80percent .did-you-buy-container .popup-buttons .no-button, .show80percent .show80percent-container .popup-buttons .no-button, .did-you-buy .keep-posted-container .popup-buttons .yes-button, .show80percent .keep-posted-container .popup-buttons .yes-button, .did-you-buy .keep-posted-container .popup-buttons .no-button, .show80percent .keep-posted-container .popup-buttons .no-button, .keep-posted .did-you-buy-container .popup-buttons .yes-button, .keep-posted .show80percent .show80percent-container .popup-buttons .yes-button, .show80percent .keep-posted .show80percent-container .popup-buttons .yes-button, .keep-posted .did-you-buy-container .popup-buttons .no-button, .keep-posted .show80percent .show80percent-container .popup-buttons .no-button, .show80percent .keep-posted .show80percent-container .popup-buttons .no-button, .keep-posted .keep-posted-container .popup-buttons .yes-button, .keep-posted .keep-posted-container .popup-buttons .no-button {
+        text-align: center;
+        padding: 10px 20px;
+        color: white;
+        cursor: pointer;
+        border-radius: 3px; }
+      .did-you-buy .did-you-buy-container .popup-buttons .yes-button, .show80percent .did-you-buy-container .popup-buttons .yes-button, .show80percent .show80percent-container .popup-buttons .yes-button, .did-you-buy .keep-posted-container .popup-buttons .yes-button, .show80percent .keep-posted-container .popup-buttons .yes-button, .keep-posted .did-you-buy-container .popup-buttons .yes-button, .keep-posted .show80percent .show80percent-container .popup-buttons .yes-button, .show80percent .keep-posted .show80percent-container .popup-buttons .yes-button, .keep-posted .keep-posted-container .popup-buttons .yes-button {
+        background: green;
+        float: left;
+        margin-left: 10px; }
+      .did-you-buy .did-you-buy-container .popup-buttons .no-button, .show80percent .did-you-buy-container .popup-buttons .no-button, .show80percent .show80percent-container .popup-buttons .no-button, .did-you-buy .keep-posted-container .popup-buttons .no-button, .show80percent .keep-posted-container .popup-buttons .no-button, .keep-posted .did-you-buy-container .popup-buttons .no-button, .keep-posted .show80percent .show80percent-container .popup-buttons .no-button, .show80percent .keep-posted .show80percent-container .popup-buttons .no-button, .keep-posted .keep-posted-container .popup-buttons .no-button {
+        background: red;
+        float: right; }
 
 .keep-posted .keep-posted-bg {
   z-index: 3; }
@@ -822,20 +831,30 @@ body {
   z-index: 4; }
 
 .show80percent .popup-backgraound {
-  background: white;
   z-index: 15; }
 
 .show80percent .show80percent-container {
-  background: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  min-width: 230px;
-  width: 30%;
-  margin: 0 auto;
-  margin-top: 215px;
-  display: inline-block;
-  box-shadow: 1px 1px 2px 1px #c6c6c6;
-  border-radius: 3px;
   z-index: 16; }
+
+.show80percent .popup-buttons .goBack-button, .show80percent .popup-buttons .ok-button {
+  float: right;
+  width: 65px;
+  height: 25px;
+  line-height: 25px;
+  font-weight: 900;
+  border-radius: 3px;
+  margin-left: 5px;
+  cursor: pointer; }
+
+.show80percent .popup-buttons .goBack-button {
+  color: #609dff;
+  background: white;
+  height: calc(25px - 0.2em);
+  line-height: 25px;
+  border: 0.1em solid #609dff;
+  font-size: 10px; }
+
+.show80percent .popup-buttons .ok-button {
+  color: white;
+  background: #609dff;
+  font-size: 13px; }

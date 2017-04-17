@@ -73,11 +73,13 @@ export class DidYouBuy extends React.Component {
         <div>
           <div className='did-you-buy-container'>
             <div className='popup-text'>Did you buy this item? {this.props.data.offers.offerTime}</div>
-            <div className='yes-button' onClick={ this.acceptOffer }>
-              Yes
-            </div>
-            <div className='no-button' onClick={ this.rejectOffer }>
-              No
+            <div className='popup-buttons'>
+              <div className='yes-button' onClick={ this.acceptOffer }>
+                Yes
+              </div>
+              <div className='no-button' onClick={ this.rejectOffer }>
+                No
+              </div>
             </div>
           </div>
         </div>
@@ -89,11 +91,13 @@ export class DidYouBuy extends React.Component {
               <div className='popup-backgraound'> </div> 
               <div className='keep-posted-container'>
                 <div className='popup-text'>Would you like to keep this listing posted? </div> 
-                <div className='yes-button' onClick={ this.yesKeepPost }>
-                  Yes
-                </div>
-                <div className='no-button' onClick={ this.noKeepPost }>
-                  No
+                <div className='popup-buttons'>                
+                  <div className='yes-button' onClick={ this.yesKeepPost }>
+                    Yes
+                  </div>
+                  <div className='no-button' onClick={ this.noKeepPost }>
+                    No
+                  </div>
                 </div>
               </div>
             </div>
@@ -124,18 +128,19 @@ export class Show80percent extends React.Component {
             {
               this.props.show60percent
               ? "Sales increase ~60% when there's a direct link to product."
-              : "Hey there! Did you know that businesses that submit a product with a link sell their item  ~80% more than those that don’t?"
+              : (<div>Hey there! Did you know that businesses that submit a product <strong>with a link</strong> sell their item <strong>~80% more</strong> than those that don’t?</div>)
             }
           </div>
-
-          {
-            !this.props.show60percent
-            ? <div className='no-button' onClick={ this.props.goBack }> Go Back ! </div>
-            : null
-          }
+          <div className='popup-buttons'>  
+            <div className='ok-button' onClick={ this.props.okClicked }>
+              OK!
+            </div>
             
-          <div className='yes-button' onClick={ this.props.okClicked }>
-            OK!
+            {
+              !this.props.show60percent
+              ? <div className='goBack-button' onClick={ this.props.goBack }> Go Back ! </div>
+              : null
+            }
           </div>
         </div>
       </div>

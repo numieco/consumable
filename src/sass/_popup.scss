@@ -37,26 +37,40 @@
       display: inline-block;
       padding: 25px;
       text-align: left;
-      color: gray;
+      color: #756F6F;
       line-height: 25px;
       padding-right: 60px;
+
+      .strong {
+        font-weight: 900;
+        text-shadow: 0.02em 0 #756F6F;
+      }
     }
 
-    .yes-button, .no-button {
-      text-align: center;
-      padding: 10px 20px;
-      color: white;
-      cursor: pointer;
+    .popup-buttons {
+      margin: 0 10px 10px 0;
+      display: inline-block;
+      width: calc(100% - 10px);
+
+      .yes-button, .no-button {
+        text-align: center;
+        padding: 10px 20px;
+        color: white;
+        cursor: pointer;
+        border-radius: 3px;
+      }
+
+      .yes-button {
+        background: green;
+        float: left;
+        margin-left: 10px;
+      }
+      .no-button {
+        background: red;
+        float: right;
+      }
     }
 
-    .yes-button {
-      background: green;
-      float: left;
-    }
-    .no-button {
-      background: red;
-      float: right;
-    }
   }
 }
 .keep-posted {
@@ -74,31 +88,41 @@
 
   .popup-backgraound {
     @extend .popup-backgraound;
-    background: white;
     z-index: 15;
   }
 
   .show80percent-container {
-    background: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    min-width: 230px;
-    width: 30%;
-    margin: 0 auto;
-    margin-top: 215px;
-    display: inline-block;
-    box-shadow: 1px 1px 2px 1px #c6c6c6;
-    border-radius: 3px;
+    @extend .did-you-buy-container;
     z-index: 16;
   }
 
-  .no-button {
-    @extend .no-button;
-  }
+  .popup-buttons {
+    @extend .popup-buttons;
+  
+    .goBack-button, .ok-button {
+      float: right;
+      width: 65px;
+      height: 25px;
+      line-height: 25px;
+      font-weight: 900;
+      border-radius: 3px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
 
-  .yes-button {
-    @extend .yes-button;
+    .goBack-button {
+      color: #609dff;
+      background: white;
+      height: calc(25px - 0.2em);
+      line-height: 25px;
+      border: 0.1em solid #609dff;
+      font-size: 10px;
+    }
+
+    .ok-button {
+      color: white;
+      background: #609dff;
+      font-size: 13px;
+    }
   }
 }
