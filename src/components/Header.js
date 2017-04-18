@@ -33,8 +33,8 @@ export default class Header extends React.Component {
 				age: age,
 				photo: photo				
 			}			
-		})
-		this.sendDetailToParent()
+		}, () => this.sendDetailToParent())
+		
 	}
 
 	sendDetailToParent = () => {

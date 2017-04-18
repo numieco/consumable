@@ -63,7 +63,10 @@ export class DidYouBuy extends React.Component {
   noKeepPost = () => {
     this.setState({ showKeepPosted : false })
     this.props.changeInProcess()
-    //Delete offer
+    socket.emit('deleteSellerOffer', {
+      requestTime: this.props.data.requestTime, 
+      offerTime: this.props.data.offers.offerTime
+    })
   }
 
   render () {
@@ -109,7 +112,7 @@ export class DidYouBuy extends React.Component {
   }
 }
 
-export class Show80percent extends React.Component {
+export class ShowPercentPopup extends React.Component {
 
   constructor (props) {
     super (props)

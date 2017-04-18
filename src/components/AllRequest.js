@@ -12,6 +12,7 @@ export default class AllRequest extends React.Component {
 		super(props)
 
 		this.state = {
+            details: props.details,
             isLoading: true,
 			allReq: '',
             sellerEmail: '',

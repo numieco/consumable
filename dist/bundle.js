@@ -26783,8 +26783,9 @@
 						age: age,
 						photo: photo
 					}
+				}, function () {
+					return _this.sendDetailToParent();
 				});
-				_this.sendDetailToParent();
 			};
 
 			_this.sendDetailToParent = function () {
@@ -27003,8 +27004,9 @@
 							email: response.email,
 							age: response.birthday,
 							photo: response.picture.data.url
+						}, function () {
+							return localStorage.setItem('customerEmail', response.email);
 						});
-
 						_this.sendParent("customer", response.name, response.email, response.birthday, response.picture.data.url);
 					});
 				} else {
@@ -38208,6 +38210,7 @@
 	        };
 
 	        _this.state = {
+	            details: props.details,
 	            isLoading: true,
 	            allReq: '',
 	            sellerEmail: '',
@@ -38448,32 +38451,33 @@
 			};
 
 			_this.checkOffers = function () {
+				if (_this.props.email == localStorage.getItem('customerEmail')) {
+					_this.setState({
+						showOffersToCustomer: !_this.state.showOffersToCustomer
+					}, function () {
 
-				_this.setState({
-					showOffersToCustomer: !_this.state.showOffersToCustomer
-				}, function () {
+						if (_this.state.showOffersToCustomer) {
 
-					if (_this.state.showOffersToCustomer) {
+							socket.emit('checkOffers', { timestamp: _this.props.timestamp, email: _this.props.email });
 
-						socket.emit('checkOffers', { timestamp: _this.props.timestamp, email: _this.props.email });
+							socket.on('returnOffers', function (data) {
 
-						socket.on('returnOffers', function (data) {
+								socket.removeListener('returnOffers');
 
-							socket.removeListener('returnOffers');
+								if (data.sellers.length > 0) {
 
-							if (data.sellers.length > 0) {
+									var getData = _this.state.offersBySellers;
+									getData.push(data);
 
-								var getData = _this.state.offersBySellers;
-								getData.push(data);
-
-								_this.setState({
-									offersBySellers: getData
-								});
-							}
-							sellers = data.sellers;
-						});
-					}
-				});
+									_this.setState({
+										offersBySellers: getData
+									});
+								}
+								sellers = data.sellers;
+							});
+						}
+					});
+				}
 			};
 
 			_this.proposeItems = function () {
@@ -38509,6 +38513,9 @@
 				show80percent: false,
 				show60percent: false
 			};
+
+			console.log('---c');
+			console.log(props);
 
 			_this.proposeItems = _this.proposeItems.bind(_this);
 			_this.hideCompanyUpload = _this.hideCompanyUpload.bind(_this);
@@ -38626,7 +38633,7 @@
 								_this2.setState({ show60percent: true, show80percent: false });
 							}
 						}) : null,
-						this.state.show80percent || this.state.show60percent ? _react2.default.createElement(_Popups.Show80percent, {
+						this.state.show80percent || this.state.show60percent ? _react2.default.createElement(_Popups.ShowPercentPopup, {
 							show60percent: this.state.show60percent,
 							goBack: this.goBack,
 							okClicked: this.okClicked
@@ -39469,7 +39476,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Show80percent = exports.DidYouBuy = undefined;
+	exports.ShowPercentPopup = exports.DidYouBuy = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -39537,7 +39544,10 @@
 	    _this.noKeepPost = function () {
 	      _this.setState({ showKeepPosted: false });
 	      _this.props.changeInProcess();
-	      //Delete offer
+	      socket.emit('deleteSellerOffer', {
+	        requestTime: _this.props.data.requestTime,
+	        offerTime: _this.props.data.offers.offerTime
+	      });
 	    };
 
 	    console.log(props);
@@ -39628,16 +39638,16 @@
 	  return DidYouBuy;
 	}(_react2.default.Component);
 
-	var Show80percent = exports.Show80percent = function (_React$Component2) {
-	  _inherits(Show80percent, _React$Component2);
+	var ShowPercentPopup = exports.ShowPercentPopup = function (_React$Component2) {
+	  _inherits(ShowPercentPopup, _React$Component2);
 
-	  function Show80percent(props) {
-	    _classCallCheck(this, Show80percent);
+	  function ShowPercentPopup(props) {
+	    _classCallCheck(this, ShowPercentPopup);
 
-	    return _possibleConstructorReturn(this, (Show80percent.__proto__ || Object.getPrototypeOf(Show80percent)).call(this, props));
+	    return _possibleConstructorReturn(this, (ShowPercentPopup.__proto__ || Object.getPrototypeOf(ShowPercentPopup)).call(this, props));
 	  }
 
-	  _createClass(Show80percent, [{
+	  _createClass(ShowPercentPopup, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      console.log('show80percent');
@@ -39692,7 +39702,7 @@
 	    }
 	  }]);
 
-	  return Show80percent;
+	  return ShowPercentPopup;
 	}(_react2.default.Component);
 
 /***/ },
@@ -39733,15 +39743,22 @@
 
 	        _this.acceptOffer = function () {
 	            if (_this.props.offers.link) {
-
-	                window.location.assign(_this.props.offers.link);
 	                socket.emit('pendingToInProcess', {
 	                    timestamp: _this.props.requestTime,
 	                    email: _this.props.customerEmail,
 	                    offerTime: _this.props.offers.offerTime,
 	                    sellerEmail: _this.props.offers.sellerEmail
 	                });
+
+	                window.location.assign(_this.props.offers.link);
 	            }
+	        };
+
+	        _this.deleteOffer = function () {
+	            socket.emit('deleteSellerOffer', {
+	                requestTime: _this.props.requestTime,
+	                offerTime: _this.props.offers.offerTime
+	            });
 	        };
 
 	        _this.state = {
@@ -39752,6 +39769,7 @@
 	        console.log(_this.props);
 
 	        _this.acceptOffer = _this.acceptOffer.bind(_this);
+	        _this.deleteOffer = _this.deleteOffer.bind(_this);
 	        return _this;
 	    }
 
@@ -39765,7 +39783,7 @@
 	                { className: 'imageBox' },
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'close-btn' },
+	                    { className: 'close-btn', onClick: this.deleteOffer },
 	                    'x'
 	                ),
 	                _react2.default.createElement(

@@ -1,7 +1,7 @@
 import React from "react"
 import CompanyUpload from "./CompanyUpload"
 import ImageBox from "./ImageBox"
-import { Show80percent, Show60percent } from './Popups'
+import { ShowPercentPopup } from './Popups'
 
 
 let socket = io.connect()
@@ -20,6 +20,9 @@ export default class SingleRequest extends React.Component {
 			show60percent: false
 		}
 
+		console.log('---c')
+		console.log(props)
+
 		this.proposeItems = this.proposeItems.bind(this)
 		this.hideCompanyUpload = this.hideCompanyUpload.bind(this)
 		this.checkOffers = this.checkOffers.bind(this)
@@ -36,34 +39,35 @@ export default class SingleRequest extends React.Component {
 	}
 
 	checkOffers = () => {
+		if(this.props.email == localStorage.getItem('customerEmail')) {
+			this.setState({
+				showOffersToCustomer: !this.state.showOffersToCustomer
+			}, () => {
 
-		this.setState({
-			showOffersToCustomer: !this.state.showOffersToCustomer
-		}, () => {
+				if(this.state.showOffersToCustomer){
 
-			if(this.state.showOffersToCustomer){
+					socket.emit('checkOffers', {timestamp: this.props.timestamp, email: this.props.email})
 
-				socket.emit('checkOffers', {timestamp: this.props.timestamp, email: this.props.email})
+					socket.on('returnOffers', (data) => {
 
-				socket.on('returnOffers', (data) => {
+						socket.removeListener('returnOffers')
 
-					socket.removeListener('returnOffers')
+						if(data.sellers.length > 0) {
 
-					if(data.sellers.length > 0) {
+							let getData = this.state.offersBySellers
+							getData.push(data)
 
-						let getData = this.state.offersBySellers
-						getData.push(data)
+							this.setState({
+								offersBySellers: getData
+							})
+						}
+						sellers = data.sellers
 
-						this.setState({
-							offersBySellers: getData
-						})
-					}
-					sellers = data.sellers
+					})
+				}
 
-				})
-			}
-
-		})
+			})
+		}
 	}
 
 	proposeItems = () => {
@@ -186,7 +190,7 @@ export default class SingleRequest extends React.Component {
 
 					{
 						(this.state.show80percent || this.state.show60percent)
-						? <Show80percent 
+						? <ShowPercentPopup 
 								show60percent={ this.state.show60percent } 
 								goBack={ this.goBack } 
 								okClicked={ this.okClicked }

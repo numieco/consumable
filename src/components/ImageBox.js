@@ -15,26 +15,33 @@ export default class ImageBox extends React.Component{
         console.log(this.props)
 
         this.acceptOffer = this.acceptOffer.bind(this)
+        this.deleteOffer = this.deleteOffer.bind(this)
     }
 
     acceptOffer = () => {
-        if (this.props.offers.link){
-            
+        if (this.props.offers.link) {
+            socket.emit('pendingToInProcess', {
+                timestamp: this.props.requestTime, 
+                email: this.props.customerEmail, 
+                offerTime: this.props.offers.offerTime,
+                sellerEmail: this.props.offers.sellerEmail
+            })
+
             window.location.assign(this.props.offers.link)
-            socket.emit('pendingToInProcess',
-                {
-                    timestamp: this.props.requestTime, 
-                    email: this.props.customerEmail, 
-                    offerTime: this.props.offers.offerTime,
-                    sellerEmail: this.props.offers.sellerEmail
-                })
         }
+    }
+
+    deleteOffer = () => {
+      socket.emit('deleteSellerOffer', {
+        requestTime: this.props.requestTime, 
+        offerTime: this.props.offers.offerTime
+      })
     }
 
     render(){
         return(
             <div className="imageBox">
-                <div className="close-btn">
+                <div className="close-btn" onClick={ this.deleteOffer }>
                     x
                 </div>
                 <div className="personName">

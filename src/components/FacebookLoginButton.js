@@ -54,8 +54,7 @@ export default class FacebookLoginButton extends React.Component {
 						email: response.email,
 						age: response.birthday,
 						photo: response.picture.data.url						
-					})
-
+					}, () => localStorage.setItem('customerEmail', response.email))
 					this.sendParent("customer",response.name, response.email, response.birthday, response.picture.data.url)
 				}
 			)
