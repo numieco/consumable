@@ -1,7 +1,6 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import ItemSize from './ItemSize'
-import { Show80percent, Show60percent } from './Popups'
 
 let socket = io.connect()
 

@@ -242,11 +242,15 @@ const dataTransfer = io.on('connection', (socket) => {
 				  { $set: { "sellers.$.offerStatus" : "rejected" }
 				}, (result) => {console.log(data.offerTime + " -- "+ data.sellerEmail)})				
 			})
+
+			socket.on('deleteSellerOffer', (data) => {
+				console.log(data.requestTime.toString())
+				collection.update({'timestamp': data.requestTime.toString()}, {$pull: {'sellers': {offerTime: data.offerTime}}})
+			})
 		}
 
 		app.on('close', () => {
 			console.log('Closing server !')
-			db.close()
 		})
 
 	})

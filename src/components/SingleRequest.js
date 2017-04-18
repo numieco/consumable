@@ -20,9 +20,6 @@ export default class SingleRequest extends React.Component {
 			show60percent: false
 		}
 
-		console.log('---c')
-		console.log(props)
-
 		this.proposeItems = this.proposeItems.bind(this)
 		this.hideCompanyUpload = this.hideCompanyUpload.bind(this)
 		this.checkOffers = this.checkOffers.bind(this)

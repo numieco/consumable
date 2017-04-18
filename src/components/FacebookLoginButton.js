@@ -35,6 +35,7 @@ export default class FacebookLoginButton extends React.Component {
 
 	onLogin = () => {
 		console.log("loggedin")
+		location.reload()
 	}
 
 	checkLoginStatus = (response) => {

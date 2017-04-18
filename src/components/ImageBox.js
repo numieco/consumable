@@ -8,11 +8,10 @@ export default class ImageBox extends React.Component{
         super(props)
 
         this.state = {
+            hide: false,
             inProcess: props.inProcess,
             offerStatus: props.offers.offerStatus
         }
-
-        console.log(this.props)
 
         this.acceptOffer = this.acceptOffer.bind(this)
         this.deleteOffer = this.deleteOffer.bind(this)
@@ -32,15 +31,16 @@ export default class ImageBox extends React.Component{
     }
 
     deleteOffer = () => {
-      socket.emit('deleteSellerOffer', {
-        requestTime: this.props.requestTime, 
-        offerTime: this.props.offers.offerTime
-      })
+        socket.emit('deleteSellerOffer', {
+            requestTime: this.props.requestTime, 
+            offerTime: this.props.offers.offerTime
+        })
+        this.setState({ hide: true })
     }
 
     render(){
         return(
-            <div className="imageBox">
+            <div className={ this.state.hide ? 'display-none' : 'imageBox' }>
                 <div className="close-btn" onClick={ this.deleteOffer }>
                     x
                 </div>

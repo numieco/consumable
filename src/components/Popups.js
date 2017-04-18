@@ -63,6 +63,7 @@ export class DidYouBuy extends React.Component {
   noKeepPost = () => {
     this.setState({ showKeepPosted : false })
     this.props.changeInProcess()
+    
     socket.emit('deleteSellerOffer', {
       requestTime: this.props.data.requestTime, 
       offerTime: this.props.data.offers.offerTime

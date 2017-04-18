@@ -26987,6 +26987,7 @@
 
 			_this.onLogin = function () {
 				console.log("loggedin");
+				location.reload();
 			};
 
 			_this.checkLoginStatus = function (response) {
@@ -38514,9 +38515,6 @@
 				show60percent: false
 			};
 
-			console.log('---c');
-			console.log(props);
-
 			_this.proposeItems = _this.proposeItems.bind(_this);
 			_this.hideCompanyUpload = _this.hideCompanyUpload.bind(_this);
 			_this.checkOffers = _this.checkOffers.bind(_this);
@@ -38671,8 +38669,6 @@
 	var _ItemSize = __webpack_require__(240);
 
 	var _ItemSize2 = _interopRequireDefault(_ItemSize);
-
-	var _Popups = __webpack_require__(246);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39544,6 +39540,7 @@
 	    _this.noKeepPost = function () {
 	      _this.setState({ showKeepPosted: false });
 	      _this.props.changeInProcess();
+
 	      socket.emit('deleteSellerOffer', {
 	        requestTime: _this.props.data.requestTime,
 	        offerTime: _this.props.data.offers.offerTime
@@ -39759,14 +39756,14 @@
 	                requestTime: _this.props.requestTime,
 	                offerTime: _this.props.offers.offerTime
 	            });
+	            _this.setState({ hide: true });
 	        };
 
 	        _this.state = {
+	            hide: false,
 	            inProcess: props.inProcess,
 	            offerStatus: props.offers.offerStatus
 	        };
-
-	        console.log(_this.props);
 
 	        _this.acceptOffer = _this.acceptOffer.bind(_this);
 	        _this.deleteOffer = _this.deleteOffer.bind(_this);
@@ -39780,7 +39777,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'imageBox' },
+	                { className: this.state.hide ? 'display-none' : 'imageBox' },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'close-btn', onClick: this.deleteOffer },

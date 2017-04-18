@@ -550,6 +550,9 @@ body {
     border-radius: 1px;
     margin-right: 0.5em; }
 
+.display-none {
+  display: none !important; }
+
 .imageBox {
   min-width: 250px;
   min-height: 200px;
