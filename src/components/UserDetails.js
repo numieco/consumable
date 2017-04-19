@@ -244,7 +244,7 @@ export default class UserDetails extends React.Component {
 							/>
 							Low
 						</div>
-						 - 
+						<div className='dash'>-</div> 
 						<div className="highRange">
 							<input
 								className={this.state.maxRange} 

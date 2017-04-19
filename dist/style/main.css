@@ -21,13 +21,21 @@ body {
   left: 0;
   z-index: 9999; }
 
-@media screen and (max-width: 600px) {
-  .title-text {
-    width: 64% !important; } }
+::-webkit-input-placeholder {
+  color: #c6c6c6; }
+
+::-moz-placeholder {
+  color: #c6c6c6; }
+
+:-ms-input-placeholder {
+  color: #c6c6c6; }
+
+:-moz-placeholder {
+  color: #c6c6c6; }
 
 .header {
   width: calc(100% - 20px);
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #c5c5c5;
   display: inline-block;
   padding: 0 10px; }
   .header .seller-login-info {
@@ -39,6 +47,9 @@ body {
   .header .title-text {
     float: left;
     width: calc(100% - 20px - 150px - 50px); }
+  .header .name-photo {
+    display: inline-block;
+    float: right; }
   .header .header-user-name {
     width: 150px;
     float: left;
@@ -48,7 +59,8 @@ body {
   .header .dropdown {
     width: 50px;
     margin-top: 14px;
-    display: inline-block; }
+    display: inline-block;
+    position: relative; }
     .header .dropdown .header-photo {
       width: 42px;
       margin: auto; }
@@ -60,7 +72,9 @@ body {
       height: 30px;
       z-index: 1;
       margin: 0 auto;
-      padding: 2% 2% 2% 2%; }
+      padding: 2% 2% 2% 2%;
+      position: absolute;
+      right: 0; }
     .header .dropdown .fb-button {
       margin: 2px 2px 2px 2px; }
   .header .seller-logout {
@@ -78,6 +92,10 @@ body {
       text-align: center; }
     .header .seller-logout .seller-logout-button :hover {
       background-color: #2052a3; }
+
+@media (max-width: 768px) {
+  .header-user-name {
+    display: none; } }
 
 .currentuser {
   padding: 28px 10px;
@@ -102,7 +120,7 @@ body {
   text-align: left; }
 
 .description, .searchItem {
-  width: 80%;
+  width: calc(100% - 140px);
   text-align: center;
   float: left; }
   .description input, .searchItem input {
@@ -110,13 +128,20 @@ body {
     outline: none;
     background: transparent;
     border: none;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid #c6c6c6;
     margin-top: 25px;
     line-height: 30px;
     font-size: xx-large;
     text-align: left;
     padding: 0 20px 20px 20px;
     margin-bottom: 25px; }
+
+.wrapPriceBtn {
+  width: 120px;
+  min-height: 100px;
+  float: left;
+  margin-left: 20px;
+  font-size: 12px; }
 
 .searchItem {
   width: 100%; }
@@ -126,29 +151,32 @@ body {
   border-bottom: 1px solid red; }
 
 .priceRange {
-  margin-left: 5%;
-  width: 15%;
-  float: left;
+  width: 100%;
   text-align: center;
   line-height: 20px; }
   .priceRange .range-div {
     width: 100%;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    font-weight: 900; }
+  .priceRange .dash {
+    color: #c6c6c6;
+    display: inline-block;
+    line-height: 30px; }
   .priceRange .lowRange {
-    width: 35%;
+    width: 50px;
     float: left; }
   .priceRange .highRange {
-    width: 35%;
+    width: 50px;
     float: right; }
   .priceRange .minRange, .priceRange .maxRange {
-    width: 100%;
+    width: calc(100% - 4px);
     -webkit-appearance: none;
     -moz-appearance: textfield;
     line-height: 30px;
     text-align: center;
     margin-bottom: 5px;
-    border-radius: 5px;
-    border: 1px solid gray; }
+    border-radius: 3px;
+    border: 1px solid #c6c6c6; }
   .priceRange .no-min {
     border: 1px solid red;
     box-shadow: 0px 15px 10px -15px red; }
@@ -167,7 +195,7 @@ body {
   margin-top: 27px;
   cursor: pointer; }
 
-@media only screen and (max-device-width: 768px) {
+@media (max-width: 768px) {
   .container {
     width: 100%; }
     .container .profilePic {
@@ -191,18 +219,25 @@ body {
       text-align: center;
       float: none;
       clear: both;
-      margin: 15px 0;
       font-size: 25px; }
       .container .description .descField, .container .searchItem .descField {
-        width: 70%;
+        width: 90%;
         margin: 0 auto; }
+        .container .description .descField input, .container .searchItem .descField input {
+          width: 100%;
+          margin-top: 0;
+          padding: 0;
+          text-align: center;
+          font-size: 22px;
+          padding-bottom: 15px; }
     .container .wrapPriceBtn {
-      width: 100%;
-      min-height: 100px; }
+      margin: 0 auto;
+      float: none; }
       .container .wrapPriceBtn .priceRange {
-        width: 200px;
+        width: 100%;
         margin: 0 auto;
-        float: none; }
+        float: none;
+        height: 100px; }
       .container .wrapPriceBtn .minrange {
         width: 50px; }
       .container .wrapPriceBtn .maxrange {
@@ -356,20 +391,20 @@ body {
 /*
 	Media query for login and signup page
 */
-@media screen and (max-width: 319px) {
+@media (max-width: 319px) {
   .seller-login, .seller-signup {
     width: calc(100% - 40px) !important;
     padding: 20px 0px !important; }
     .seller-login input, .seller-signup input {
       width: 85% !important; } }
 
-@media screen and (min-width: 320px) and (max-width: 480px) {
+@media (min-width: 320px) and (max-width: 480px) {
   .seller-login, .seller-signup {
     width: calc(100% - 40px) !important; }
     .seller-login input, .seller-signup input {
       width: 85% !important; } }
 
-@media screen and (min-width: 481px) and (max-width: 767px) {
+@media (min-width: 481px) and (max-width: 767px) {
   .seller-login input, .seller-signup input {
     width: 85% !important; } }
 

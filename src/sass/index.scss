@@ -26,6 +26,19 @@ body {
   z-index: 9999;
 }
 
+::-webkit-input-placeholder { 
+  color: #c6c6c6;
+}
+::-moz-placeholder {
+  color: #c6c6c6;
+}
+:-ms-input-placeholder {
+  color: #c6c6c6;
+}
+:-moz-placeholder {
+  color: #c6c6c6;
+}
+
 @import "header";
 @import "userDetails";
 @import "userDetailsMedia";

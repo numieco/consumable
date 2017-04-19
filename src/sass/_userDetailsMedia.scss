@@ -1,8 +1,6 @@
-@media only screen 
-and (max-device-width : 768px)  {
+@media (max-width : 768px)  {
 	.container {
 		width: 100%;
-
 
 		.profilePic {
 		    float: none;
@@ -16,7 +14,7 @@ and (max-device-width : 768px)  {
 		}
 
 		.usename {
-		    background: lightgray;
+		  background: lightgray;
 			width: 100%;
 			float: none;
 			margin: unset;
@@ -27,27 +25,37 @@ and (max-device-width : 768px)  {
 		}
 
 		.description {
-		    width: 100%;
-		    text-align: center;
-		    float: none;
-		    clear: both;
-		    margin: 15px 0;
-		    font-size: 25px;
-		
-		    .descField {
-			    width: 70%;
-			    margin: 0 auto;
+	    width: 100%;
+	    text-align: center;
+	    float: none;
+	    clear: both;
+	    font-size: 25px;
+	
+	    .descField {
+		    width: 90%;
+		    margin: 0 auto;
+
+		    input {
+		    	width: 100%;
+	        margin-top: 0;
+	        padding: 0;
+	        text-align: center;
+	        font-size: 22px;
+	        padding-bottom: 15px;
+		    }
 			}
 		}
 
 		.wrapPriceBtn {
-			width: 100%;
-			min-height : 100px;
+			margin: 0 auto;
+			float: none;
 
 			.priceRange{
-				width : 200px;
+				width : 100%;
 				margin : 0 auto;
 				float : none;
+				height: 100px;
+
 			}
 
 			.minrange{

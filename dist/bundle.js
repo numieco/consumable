@@ -37667,7 +37667,11 @@
 									}),
 									"Low"
 								),
-								"-",
+								_react2.default.createElement(
+									"div",
+									{ className: "dash" },
+									"-"
+								),
 								_react2.default.createElement(
 									"div",
 									{ className: "highRange" },
