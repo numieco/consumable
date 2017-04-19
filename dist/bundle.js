@@ -37880,17 +37880,10 @@
 	            static: _this.props.staticSize ? true : false
 	        };
 	        _this.clearStates.bind(_this);
-
-	        console.log(_this.props.staticSize);
 	        return _this;
 	    }
 
 	    _createClass(ItemSize, [{
-	        key: "componentWillMount",
-	        value: function componentWillMount() {
-	            //if(this.props.staticSize)
-	        }
-	    }, {
 	        key: "componentWillReceiveProps",
 	        value: function componentWillReceiveProps(nextProps) {
 	            if (nextProps == this.props.staticSize) {
@@ -37942,15 +37935,10 @@
 	var Button = function (_React$Component2) {
 	    _inherits(Button, _React$Component2);
 
-	    function Button(props) {
+	    function Button() {
 	        _classCallCheck(this, Button);
 
-	        var _this3 = _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
-
-	        console.log(_this3.props.static);
-	        console.log('this.props.static');
-
-	        return _this3;
+	        return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
 	    }
 
 	    _createClass(Button, [{

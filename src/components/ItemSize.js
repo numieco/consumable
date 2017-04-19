@@ -12,12 +12,6 @@ export default class ItemSize extends React.Component{
             static: this.props.staticSize ? true : false
         }  
         this.clearStates.bind(this)
-
-        console.log(this.props.staticSize)
-    }
-
-    componentWillMount () {
-        //if(this.props.staticSize)
     }
     
     componentWillReceiveProps(nextProps){
@@ -66,13 +60,6 @@ export default class ItemSize extends React.Component{
 }
 
 class Button extends React.Component{
-
-    constructor (props) {
-        super (props)
-        console.log(this.props.static)
-        console.log('this.props.static')
-
-    }
 
     selected(){
         console.log("it reaches here")
