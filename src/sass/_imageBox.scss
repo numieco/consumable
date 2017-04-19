@@ -8,14 +8,15 @@
 }    
 
 .imageBox {
-    min-width: 250px;
+    max-width: 230px;
     min-height: 200px;
     border: 1px solid #c6c6c6;
     border-radius: 5px;
     margin : 10px;
-    padding: 10px;
     display: block;
     float: left;
+    margin-right: 35px;
+    position: relative;
 
     .close-btn{
         height: 25px;
@@ -26,56 +27,59 @@
         background: white;
         border : 1px solid #c6c6c6;
         cursor : pointer;
-        margin-top: -24px;
-        margin-left: -24px;
+        position: absolute;
+        top: -14px;
+        left: -14px;
         color:  #c6c6c6;
     }
 
     .personName{
         width : 100%;
         text-align : center;
-        border-bottom: 1px solid #eaecef;
+        border-bottom: 0.05em solid #eaecef;
+        padding: 10px 0;
+        font-weight: 900;
     }
 
     .boxImage{
-        width : 90%;
+        width : calc(100% - 20px);
         min-height: 200px;
         margin : 0 auto;
-        position: relative;
+        padding: 10px;
+        clear: both;
+        text-align: center;
+        border-bottom: 0.05em solid #eaecef;
 
         img{
             width : 100%;
             margin : auto;
-            position : absolute;
-            top: 0;
-            bottom: 0;
         }
     }
 
     .footer{
-        width: 90%;
+        width: calc(100% - 20px);
+        padding: 10px;
         min-height : 30px;
-        margin : 4 auto;
 
         .footer-price{
-            width: 70px;
-            height : 29px;
-            border : 1px solid grey;
             float: left;
+            display: inline-block;
+            font-size: 30px;
+            line-height: 30px;
+            font-weight: 900;            
         }
 
         .accept-btn{
-            min-width: 100px;
-            height : 30px;
-            line-height: 25px;
             color: white;
             background: #609dff;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 10px;
             float: right;
             text-align: center;
-            padding-top : 5px;
+            text-transform: uppercase;
+            font-weight: 900;
+            padding: 10px 25px;
         }
 
         .rejected-button, .inProcess-button {

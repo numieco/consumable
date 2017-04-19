@@ -38454,6 +38454,7 @@
 	var socket = io.connect();
 	var sellers = {};
 	var hasOffer = false;
+	var thisImageRender = [];
 
 	var SingleRequest = function (_React$Component) {
 		_inherits(SingleRequest, _React$Component);
@@ -38487,11 +38488,15 @@
 
 								if (data.sellers.length > 0) {
 
-									var getData = _this.state.offersBySellers;
+									var getData = [];
 									getData.push(data);
 
 									_this.setState({
 										offersBySellers: getData
+									});
+								} else {
+									_this.setState({
+										offersBySellers: []
 									});
 								}
 								sellers = data.sellers;
@@ -38548,7 +38553,7 @@
 			value: function render() {
 				var _this2 = this;
 
-				var offer = void 0;
+				var offer = null;
 				{
 					this.state.offersBySellers.map(function (data, id) {
 						if (_this2.props.timestamp == data.timestamp) {
@@ -38558,7 +38563,11 @@
 									key: sellerId,
 									requestTime: _this2.props.timestamp,
 									customerEmail: _this2.props.email,
-									inProcess: seller.offerStatus === 'inProcess' ? true : false
+									inProcess: seller.offerStatus === 'inProcess' ? true : false,
+									unmountMe: function unmountMe() {
+										thisImageRender = [];
+										thisImageRender.push(sellerId);
+									}
 								});
 							});
 						}
@@ -38566,7 +38575,6 @@
 				}
 
 				if (this.isCustomer()) {
-					console.log("It re-renders");
 					return _react2.default.createElement(
 						"div",
 						null,
@@ -38734,7 +38742,7 @@
 							_this.setState({
 								isImageUploaded: true,
 								numberOfImages: images.length,
-								images: 'images'
+								images: images
 							});
 						};
 						fileReader.readAsDataURL(file);
@@ -38743,16 +38751,14 @@
 					_this.setState({
 						isImageUploaded: images.length > 0 ? true : false,
 						numberOfImages: images.length,
-						images: 'images'
+						images: images
 					});
 				}
 			};
 
 			_this.sendData = function () {
-				console.log('sendData');
+
 				socket.emit('sellerSubmit', _this.state);
-				console.log('this.state senddata');
-				console.log(_this.state);
 				_this.props.hideCompanyUpload();
 			};
 
@@ -38816,12 +38822,11 @@
 				var _this2 = this;
 
 				socket.on('isFirstUploadResults', function (data) {
+					socket.removeListener('isFirstUploadResults');
 					if (data < 1) {
 						if (_this2.state.link) _this2.props.show60percent();else _this2.props.show80percent();
 					} else {
 						socket.emit('sellerSubmit', _this2.state);
-						console.log('this.state else');
-						console.log(_this2.state);
 						_this2.props.hideCompanyUpload();
 					}
 				});
@@ -39789,6 +39794,7 @@
 	                offerTime: _this.props.offers.offerTime
 	            });
 	            _this.setState({ hide: true });
+	            _this.props.unmountMe();
 	        };
 
 	        _this.state = {
@@ -39796,8 +39802,6 @@
 	            inProcess: props.inProcess,
 	            offerStatus: props.offers.offerStatus
 	        };
-
-	        console.log(_this.props.offers);
 
 	        _this.acceptOffer = _this.acceptOffer.bind(_this);
 	        _this.deleteOffer = _this.deleteOffer.bind(_this);
@@ -39833,6 +39837,7 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'footer-price' },
+	                        '$',
 	                        this.props.offers.price
 	                    ),
 	                    this.state.offerStatus === 'inProcess' ? _react2.default.createElement(

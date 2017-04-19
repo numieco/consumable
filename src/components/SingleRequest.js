@@ -7,6 +7,8 @@ import { ShowPercentPopup } from './Popups'
 let socket = io.connect()
 let sellers = {}
 let hasOffer = false
+let thisImageRender = []
+
 export default class SingleRequest extends React.Component {
 
 	constructor(props) {
@@ -49,13 +51,17 @@ export default class SingleRequest extends React.Component {
 
 						socket.removeListener('returnOffers')
 
-						if(data.sellers.length > 0) {
+						if(data.sellers.length > 0) { 
 
-							let getData = this.state.offersBySellers
+							let getData = []
 							getData.push(data)
 
 							this.setState({
 								offersBySellers: getData
+							})
+						} else {
+							this.setState({
+								offersBySellers: []
 							})
 						}
 						sellers = data.sellers
@@ -94,7 +100,7 @@ export default class SingleRequest extends React.Component {
 
 	render() {
 		
-		let offer
+		let offer = null
 		{
 			this.state.offersBySellers.map((data, id) => {
 				if(this.props.timestamp == data.timestamp) {
@@ -106,15 +112,19 @@ export default class SingleRequest extends React.Component {
 							  requestTime={ this.props.timestamp } 
 							  customerEmail={ this.props.email } 
 							  inProcess={seller.offerStatus==='inProcess' ? true : false}
+							  unmountMe = {() => {
+							  	thisImageRender = []
+							  	thisImageRender.push(sellerId)
+							  }}
 							/> 
 						)
 					})
 				}
 			})
+
 		}
 
 		if (this.isCustomer()) {
-			console.log("It re-renders")
 			return (
 				<div>
 					<div className="singleReq" onClick={ this.checkOffers }>

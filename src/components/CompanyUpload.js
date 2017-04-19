@@ -49,7 +49,7 @@ export default class CompanyUpload extends React.Component {
 					this.setState({
 						isImageUploaded: true,
 						numberOfImages: images.length,
-						images: 'images'
+						images: images
 					})
 				
 				}
@@ -59,7 +59,7 @@ export default class CompanyUpload extends React.Component {
 			this.setState({
 				isImageUploaded: images.length > 0 ? true : false ,
 				numberOfImages: images.length,
-				images: 'images'
+				images: images
 			})
 		}
 
@@ -68,6 +68,7 @@ export default class CompanyUpload extends React.Component {
 	componentDidMount (props) {
 
 		socket.on('isFirstUploadResults', (data) => {
+			socket.removeListener('isFirstUploadResults')
 			if (data < 1){ 
 				if (this.state.link)
 					this.props.show60percent()
@@ -75,8 +76,6 @@ export default class CompanyUpload extends React.Component {
 					this.props.show80percent()
 			} else {
 				socket.emit('sellerSubmit', this.state)
-				console.log('this.state else')
-				console.log(this.state)
 				this.props.hideCompanyUpload()
 			}
 		})
@@ -84,10 +83,8 @@ export default class CompanyUpload extends React.Component {
 	}
 
 	sendData = () => {
-		console.log('sendData')
+
 		socket.emit('sellerSubmit', this.state)
-		console.log('this.state senddata')
-		console.log(this.state)
 		this.props.hideCompanyUpload()
 	}
 

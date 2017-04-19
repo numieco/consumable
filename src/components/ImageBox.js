@@ -13,8 +13,6 @@ export default class ImageBox extends React.Component{
             offerStatus: props.offers.offerStatus
         }
 
-        console.log(this.props.offers)
-
         this.acceptOffer = this.acceptOffer.bind(this)
         this.deleteOffer = this.deleteOffer.bind(this)
     }
@@ -38,6 +36,7 @@ export default class ImageBox extends React.Component{
             offerTime: this.props.offers.offerTime
         })
         this.setState({ hide: true })
+        this.props.unmountMe()
     }
 
     render(){
@@ -54,7 +53,7 @@ export default class ImageBox extends React.Component{
                 </div>
                 <div className="footer">
                     <div className="footer-price">
-                        {this.props.offers.price}
+                        ${this.props.offers.price}
                     </div>
 
                     {
