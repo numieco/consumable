@@ -1,22 +1,77 @@
+.itemSize {
+    clear: both;
+    display: inline-block;
+    margin-bottom: 2px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 
-@media screen and (max-width : 371px){
+    button{
+        background-color: white;
+        height: 25px;
+        width: 50px;
+        border: 1px solid #d9d9d9;
+        color: #609dff;
+        cursor: pointer;
+        float: left;
+        padding : auto;
+    }
+}
+.itemSize button:active{
+    background-color: #609dff;
+    color: white;
+}
+
+.itemSize button:first-child {
+    border-radius: 3px 0 0 3px;
+}
+
+.itemSize button:last-child {
+    border-radius: 0 3px 3px 0;
+}
+
+.itemSize button:not(:last-child) {
+    border-right: none;
+}
+
+.itemSize button:hover {
+    background-color: #609dff;
+    color: white;
+}
+
+.itemSize button:focus {
+    background-color: #609dff;
+    color: white;
+}
+
+.divPressed{
+    background-color: #609dff;
+    color:white; 
+}
+
+.staticButton {
+    background-color: #609dff !important;
+    color: white !important;
+}
+
+@media (max-width : 371px){
     .itemButtons{
-        margin-left : calc((100% - 265px)/2) !important;
+        
     }
     .itemSize button{
         width: 40px !important;
     }
 }
-@media screen and (max-width: 768px){
+@media (max-width: 768px){
     .itemSize{
         width: 100%; 
-        padding : auto;
+        text-align: center;
+        margin-top: 0;
+        min-width: 280px;
     }
 
     .itemButtons{
-        width : 100%;
         float : none;
-        margin-left : calc((100% - 350px)/2);
+        display: inline-block;
     }
 
     .itemSize button{
@@ -55,50 +110,4 @@
         background-color: #609dff;
         color:white; 
     }
-}
-
-
-
-.itemSize {
-    clear: both;
-    
-    button{
-        background-color: white;
-        height: 25px;
-        width: 50px;
-        border: 1px solid #d9d9d9;
-        color: #609dff;
-        cursor: pointer;
-        float: left;
-        padding : auto;
-    }
-}
-.itemSize button:active{
-    background-color: #609dff;
-    color: white;
-}
-
-
-.itemSize button:not(:last-child) {
-    border-right: none;
-}
-
-.itemSize button:hover {
-    background-color: #609dff;
-    color: white;
-}
-
-.itemSize button:focus {
-    background-color: #609dff;
-    color: white;
-}
-
-.divPressed{
-    background-color: #609dff;
-    color:white; 
-}
-
-.staticButton {
-    background-color: #609dff !important;
-    color: white !important;
 }

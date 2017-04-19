@@ -38189,12 +38189,18 @@
 	            // changing the color inorder show it is selected
 	            (0, _jquery2.default)(".everybody").css({
 	                "color": "#609dff",
-	                "border-color": "#609dff"
+	                "border-color": "#609dff",
+	                "border-width": "3px",
+	                "font-weight": "900",
+	                "padding-bottom": "9px"
 	            });
 
 	            (0, _jquery2.default)(".individual").css({
-	                "color": "black",
-	                "border-color": "black"
+	                "color": "#609dff",
+	                "border-color": "#c6c6c6",
+	                "border-width": "1px",
+	                "font-weight": "lighter",
+	                "padding-bottom": "10px"
 	            });
 	        };
 
@@ -38208,12 +38214,18 @@
 	            // changing the color inorder show it is selected
 	            (0, _jquery2.default)(".individual").css({
 	                "color": "#609dff",
-	                "border-color": "#609dff"
+	                "border-color": "#609dff",
+	                "border-width": "3px",
+	                "font-weight": "900",
+	                "padding-bottom": "9px"
 	            });
 
 	            (0, _jquery2.default)(".everybody").css({
-	                "color": "black",
-	                "border-color": "black"
+	                "color": "#609dff",
+	                "border-color": "#c6c6c6",
+	                "border-width": "1px",
+	                "font-weight": "lighter",
+	                "padding-bottom": "10px"
 	            });
 	        };
 

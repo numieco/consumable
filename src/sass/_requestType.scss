@@ -3,21 +3,29 @@
     width : 100%;
     height : 25px;
     float: left;
-    display : inline;
+    display : inline-block;
     margin : 5px auto;
-    padding : 5px 5px 5px 5px;
+    padding : 5px;
+    position: relative;
 
 }
+
+.everybody, .individual {
+    position: absolute;
+    font-size : 25px;
+    padding-bottom: 10px;
+    font-weight: lighter;
+}
+
 .everybody{
-    margin-left : 36%;
-    font-size : 19px;
     width : 15%;
     float: left;
     text-align : center;
-    border-bottom : 1px solid grey;
+    border-bottom : 3px solid #609dff;
     color : #609dff;
-    border-color: #609dff;
-
+    right: 50%;
+    padding-bottom: 9px;
+    font-weight: 900;
     &:hover{
         color : #609dff;
         border-color : #609dff;
@@ -27,10 +35,10 @@
 
 .individual{
     width : 15%;
-    font-size : 19px;
     float: left;
     text-align: center;
-    border-bottom : 1px solid grey;
+    border-bottom : 1px solid #c6c6c6;
+    left: 50%;
 
     &:hover{
         color : #609dff;

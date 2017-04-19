@@ -129,16 +129,15 @@ body {
     background: transparent;
     border: none;
     border-bottom: 1px solid #c6c6c6;
-    margin-top: 25px;
+    margin-top: 15px;
     line-height: 30px;
     font-size: xx-large;
     text-align: left;
     padding: 0 20px 20px 20px;
-    margin-bottom: 25px; }
+    margin-bottom: 20px; }
 
 .wrapPriceBtn {
   width: 120px;
-  min-height: 100px;
   float: left;
   margin-left: 20px;
   font-size: 12px; }
@@ -152,8 +151,7 @@ body {
 
 .priceRange {
   width: 100%;
-  text-align: center;
-  line-height: 20px; }
+  text-align: center; }
   .priceRange .range-div {
     width: 100%;
     margin-bottom: 10px;
@@ -421,20 +419,64 @@ body {
     border: 0;
     border-top: 0.5px solid gray; }
 
-@media screen and (max-width: 371px) {
-  .itemButtons {
-    margin-left: calc((100% - 265px)/2) !important; }
+.itemSize {
+  clear: both;
+  display: inline-block;
+  margin-bottom: 2px;
+  margin-top: 5px;
+  margin-bottom: 10px; }
+  .itemSize button {
+    background-color: white;
+    height: 25px;
+    width: 50px;
+    border: 1px solid #d9d9d9;
+    color: #609dff;
+    cursor: pointer;
+    float: left;
+    padding: auto; }
+
+.itemSize button:active {
+  background-color: #609dff;
+  color: white; }
+
+.itemSize button:first-child {
+  border-radius: 3px 0 0 3px; }
+
+.itemSize button:last-child {
+  border-radius: 0 3px 3px 0; }
+
+.itemSize button:not(:last-child) {
+  border-right: none; }
+
+.itemSize button:hover {
+  background-color: #609dff;
+  color: white; }
+
+.itemSize button:focus {
+  background-color: #609dff;
+  color: white; }
+
+.divPressed {
+  background-color: #609dff;
+  color: white; }
+
+.staticButton {
+  background-color: #609dff !important;
+  color: white !important; }
+
+@media (max-width: 371px) {
   .itemSize button {
     width: 40px !important; } }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   .itemSize {
     width: 100%;
-    padding: auto; }
+    text-align: center;
+    margin-top: 0;
+    min-width: 280px; }
   .itemButtons {
-    width: 100%;
     float: none;
-    margin-left: calc((100% - 350px)/2); }
+    display: inline-block; }
   .itemSize button {
     background-color: white;
     height: 25px;
@@ -460,98 +502,62 @@ body {
     background-color: #609dff;
     color: white; } }
 
-.itemSize {
-  clear: both; }
-  .itemSize button {
-    background-color: white;
-    height: 25px;
-    width: 50px;
-    border: 1px solid #d9d9d9;
-    color: #609dff;
-    cursor: pointer;
-    float: left;
-    padding: auto; }
-
-.itemSize button:active {
-  background-color: #609dff;
-  color: white; }
-
-.itemSize button:not(:last-child) {
-  border-right: none; }
-
-.itemSize button:hover {
-  background-color: #609dff;
-  color: white; }
-
-.itemSize button:focus {
-  background-color: #609dff;
-  color: white; }
-
-.divPressed {
-  background-color: #609dff;
-  color: white; }
-
-.staticButton {
-  background-color: #609dff !important;
-  color: white !important; }
-
 .category {
   width: 100%;
-  float: left;
-  font-family: 'Arimo', sans-serif; }
-  @media screen and (min-width: 542px) {
+  clear: both;
+  font-family: 'Arimo', sans-serif;
+  display: inline-block;
+  padding-top: 10px; }
+  @media screen and (min-width: 768px) {
     .category .itemRequest {
-      height: 30px;
-      width: 80%;
+      width: calc(100% - 168px);
       border: 1px solid #d9d9d9;
       float: left;
-      margin-top: 1vw;
       display: block;
-      margin-right: 2.5vw;
-      padding: 5px 5px 5px 5px; }
+      margin-right: 15px;
+      padding: 13px 14px;
+      border-radius: 3px; }
       .category .itemRequest .singleItem {
         float: left;
         display: inline;
-        margin-right: 60px;
-        padding-top: 5px;
+        margin-right: 90px;
         font-size: 15px; }
     .category .itemRequestBtn {
-      width: 10%;
+      width: 100px;
       float: left;
-      font-size: 15px;
-      padding: 10px 10px 10px 10px;
-      margin-top: 1vw;
+      font-size: 18px;
+      padding: 12.5px 11.5px;
       text-align: center;
       color: white;
       background: #ff751a;
-      border-radius: 5px;
+      border-radius: 3px;
       cursor: pointer; } }
-  @media screen and (max-width: 541px) {
+  @media screen and (max-width: 767px) {
     .category .itemRequest {
-      height: 30px;
-      width: 100%;
+      width: calc(100% - 22px);
       border: 1px solid #d9d9d9;
       float: left;
-      margin-top: 1vw;
       display: block;
-      padding: 5px 5px 5px 5px; }
+      padding: 10px;
+      margin-bottom: 20px; }
       .category .itemRequest .singleItem {
         float: left;
         display: inline;
         margin-right: 20px;
-        padding-top: 5px;
         font-size: 15px; }
     .category .itemRequestBtn {
-      float: left;
-      width: 95%;
+      clear: both;
+      margin: 0 auto;
+      display: block;
+      width: calc(100% - 20px);
       font-size: 15px;
-      padding: 10px 10px 10px 10px;
-      margin-top: 0.7vw;
+      padding: 10px;
       text-align: center;
       color: white;
       background: #ff751a;
-      border-radius: 5px;
-      cursor: pointer; } }
+      border-radius: 3px;
+      cursor: pointer;
+      max-width: 360px; } }
   .category input[type="checkbox"]:checked + label::after {
     content: '';
     position: absolute;
@@ -586,7 +592,7 @@ body {
     width: 2ex;
     border: 1px solid #d9d9d9;
     background-color: white;
-    border-radius: 1px;
+    border-radius: 3px;
     margin-right: 0.5em; }
 
 .display-none {
@@ -658,19 +664,26 @@ body {
   width: 100%;
   height: 25px;
   float: left;
-  display: inline;
+  display: inline-block;
   margin: 5px auto;
-  padding: 5px 5px 5px 5px; }
+  padding: 5px;
+  position: relative; }
+
+.everybody, .individual {
+  position: absolute;
+  font-size: 25px;
+  padding-bottom: 10px;
+  font-weight: lighter; }
 
 .everybody {
-  margin-left: 36%;
-  font-size: 19px;
   width: 15%;
   float: left;
   text-align: center;
-  border-bottom: 1px solid grey;
+  border-bottom: 3px solid #609dff;
   color: #609dff;
-  border-color: #609dff; }
+  right: 50%;
+  padding-bottom: 9px;
+  font-weight: 900; }
   .everybody:hover {
     color: #609dff;
     border-color: #609dff;
@@ -678,10 +691,10 @@ body {
 
 .individual {
   width: 15%;
-  font-size: 19px;
   float: left;
   text-align: center;
-  border-bottom: 1px solid grey; }
+  border-bottom: 1px solid #c6c6c6;
+  left: 50%; }
   .individual:hover {
     color: #609dff;
     border-color: #609dff;

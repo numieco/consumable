@@ -79,12 +79,18 @@ export default class AllRequest extends React.Component {
         // changing the color inorder show it is selected
         $(".everybody").css({
             "color" : "#609dff",
-            "border-color" : "#609dff"
+            "border-color" : "#609dff",
+            "border-width": "3px",
+            "font-weight": "900",
+            "padding-bottom": "9px"
         })
 
         $(".individual").css({
-            "color" : "black",
-            "border-color" : "black"
+            "color" : "#609dff",
+            "border-color" : "#c6c6c6",
+            "border-width": "1px",
+            "font-weight": "lighter",
+            "padding-bottom": "10px"            
         })
     }
 
@@ -92,18 +98,24 @@ export default class AllRequest extends React.Component {
         // if individual tab is clicked, it sets the corresponding varible to true
         this.setState({
             individualReq : true,
-            everyoneReq : false
+            everyoneReq : false,
         }) 
 
         // changing the color inorder show it is selected
         $(".individual").css({
             "color" : "#609dff",
-            "border-color" : "#609dff"
+            "border-color" : "#609dff",
+            "border-width": "3px",
+            "font-weight": "900",
+            "padding-bottom": "9px"
         })
 
         $(".everybody").css({
-            "color" : "black",
-            "border-color" : "black"
+            "color" : "#609dff",
+            "border-color" : "#c6c6c6",
+            "border-width": "1px",
+            "font-weight": "lighter",
+            "padding-bottom": "10px"          
         })
     }
 
