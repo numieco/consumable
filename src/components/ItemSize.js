@@ -8,9 +8,16 @@ export default class ItemSize extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            size : ""
+            size : "",
+            static: this.props.staticSize ? true : false
         }  
         this.clearStates.bind(this)
+
+        console.log(this.props.staticSize)
+    }
+
+    componentWillMount () {
+        //if(this.props.staticSize)
     }
     
     componentWillReceiveProps(nextProps){
@@ -51,7 +58,7 @@ export default class ItemSize extends React.Component{
         return(
             <div className="itemSize">
                 <div className="itemButtons">
-                    {size.map((value) => <Button selectingSize = {() => this.updateSize(value)} key={value} sizeValue={value}/>)}
+                    {size.map((value) => <Button static={ value == this.props.staticSize ? true : false } selectingSize = {() => this.updateSize(value)} key={value} sizeValue={value}/>)}
                 </div>
             </div>
         )
@@ -60,24 +67,33 @@ export default class ItemSize extends React.Component{
 
 class Button extends React.Component{
 
+    constructor (props) {
+        super (props)
+        console.log(this.props.static)
+        console.log('this.props.static')
+
+    }
+
     selected(){
         console.log("it reaches here")
-        $(".itemSize button").css({
-            "background-color": "white",
-            "color": "#609dff"
-        })
-        this.className = "buttonFor"+this.props.sizeValue;
-        $("."+this.className).css({
-            "background-color": "#609dff",
-            "color": "white"
-        })
-        this.props.selectingSize()
+        if ( localStorage.getItem('userType') !== 'seller' ) {
+            $(".itemSize button").css({
+                "background-color": "white",
+                "color": "#609dff"
+            })
+            this.className = "buttonFor"+this.props.sizeValue;
+            $("."+this.className).css({
+                "background-color": "#609dff",
+                "color": "white"
+            })
+            this.props.selectingSize()
+        }
     }
     
     render(){
         
         return(
-            <button className={"buttonFor"+this.props.sizeValue} onClick={() => this.selected()}>{this.props.sizeValue}</button>
+            <button className={ this.props.static ? ("staticButton buttonFor"+this.props.sizeValue) : ("buttonFor"+this.props.sizeValue)} onClick={() => this.selected()}>{this.props.sizeValue}</button>
         )
     }
 }

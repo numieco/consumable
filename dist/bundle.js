@@ -37876,13 +37876,21 @@
 	        };
 
 	        _this.state = {
-	            size: ""
+	            size: "",
+	            static: _this.props.staticSize ? true : false
 	        };
 	        _this.clearStates.bind(_this);
+
+	        console.log(_this.props.staticSize);
 	        return _this;
 	    }
 
 	    _createClass(ItemSize, [{
+	        key: "componentWillMount",
+	        value: function componentWillMount() {
+	            //if(this.props.staticSize)
+	        }
+	    }, {
 	        key: "componentWillReceiveProps",
 	        value: function componentWillReceiveProps(nextProps) {
 	            if (nextProps == this.props.staticSize) {
@@ -37917,7 +37925,7 @@
 	                    "div",
 	                    { className: "itemButtons" },
 	                    size.map(function (value) {
-	                        return _react2.default.createElement(Button, { selectingSize: function selectingSize() {
+	                        return _react2.default.createElement(Button, { "static": value == _this2.props.staticSize ? true : false, selectingSize: function selectingSize() {
 	                                return _this2.updateSize(value);
 	                            }, key: value, sizeValue: value });
 	                    })
@@ -37934,26 +37942,33 @@
 	var Button = function (_React$Component2) {
 	    _inherits(Button, _React$Component2);
 
-	    function Button() {
+	    function Button(props) {
 	        _classCallCheck(this, Button);
 
-	        return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
+	        var _this3 = _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
+
+	        console.log(_this3.props.static);
+	        console.log('this.props.static');
+
+	        return _this3;
 	    }
 
 	    _createClass(Button, [{
 	        key: "selected",
 	        value: function selected() {
 	            console.log("it reaches here");
-	            (0, _jquery2.default)(".itemSize button").css({
-	                "background-color": "white",
-	                "color": "#609dff"
-	            });
-	            this.className = "buttonFor" + this.props.sizeValue;
-	            (0, _jquery2.default)("." + this.className).css({
-	                "background-color": "#609dff",
-	                "color": "white"
-	            });
-	            this.props.selectingSize();
+	            if (localStorage.getItem('userType') !== 'seller') {
+	                (0, _jquery2.default)(".itemSize button").css({
+	                    "background-color": "white",
+	                    "color": "#609dff"
+	                });
+	                this.className = "buttonFor" + this.props.sizeValue;
+	                (0, _jquery2.default)("." + this.className).css({
+	                    "background-color": "#609dff",
+	                    "color": "white"
+	                });
+	                this.props.selectingSize();
+	            }
 	        }
 	    }, {
 	        key: "render",
@@ -37962,7 +37977,7 @@
 
 	            return _react2.default.createElement(
 	                "button",
-	                { className: "buttonFor" + this.props.sizeValue, onClick: function onClick() {
+	                { className: this.props.static ? "staticButton buttonFor" + this.props.sizeValue : "buttonFor" + this.props.sizeValue, onClick: function onClick() {
 	                        return _this4.selected();
 	                    } },
 	                this.props.sizeValue
