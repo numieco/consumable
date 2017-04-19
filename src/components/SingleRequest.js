@@ -129,7 +129,7 @@ export default class SingleRequest extends React.Component {
 							{this.props.desc}
 						</div>
 						<div className="singleRange">
-							${this.props.min} - ${this.props.max}
+							<div className="price-range-underline">${this.props.min} - ${this.props.max}</div>
 						</div>
 					</div>
 
@@ -157,7 +157,7 @@ export default class SingleRequest extends React.Component {
 						{this.props.desc}
 					</div>
 					<div className="singleRange">
-						${this.props.min} - ${this.props.max}
+						<div className="price-range-underline">${this.props.min} - ${this.props.max}</div>
 					</div>
 					
 					{

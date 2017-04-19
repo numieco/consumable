@@ -22,7 +22,8 @@
 
 	.consumer-request {
 		z-index: 10;
-		width: 500px;
+		max-width: 500px;
+		width: 100%;
 		background: white;
 		display: block;
 		margin: 0 auto;
@@ -52,6 +53,10 @@
 		}
 
 		.item-size-upload {
+			width: 100%;
+			padding-left: 0;
+			padding-right: 0;
+
 			@extend .item-title;
 			padding-top: 20px;
 			padding-bottom: 20px; 
@@ -125,5 +130,11 @@
 				background: #609dff;
 			}
 		}
+	}
+}
+
+@media (max-width: 768px) {
+	.consumer-request {
+
 	}
 }

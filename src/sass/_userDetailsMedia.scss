@@ -1,3 +1,5 @@
+/*CONTAINS singleRequest MEDIA QUERIES TOO*/
+
 @media (max-width : 768px)  {
 	.container {
 		width: 100%;
@@ -24,14 +26,14 @@
 			clear: both;
 		}
 
-		.description {
+		.description, .searchItem {
 	    width: 100%;
 	    text-align: center;
 	    float: none;
 	    clear: both;
 	    font-size: 25px;
 	
-	    .descField {
+	    .descField, .searchField {
 		    width: 90%;
 		    margin: 0 auto;
 
@@ -77,20 +79,22 @@
 				}
 
 				.singleDesc {
-				    width: calc(100% - 135px);
+				    width: calc(100% - 120px);
 				    float: left;
-				    padding: 20px 0;
+				    padding: 10px 0;
 				    clear: both;
 				    word-break: break-all;
+				    padding-left: 10px;
 				}
 
 				.singleRange {
-				    width: 115px;
+				    width: 100px;
 				    float: left;
 				    display: inline-block;
-				    padding: 20px 0;
+				    padding: 10px 0;
 				    text-align: center;
-				    margin: 0 10px;
+				    margin: 0;
+				    margin-left: 10px;
 				}
 
 				.connectBtn {

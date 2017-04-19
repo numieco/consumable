@@ -39,11 +39,14 @@ body {
   display: inline-block;
   padding: 0 10px; }
   .header .seller-login-info {
-    width: 100%;
-    float: left;
-    text-align: center;
-    color: #609dff;
-    cursor: pointer; }
+    width: calc(100% - 15px);
+    padding-right: 15px;
+    text-align: right;
+    cursor: pointer;
+    word-break: break-all; }
+    .header .seller-login-info a {
+      text-decoration: none;
+      color: #609dff; }
   .header .title-text {
     float: left;
     width: calc(100% - 20px - 150px - 50px); }
@@ -193,6 +196,7 @@ body {
   margin-top: 27px;
   cursor: pointer; }
 
+/*CONTAINS singleRequest MEDIA QUERIES TOO*/
 @media (max-width: 768px) {
   .container {
     width: 100%; }
@@ -212,16 +216,16 @@ body {
       padding: 15px 0;
       font-size: 25px;
       clear: both; }
-    .container .description, .container .searchItem {
+    .container .description, .container .searchItem, .container .searchItem {
       width: 100%;
       text-align: center;
       float: none;
       clear: both;
       font-size: 25px; }
-      .container .description .descField, .container .searchItem .descField {
+      .container .description .descField, .container .searchItem .descField, .container .description .searchField, .container .searchItem .searchField, .container .searchItem .descField, .container .searchItem .searchField {
         width: 90%;
         margin: 0 auto; }
-        .container .description .descField input, .container .searchItem .descField input {
+        .container .description .descField input, .container .searchItem .descField input, .container .description .searchField input, .container .searchItem .searchField input, .container .searchItem .descField input, .container .searchItem .searchField input {
           width: 100%;
           margin-top: 0;
           padding: 0;
@@ -247,18 +251,20 @@ body {
       margin: 0 20px;
       padding: 20px 0; }
     .container .list-requests .singleReq .singleDesc {
-      width: calc(100% - 135px);
+      width: calc(100% - 120px);
       float: left;
-      padding: 20px 0;
+      padding: 10px 0;
       clear: both;
-      word-break: break-all; }
+      word-break: break-all;
+      padding-left: 10px; }
     .container .list-requests .singleReq .singleRange {
-      width: 115px;
+      width: 100px;
       float: left;
       display: inline-block;
-      padding: 20px 0;
+      padding: 10px 0;
       text-align: center;
-      margin: 0 10px; }
+      margin: 0;
+      margin-left: 10px; }
     .container .list-requests .singleReq .connectBtn {
       clear: both;
       margin: 10px calc(50% - 45px) 0px; } }
@@ -291,26 +297,28 @@ body {
 .singleReq {
   width: 100%;
   border-bottom: 1px solid gray;
-  margin-top: 30px;
-  padding-bottom: 30px;
+  margin-top: 10px;
+  padding-bottom: 10px;
   display: inline-block;
   font-size: 20px; }
   .singleReq .singlePhoto {
     width: 65px;
     float: left; }
     .singleReq .singlePhoto img {
-      width: 100%;
-      border-radius: 50px; }
+      width: 100%; }
   .singleReq .singleName {
     width: calc(20% - 40px);
     float: left;
     text-align: left;
     margin: 0 20px;
-    padding: 20px 0; }
+    padding: 27px 0;
+    font-size: 14px;
+    margin-left: 5px;
+    font-weight: 900; }
   .singleReq .singleDesc {
     width: calc(80% - 330px);
     float: left;
-    padding: 20px 0;
+    padding: 23px 0;
     word-break: break-all; }
   .singleReq .singleRange {
     width: 115px;
@@ -318,10 +326,17 @@ body {
     display: inline-block;
     padding: 20px 0;
     text-align: center;
-    margin: 0 30px; }
+    margin: 0 27.5px; }
+    .singleReq .singleRange .price-range-underline {
+      border-bottom: 1px solid;
+      padding-bottom: 5px;
+      display: inline-block; }
   .singleReq .connectBtn {
-    margin-top: 10;
-    background: green; }
+    background: #79BC35;
+    font-size: 14px;
+    padding: 10px 5px;
+    margin-top: 13px;
+    margin-right: 10px; }
   .singleReq .viewButton {
     margin-top: 15; }
   .singleReq .offer-view-button {
@@ -667,7 +682,8 @@ body {
   display: inline-block;
   margin: 5px auto;
   padding: 5px;
-  position: relative; }
+  position: relative;
+  margin-bottom: 20px; }
 
 .everybody, .individual {
   position: absolute;
@@ -694,13 +710,14 @@ body {
   float: left;
   text-align: center;
   border-bottom: 1px solid #c6c6c6;
+  color: #609dff;
   left: 50%; }
   .individual:hover {
     color: #609dff;
     border-color: #609dff;
     cursor: pointer; }
 
-@media only screen and (min-width: 320px) and (max-width: 768px) {
+@media (max-width: 768px) {
   .requestSelector {
     width: 100%;
     height: 25px;
@@ -712,8 +729,7 @@ body {
     font-size: 20px;
     width: 100px;
     float: left;
-    text-align: center;
-    border-bottom: 1px solid grey; }
+    text-align: center; }
     .everybody:hover {
       color: #609dff;
       border-color: #609dff;
@@ -722,8 +738,7 @@ body {
     width: 100px;
     font-size: 20px;
     float: left;
-    text-align: center;
-    border-bottom: 1px solid grey; }
+    text-align: center; }
     .individual:hover {
       color: #609dff;
       border-color: #609dff;
@@ -749,7 +764,8 @@ body {
     z-index: -1; }
   .company-upload .consumer-request {
     z-index: 10;
-    width: 500px;
+    max-width: 500px;
+    width: 100%;
     background: white;
     display: block;
     margin: 0 auto;
@@ -770,6 +786,9 @@ body {
       width: 100%;
       outline: none; }
     .company-upload .consumer-request .item-size-upload {
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
       padding-top: 20px;
       padding-bottom: 20px;
       border-bottom: none; }

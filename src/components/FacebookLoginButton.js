@@ -72,7 +72,10 @@ export default class FacebookLoginButton extends React.Component {
 			email: null,
 			age: null,
 			photo: null			
-		}, () => { localStorage.removeItem('userType') })
+		}, () => { 
+			localStorage.removeItem('userType') 
+			localStorage.removeItem('customerEmail') 
+		})
 
 		this.sendParent("",this.state.username, this.state.email, this.state.age, this.state.photo)
 		console.log(this.state.username)

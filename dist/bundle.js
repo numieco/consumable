@@ -27025,6 +27025,7 @@
 					photo: null
 				}, function () {
 					localStorage.removeItem('userType');
+					localStorage.removeItem('customerEmail');
 				});
 
 				_this.sendParent("", _this.state.username, _this.state.email, _this.state.age, _this.state.photo);
@@ -38590,10 +38591,14 @@
 							_react2.default.createElement(
 								"div",
 								{ className: "singleRange" },
-								"$",
-								this.props.min,
-								" - $",
-								this.props.max
+								_react2.default.createElement(
+									"div",
+									{ className: "price-range-underline" },
+									"$",
+									this.props.min,
+									" - $",
+									this.props.max
+								)
 							)
 						),
 						_react2.default.createElement(
@@ -38625,10 +38630,14 @@
 						_react2.default.createElement(
 							"div",
 							{ className: "singleRange" },
-							"$",
-							this.props.min,
-							" - $",
-							this.props.max
+							_react2.default.createElement(
+								"div",
+								{ className: "price-range-underline" },
+								"$",
+								this.props.min,
+								" - $",
+								this.props.max
+							)
 						),
 						this.props.details.userType === "seller" ? _react2.default.createElement(
 							"div",

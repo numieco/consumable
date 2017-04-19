@@ -56,7 +56,7 @@ app.get('*', (req, res) => {
 	Add Socket to listen Database requests.
 */
 
-const io = socket.listen(
+let io = socket.listen(
 	app.listen(port, () => {
 		console.log("database server started at port: " + port)
 	})

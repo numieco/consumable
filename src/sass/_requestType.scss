@@ -7,7 +7,7 @@
     margin : 5px auto;
     padding : 5px;
     position: relative;
-
+    margin-bottom: 20px;
 }
 
 .everybody, .individual {
@@ -38,6 +38,7 @@
     float: left;
     text-align: center;
     border-bottom : 1px solid #c6c6c6;
+    color: #609dff;
     left: 50%;
 
     &:hover{
@@ -47,9 +48,7 @@
     }
 }
 
-@media only screen 
-and (min-width : 320px) 
-and (max-width : 768px){
+@media (max-width : 768px) {
     .requestSelector{
         width : 100%;
         height : 25px;
@@ -64,7 +63,6 @@ and (max-width : 768px){
         width : 100px;
         float: left;
         text-align : center;
-        border-bottom : 1px solid grey;
 
         &:hover{
             color : #609dff;
@@ -78,7 +76,6 @@ and (max-width : 768px){
         font-size : 20px;
         float: left;
         text-align: center;
-        border-bottom : 1px solid grey;
 
         &:hover{
             color : #609dff;
