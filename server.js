@@ -63,17 +63,6 @@ let io = socket.listen(
 )
 
 const dataTransfer = io.on('connection', (socket) => {
-
-	mongodb.MongoClient.connect('mongodb://localhost:27017/react_app', (err, sellerDB) => {
-		let sellersData = sellerDB.collection('users')
-
-		socket.on('getSellerName', (data) => {
-			sellersData.findOne({ email: data }, (err, doc) => {
-				socket.emit('putSellerName', doc)
-			})
-		})
-	})
-
 	/*
 		Database connection with Insert and Fetch records.
 	*/
@@ -83,16 +72,28 @@ const dataTransfer = io.on('connection', (socket) => {
 
 	MongoClient.connect(dbURL, (err, db) => {
 
-		let collection = db.collection("allRequests")
+		/*
+			Fetch seller's name
+		*/
 
-		if (err) console.log("Unable to connect database. \nError: " + err)
-		
-		else {
+		let sellersData = db.collection('users')
+
+		socket.on('getSellerName', (data) => {
+			sellersData.findOne({ email: data }, (err, doc) => {
+				socket.emit('putSellerName', doc)
+			})
+		})
 
 		/*
 				Handling insert-request event, 
 				and fetching user's data from request. 
 		*/
+
+		let collection = db.collection("allRequests")
+
+		if (err) console.log("Unable to connect database. \nError: " + err)
+		
+		else {
 
 			socket.on('insert-request', (request) => {
 

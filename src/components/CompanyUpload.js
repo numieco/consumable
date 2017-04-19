@@ -75,6 +75,8 @@ export default class CompanyUpload extends React.Component {
 					this.props.show80percent()
 			} else {
 				socket.emit('sellerSubmit', this.state)
+				console.log('this.state else')
+				console.log(this.state)
 				this.props.hideCompanyUpload()
 			}
 		})
@@ -84,6 +86,8 @@ export default class CompanyUpload extends React.Component {
 	sendData = () => {
 		console.log('sendData')
 		socket.emit('sellerSubmit', this.state)
+		console.log('this.state senddata')
+		console.log(this.state)
 		this.props.hideCompanyUpload()
 	}
 

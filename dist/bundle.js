@@ -38751,6 +38751,8 @@
 			_this.sendData = function () {
 				console.log('sendData');
 				socket.emit('sellerSubmit', _this.state);
+				console.log('this.state senddata');
+				console.log(_this.state);
 				_this.props.hideCompanyUpload();
 			};
 
@@ -38818,6 +38820,8 @@
 						if (_this2.state.link) _this2.props.show60percent();else _this2.props.show80percent();
 					} else {
 						socket.emit('sellerSubmit', _this2.state);
+						console.log('this.state else');
+						console.log(_this2.state);
 						_this2.props.hideCompanyUpload();
 					}
 				});
@@ -39792,6 +39796,8 @@
 	            inProcess: props.inProcess,
 	            offerStatus: props.offers.offerStatus
 	        };
+
+	        console.log(_this.props.offers);
 
 	        _this.acceptOffer = _this.acceptOffer.bind(_this);
 	        _this.deleteOffer = _this.deleteOffer.bind(_this);

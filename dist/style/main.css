@@ -613,6 +613,11 @@ body {
 .display-none {
   display: none !important; }
 
+.offersBySellers {
+  width: 100%;
+  display: inline-block;
+  padding-top: 20px; }
+
 .imageBox {
   min-width: 250px;
   min-height: 200px;
