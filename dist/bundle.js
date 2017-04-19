@@ -39776,14 +39776,14 @@
 	        var _this = _possibleConstructorReturn(this, (ImageBox.__proto__ || Object.getPrototypeOf(ImageBox)).call(this, props));
 
 	        _this.acceptOffer = function () {
-	            if (_this.props.offers.link) {
-	                socket.emit('pendingToInProcess', {
-	                    timestamp: _this.props.requestTime,
-	                    email: _this.props.customerEmail,
-	                    offerTime: _this.props.offers.offerTime,
-	                    sellerEmail: _this.props.offers.sellerEmail
-	                });
+	            socket.emit('pendingToInProcess', {
+	                timestamp: _this.props.requestTime,
+	                email: _this.props.customerEmail,
+	                offerTime: _this.props.offers.offerTime,
+	                sellerEmail: _this.props.offers.sellerEmail
+	            });
 
+	            if (_this.props.offers.link) {
 	                window.location.assign(_this.props.offers.link);
 	            }
 	        };

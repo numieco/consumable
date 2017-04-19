@@ -18,14 +18,14 @@ export default class ImageBox extends React.Component{
     }
 
     acceptOffer = () => {
+        socket.emit('pendingToInProcess', {
+            timestamp: this.props.requestTime, 
+            email: this.props.customerEmail, 
+            offerTime: this.props.offers.offerTime,
+            sellerEmail: this.props.offers.sellerEmail
+        })
+        
         if (this.props.offers.link) {
-            socket.emit('pendingToInProcess', {
-                timestamp: this.props.requestTime, 
-                email: this.props.customerEmail, 
-                offerTime: this.props.offers.offerTime,
-                sellerEmail: this.props.offers.sellerEmail
-            })
-
             window.location.assign(this.props.offers.link)
         }
     }
